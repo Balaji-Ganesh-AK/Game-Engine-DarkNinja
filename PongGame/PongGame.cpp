@@ -5,7 +5,7 @@
 
 int main()
 {
-	Engine::Start();
-    std::cout << "Hello World!\n";
+	Engine::Init();
+   
 }
 

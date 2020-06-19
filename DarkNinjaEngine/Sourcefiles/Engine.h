@@ -3,5 +3,6 @@
 
 namespace  Engine
 {
-	void Start();
+	void Init();
+	void ShutDown();
 }

@@ -8,8 +8,13 @@ namespace Engine
 {
 	
 // TODO: This is an example of a library function
-void Start()
+void Init()
 {
 	std::cout << "Gaming Engine Started!"<<std::endl;
+}
+
+void ShutDown()
+{
+	std::cout << "Gaming Engine Shutting Down" << std::endl;
 }
 }
