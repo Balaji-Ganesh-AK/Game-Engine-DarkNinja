@@ -1,0 +1,44 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29728.190
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DarkNinjaEngine", "DarkNinjaEngine.vcxproj", "{F9CD4A95-0076-4EA2-8B09-474551EA76A0}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PongGame", "..\PongGame\PongGame.vcxproj", "{1967C224-B343-470F-AB47-860C10B3CB49}"
+	ProjectSection(ProjectDependencies) = postProject
+		{F9CD4A95-0076-4EA2-8B09-474551EA76A0} = {F9CD4A95-0076-4EA2-8B09-474551EA76A0}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F9CD4A95-0076-4EA2-8B09-474551EA76A0}.Debug|x64.ActiveCfg = Debug|x64
+		{F9CD4A95-0076-4EA2-8B09-474551EA76A0}.Debug|x64.Build.0 = Debug|x64
+		{F9CD4A95-0076-4EA2-8B09-474551EA76A0}.Debug|x86.ActiveCfg = Debug|Win32
+		{F9CD4A95-0076-4EA2-8B09-474551EA76A0}.Debug|x86.Build.0 = Debug|Win32
+		{F9CD4A95-0076-4EA2-8B09-474551EA76A0}.Release|x64.ActiveCfg = Release|x64
+		{F9CD4A95-0076-4EA2-8B09-474551EA76A0}.Release|x64.Build.0 = Release|x64
+		{F9CD4A95-0076-4EA2-8B09-474551EA76A0}.Release|x86.ActiveCfg = Release|Win32
+		{F9CD4A95-0076-4EA2-8B09-474551EA76A0}.Release|x86.Build.0 = Release|Win32
+		{1967C224-B343-470F-AB47-860C10B3CB49}.Debug|x64.ActiveCfg = Debug|x64
+		{1967C224-B343-470F-AB47-860C10B3CB49}.Debug|x64.Build.0 = Debug|x64
+		{1967C224-B343-470F-AB47-860C10B3CB49}.Debug|x86.ActiveCfg = Debug|Win32
+		{1967C224-B343-470F-AB47-860C10B3CB49}.Debug|x86.Build.0 = Debug|Win32
+		{1967C224-B343-470F-AB47-860C10B3CB49}.Release|x64.ActiveCfg = Release|x64
+		{1967C224-B343-470F-AB47-860C10B3CB49}.Release|x64.Build.0 = Release|x64
+		{1967C224-B343-470F-AB47-860C10B3CB49}.Release|x86.ActiveCfg = Release|Win32
+		{1967C224-B343-470F-AB47-860C10B3CB49}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1D07456E-AD95-4576-A602-93F265693417}
+	EndGlobalSection
+EndGlobal
