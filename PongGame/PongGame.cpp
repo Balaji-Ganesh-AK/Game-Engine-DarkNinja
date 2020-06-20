@@ -1,11 +1,20 @@
 
 
 #include <iostream>
-#include "../DarkNinjaEngine/Sourcefiles/Engine.h"
+#include <Core.h>
 
-int main()
+
+
+class Pong : public Engine::Application
 {
-	Engine::Init();
-   
-}
+public:
+	Pong()
+	{}
+	~Pong()
+	{}
+};
 
+Engine::Application* Engine::CreateApplication()
+{
+	return new Pong();
+}
