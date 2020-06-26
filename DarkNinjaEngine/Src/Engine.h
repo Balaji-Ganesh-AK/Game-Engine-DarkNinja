@@ -1,6 +1,8 @@
 #pragma once
 
 
+
+//#define _LOGGER
 namespace  Engine
 {
 	class Application
@@ -9,6 +11,8 @@ namespace  Engine
 
 		Application();
 		virtual  ~Application();
+
+
 		
 		void ShutDown();
 		void Run();

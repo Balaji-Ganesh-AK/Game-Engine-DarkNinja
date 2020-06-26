@@ -11,7 +11,9 @@ public:
 	Pong()
 	{}
 	~Pong()
-	{}
+	{
+		std::cout << "Game over!!";
+	}
 };
 
 Engine::Application* Engine::CreateApplication()

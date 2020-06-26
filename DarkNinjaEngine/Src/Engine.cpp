@@ -4,11 +4,20 @@
 #include <iostream>
 #include "Engine.h"
 
+#include "Logger.h"
+#include "Event/WindowEvent.h"
+
 namespace Engine
 {
 	Application::Application()
 	{
-		std::cout << "Gaming Engine Started!" << std::endl;
+		std::cout << "Dark Ninja Engine Started!" << std::endl;
+#ifdef _LOGGER
+		Logger::Init();
+		Logger::GetEngineLogger()->warn("Started!");
+#endif
+
+
 	}
 
 	Application::~Application()
@@ -23,7 +32,20 @@ namespace Engine
 
 	void Application::Run()
 	{
-		while(true)
-		{}
+		WindowCreateEvent Window(1000, 1000);
+		if (Window.IsInEventCategory(EventCategoryWindow))
+		{
+#ifdef _LOGGER
+			Logger::GetEngineLogger()->warn("Window Event");
+#endif
+		}
+
+		if (Window.IsInEventCategory(EventCategoryKeyboard))
+		{
+#ifdef _LOGGER
+			Logger::GetEngineLogger()->warn("Keyboard Event");
+#endif
+		}
+
 	}
 }
