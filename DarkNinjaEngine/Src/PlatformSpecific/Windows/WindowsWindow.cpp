@@ -44,15 +44,15 @@ namespace Engine
 		_windows_data_.Width = properties.width;
 		_windows_data_.Height = properties.height;
 
-#ifdef  _LOGGER
-		DNE_ENGINE_INFO("Creating Window {0} ({1},{2})", properties.Title, properties.width, properties.height);
-#endif
+//#ifdef  _LOGGER
+//		DNE_ENGINE_INFO("Creating Window {0} ({1},{2})", properties.Title, properties.width, properties.height);
+//#endif
 
 		if (!_GLFW_Initialized)
 		{
 			int success = glfwInit();
 #ifdef  _LOGGER
-			DNE_CLIENT_ASSERT(success, " GLFW Window Created!");
+			DNE_ENGINE_ASSERT(success, " GLFW Window Created!");
 #endif
 			_GLFW_Initialized = true;
 		}

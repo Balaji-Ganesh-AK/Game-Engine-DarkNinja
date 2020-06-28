@@ -4,7 +4,7 @@
 #define _LOGGER
 
 
-#include "PlatformSpecific/Windows/WindowsWindow.h"
+#include "Window.h"
 
 namespace  Engine
 {
@@ -15,12 +15,13 @@ namespace  Engine
 		Application();
 		virtual  ~Application();
 
-		WindowProperties* pror;
 
 		
 		void ShutDown();
 		void Run();
 	private:
+		std::unique_ptr<Window> _window_;
+		bool _is_running_ = true;
 	};
     Application* CreateApplication();
 }

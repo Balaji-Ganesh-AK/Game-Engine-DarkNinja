@@ -14,7 +14,7 @@ namespace Engine
 	Application::Application()
 	{
 
-		/*_window_ = Window::Create();*/
+		_window_ = std::unique_ptr<Window>(Window::Create());
 		std::cout << "Dark Ninja Engine Started!" << std::endl;
 #ifdef _LOGGER
 		Logger::Init();
@@ -37,12 +37,13 @@ namespace Engine
 
 	void Application::Run()
 	{
-	/*	
+	
 		while(_is_running_)
 		{
-			
+			glClearColor(0, 0, 1, 1);
+			glClear(GL_COLOR_BUFFER_BIT);
 			_window_->Update();
-		}*/
+		}
 
 	}
 }

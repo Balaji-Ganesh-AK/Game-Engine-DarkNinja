@@ -26,7 +26,7 @@ namespace Engine
 		
 		using EventCallBackFn = std::function<void(Event&)>;
 		virtual ~Window()=default;
-		virtual void Update();
+		virtual void Update() = 0;
 
 #pragma region Getterfunciton
 		virtual uint32_t GetWidth() const = 0;
