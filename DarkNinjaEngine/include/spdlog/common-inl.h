@@ -2,11 +2,13 @@
 // Distributed under the MIT License (http://opensource.org/licenses/MIT)
 
 #pragma once
+#pragma warning(push, 0)
+//Some includes with unfixable warnings
 
 #ifndef SPDLOG_HEADER_ONLY
 #include <spdlog/common.h>
 #endif
-
+#pragma warning(pop)
 namespace spdlog {
 namespace level {
 static string_view_t level_string_views[] SPDLOG_LEVEL_NAMES;

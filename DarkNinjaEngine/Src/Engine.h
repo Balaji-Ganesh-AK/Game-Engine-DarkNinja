@@ -1,8 +1,11 @@
 #pragma once
 
 
+#define _LOGGER
 
-//#define _LOGGER
+
+#include "PlatformSpecific/Windows/WindowsWindow.h"
+
 namespace  Engine
 {
 	class Application
@@ -12,10 +15,12 @@ namespace  Engine
 		Application();
 		virtual  ~Application();
 
+		WindowProperties* pror;
 
 		
 		void ShutDown();
 		void Run();
+	private:
 	};
     Application* CreateApplication();
 }

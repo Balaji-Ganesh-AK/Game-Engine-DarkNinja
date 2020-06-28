@@ -1,20 +1,25 @@
 // DarkNinjaEngine.cpp : Defines the functions for the static library.
 //
 
-#include <iostream>
-#include "Engine.h"
+#include "pch.h"
 
+#include "Engine.h"
 #include "Logger.h"
 #include "Event/WindowEvent.h"
+#include "glfw/include/GLFW/glfw3.h"
+
 
 namespace Engine
 {
 	Application::Application()
 	{
+
+		/*_window_ = Window::Create();*/
 		std::cout << "Dark Ninja Engine Started!" << std::endl;
 #ifdef _LOGGER
 		Logger::Init();
-		Logger::GetEngineLogger()->warn("Started!");
+		DNE_ENGINE_TRACE("Started!");
+		
 #endif
 
 
@@ -32,20 +37,12 @@ namespace Engine
 
 	void Application::Run()
 	{
-		WindowCreateEvent Window(1000, 1000);
-		if (Window.IsInEventCategory(EventCategoryWindow))
+	/*	
+		while(_is_running_)
 		{
-#ifdef _LOGGER
-			Logger::GetEngineLogger()->warn("Window Event");
-#endif
-		}
-
-		if (Window.IsInEventCategory(EventCategoryKeyboard))
-		{
-#ifdef _LOGGER
-			Logger::GetEngineLogger()->warn("Keyboard Event");
-#endif
-		}
+			
+			_window_->Update();
+		}*/
 
 	}
 }

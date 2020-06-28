@@ -22,7 +22,7 @@ namespace Engine
 		EVENT_CLASS_TYPE(KeyPressed);
 
 	private:
-		int _repeated_count_;
+		int _repeated_count_=0;
 		
 	};
 	class KeyReleasedEvent: public KeyPressedEvent

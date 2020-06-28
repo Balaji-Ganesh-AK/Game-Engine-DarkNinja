@@ -9,5 +9,8 @@
 
 // add headers that you want to pre-compile here
 
-
+#include <iostream>
+#include <functional>
+#include <memory>
+#include <algorithm>
 #endif //PCH_H
