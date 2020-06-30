@@ -1,12 +1,14 @@
 // DarkNinjaEngine.cpp : Defines the functions for the static library.
 //
 
-#include "pch.h"
+#include <pch.h>
 
 #include "Engine.h"
 #include "Logger.h"
 
-#include "glfw/include/GLFW/glfw3.h"
+
+#include <glad/glad.h>
+
 
 
 namespace Engine
