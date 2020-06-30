@@ -13,7 +13,7 @@ namespace Engine
 
 
 		//----------MouseEvents----------//
-		MouseButtonPressed, MouseButtonReleased, MouseMoved,
+		MouseButtonPressed, MouseButtonReleased, MouseMoved, MouseScroll,
 		//----------MouseEvents----------//
 
 		//----------KeyBoardEvent----------//
@@ -59,7 +59,7 @@ namespace Engine
 
 #define EVENT_CLASS_CATEGORY(cat) virtual int GetCategoryValue() const override{return cat;};
 	
-	/*class EventDispatcher
+	class EventDispatcher
 	{
 	public:
 		EventDispatcher(Event& event)
@@ -67,12 +67,12 @@ namespace Engine
 		{
 			
 		}
-		template<typename T >
-		bool Dispatch(const T& func)
+		template<typename T, typename F>
+		bool Dispatch(const F& func)
 		{
 			if(_event_.GetEventType() == T::GetStaticType())
 			{
-				_event_.Handled = func(static_cast<T&>(_event_));
+				_event_.handled = func(static_cast<T&>(_event_));
 				return true;
 			}
 			return false;
@@ -80,6 +80,6 @@ namespace Engine
 
 	private:
 		Event& _event_;
-	};*/
+	};
 }
 

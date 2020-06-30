@@ -32,9 +32,9 @@ namespace Engine
 
 		struct WindowsData
 		{
-			std::string Title;
-			unsigned int Width, Height;
-			bool VSync;
+			std::string Title="";
+			unsigned int Width=0, Height=0;
+			bool VSync=true;
 			EventCallBackFn EventCallBack;
 		};
 

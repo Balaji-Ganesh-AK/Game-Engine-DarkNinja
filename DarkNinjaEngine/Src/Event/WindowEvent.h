@@ -34,6 +34,13 @@ namespace Engine
 		unsigned int GetWidth() const { return _width_; }
 		unsigned int GetHeight() const { return _height_; }
 
+
+		std::string ToString() const override
+		{
+			std::stringstream ss;
+			ss << "Window Resize Event: " << _width_ << "," << _height_;
+			return ss.str();
+		}
 		EVENT_CLASS_TYPE(WindowResize);
 		EVENT_CLASS_CATEGORY(EventCategoryWindow);
 
@@ -47,12 +54,17 @@ namespace Engine
 	public:
 		WindowCloseEvent() = default;
 
-		
+		std::string ToString() const override
+		{
+			std::stringstream ss;
+			ss << "Windows Closed!";
+			return ss.str();
+		}
 		EVENT_CLASS_TYPE(WindowClose);
 		EVENT_CLASS_CATEGORY(EventCategoryWindow);
 
-	private:
-		unsigned int _width_, _height_;
+
+		
 	};
 
 	
