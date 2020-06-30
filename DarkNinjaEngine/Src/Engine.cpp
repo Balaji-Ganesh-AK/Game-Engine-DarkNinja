@@ -5,7 +5,7 @@
 
 #include "Engine.h"
 #include "Logger.h"
-#include "Event/WindowEvent.h"
+
 #include "glfw/include/GLFW/glfw3.h"
 
 
@@ -13,20 +13,32 @@ namespace Engine
 {
 	Application::Application()
 	{
-
-		_window_ = std::unique_ptr<Window>(Window::Create());
-		std::cout << "Dark Ninja Engine Started!" << std::endl;
+		
 #ifdef _LOGGER
 		Logger::Init();
 		DNE_ENGINE_TRACE("Started!");
-		
+
 #endif
+
+		_window_ = std::unique_ptr<Window>(Window::Create());
+		_window_->SetEventCallBack(std::bind(&Application::OnEvent, this, std::placeholders::_1));
+		std::cout << "Dark Ninja Engine Started!" << std::endl;
+
 
 
 	}
 
 	Application::~Application()
 	{
+	}
+
+	void Application::OnEvent(Event& e)
+	{
+#ifdef _LOGGER
+		DNE_ENGINE_TRACE("{0}",e.ToString());
+#endif
+		EventDispatcher dispatcher(e);
+		dispatcher.Dispatch<WindowCloseEvent>(std::bind(&Application::OnWindowClose, this, std::placeholders::_1));
 	}
 
 
@@ -45,5 +57,12 @@ namespace Engine
 			_window_->Update();
 		}
 
+	}
+
+	bool Application::OnWindowClose(WindowCloseEvent& e)
+	{
+
+		_is_running_ = false;
+		return true;
 	}
 }
