@@ -4,7 +4,7 @@
 #include "../Src/Event/KeyboardEvent.h"
 #include "../Src/Event/MouseEvent.h"
 #include "../../Logger.h"
-
+#include <glad/glad.h>
 
 namespace Engine
 {
@@ -62,6 +62,11 @@ namespace Engine
 		_glfw_window_ = glfwCreateWindow((int)properties.width, (int)properties.height, _windows_data_.Title.c_str(), nullptr, nullptr);
 
 		glfwMakeContextCurrent(_glfw_window_);
+
+		int success = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+#ifdef  _LOGGER
+		DNE_ENGINE_ASSERT(success, " GLAD Window Created!");
+#endif
 		glfwSetWindowUserPointer(_glfw_window_, &_windows_data_);
 		SetVSync(true);
 
