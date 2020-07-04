@@ -9,6 +9,8 @@
 
 #include <glad/glad.h>
 
+#include "ComponentsSystem/Entity.h"
+#include "imgui/imgui.h"
 
 
 namespace Engine
@@ -25,7 +27,13 @@ namespace Engine
 		_window_ = std::unique_ptr<Window>(Window::Create());
 		_window_->SetEventCallBack(std::bind(&Application::OnEvent, this, std::placeholders::_1));
 		std::cout << "Dark Ninja Engine Started!" << std::endl;
+		
+	
+#ifdef _LOGGER
+		
+		/*DNE_ENGINE_TRACE("Game Object name!", test->GetName());*/
 
+#endif
 
 
 	}
@@ -37,7 +45,7 @@ namespace Engine
 	void Application::OnEvent(Event& e)
 	{
 #ifdef _LOGGER
-		DNE_ENGINE_TRACE("{0}",e.ToString());
+		//DNE_ENGINE_TRACE("{0}",e.ToString());
 #endif
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<WindowCloseEvent>(std::bind(&Application::OnWindowClose, this, std::placeholders::_1));
@@ -46,7 +54,7 @@ namespace Engine
 
 	void Application::ShutDown()
 	{
-		std::cout << "Gaming Engine Shutting Down" << std::endl;
+		std::cout << "Game Engine Shutting Down" << std::endl;
 	}
 
 	void Application::Run()
@@ -54,6 +62,8 @@ namespace Engine
 	
 		while(_is_running_)
 		{
+
+			EntityManager::Instance().Update();
 			glClearColor(0, 0, 1, 1);
 			glClear(GL_COLOR_BUFFER_BIT);
 			_window_->Update();

@@ -117,7 +117,7 @@
       <PreprocessorDefinitions>GLFW_INCLUDE_NONE;_CRTDBG_MAP_ALLOC;DNE_ENABLE_ASSERTS;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(SolutionDir)include\GLAD\include;$(SolutionDir)\include\glfw\include;$(SolutionDir)\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)include\GLAD\include;$(SolutionDir)\include\glfw\include;$(SolutionDir)include\Src\Utlis;$(SolutionDir)include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -153,7 +153,7 @@
       <PreprocessorDefinitions>GLFW_INCLUDE_NONE;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(SolutionDir)include\GLAD\include;$(SolutionDir)\include\glfw\include;$(SolutionDir)\include\;$(SolutionDir)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)include\GLAD\include;$(SolutionDir)\include\glfw\include;$(SolutionDir)include\Src\Utlis;$(SolutionDir)include\;$(SolutionDir)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -163,6 +163,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Src\ComponentsSystem\Components.h" />
+    <ClInclude Include="Src\ComponentsSystem\Entity.h" />
     <ClInclude Include="Src\Event\Event.h" />
     <ClInclude Include="Src\Event\KeyboardEvent.h" />
     <ClInclude Include="Src\Event\MouseEvent.h" />
@@ -178,6 +180,7 @@
     <ClInclude Include="Src\PlatformSpecific\Windows\WindowsWindow.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Src\ComponentsSystem\Entity.cpp" />
     <ClCompile Include="Src\Logger.cpp" />
     <ClCompile Include="Src\Engine.cpp" />
     <ClCompile Include="pch.cpp">
