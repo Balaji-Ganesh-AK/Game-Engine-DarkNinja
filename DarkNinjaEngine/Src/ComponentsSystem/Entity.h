@@ -10,6 +10,8 @@
 
 namespace Engine
 {
+
+#pragma region  Entityclass
 	class Entity
 	{
 	public:
@@ -23,22 +25,18 @@ namespace Engine
 
 		void AttachComponent(Components* component);
 
-		template<class T>
+		template <class T>
 		T* GetComponent();
-		
+
 		std::string GetName() const { return _entity_name_; }
 	private:
-		std::vector<Components* > _components_list_;
-
-	
-		std::string  _entity_name_;
-
-	
+		std::vector<Components*> _components_list_;
 
 
-		
+		std::string _entity_name_;
+
+
 		void AddGameObject();
-		
 	};
 
 	template <class T>
@@ -47,7 +45,7 @@ namespace Engine
 		//
 		T* ptr = nullptr;
 
-		for(int i =0 ; i< _components_list_.size(); i++)
+		for (int i = 0; i < _components_list_.size(); i++)
 		{
 			//checks if the given component exists in the entity component list;
 			ptr = dynamic_cast<T*>(_components_list_.at(i));
@@ -65,20 +63,21 @@ namespace Engine
 		//}
 		//return nullptr;
 	}
+#pragma endregion 
 
-
-
+#pragma region Entity Manager
 	//Singleton Class.
 	class EntityManager
 	{
 	public:
 		// Delete copy constructor.
 		EntityManager(const EntityManager&) = delete;
-	   EntityManager();
+		EntityManager();
+		void Init();
 		void Update();
 		void End();
 		void AddEntity(Entity* entity);
-		
+
 		int GetGameObjectCount() const { return _game_object_count_; }
 
 		int GetEmptyNameGameObjectCount() const { return _empty_name_gameobject_count_; }
@@ -91,15 +90,14 @@ namespace Engine
 
 		int _empty_name_gameobject_count_ = 0;
 
-		
+
 		std::map<std::string, Entity*> _entity_list_stack_;
 		std::map<std::string, SmartPointer<Entity>> _entity_smart_list_stack;
 	};
 
+#pragma endregion 
 
 
-	
-	
+
 }
 
-//extern Engine::EntityManager EntityManagerMain;

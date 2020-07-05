@@ -1,11 +1,15 @@
 #include "pch.h"
+
+
 #include  "Entity.h"
+
 
 Engine::EntityManager Engine::EntityManager::_instance_;
 //Engine::EntityManager EntityManagerMain;
 namespace Engine
 {
 
+#pragma region  EntityClass
 	Entity::Entity(const char* name):_entity_name_(name ? _strdup(name): nullptr)
 	{
 		Init();
@@ -20,10 +24,9 @@ namespace Engine
 		if (_entity_name_ == "")
 		{
 			EntityManager::Instance().IncreaseEmptyNameGameObjectCount();
-			//EntityManagerMain.IncreaseEmptyNameGameObjectCount();
 			_entity_name_ = "EmptyGameObject ";
 			_entity_name_ += std::to_string(EntityManager::Instance().GetEmptyNameGameObjectCount());
-			//_entity_name_ += std::to_string(EntityManagerMain.GetEmptyNameGameObjectCount());
+			
 		}
 
 		AddGameObject();
@@ -53,12 +56,17 @@ namespace Engine
 	void Entity::AddGameObject()
 	{
 		EntityManager::Instance().AddEntity(this);
-		//EntityManagerMain.AddEntity(this);
+		
 	}
 
+#pragma endregion
+
+#pragma region Entity Manager
 	EntityManager::EntityManager()
 	{
 	}
+
+
 
 	void EntityManager::Update()
 	{
@@ -73,7 +81,7 @@ namespace Engine
 	{
 		_entity_list_stack_.insert({entity->GetName(), entity});
 	}
+#pragma endregion
 
-	
 
 }

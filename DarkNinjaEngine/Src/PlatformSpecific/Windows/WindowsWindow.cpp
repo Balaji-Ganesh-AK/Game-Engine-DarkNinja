@@ -54,11 +54,16 @@ namespace Engine
 		{
 			int success = glfwInit();
 #ifdef  _LOGGER
-			DNE_ENGINE_ASSERT(success, " GLFW Window Created!");
+			DNE_ENGINE_ASSERT(success, " GLFW Window Not Created!");
 #endif
 			_GLFW_Initialized = true;
 		}
 
+
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
+		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+		
 		_glfw_window_ = glfwCreateWindow((int)properties.width, (int)properties.height, _windows_data_.Title.c_str(), nullptr, nullptr);
 
 		glfwMakeContextCurrent(_glfw_window_);

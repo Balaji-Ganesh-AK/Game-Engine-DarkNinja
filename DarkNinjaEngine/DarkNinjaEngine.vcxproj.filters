@@ -60,6 +60,12 @@
     <ClInclude Include="Src\ComponentsSystem\Entity.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Src\PlatformSpecific\OpenGL\imguiOpenGLRenderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\ComponentsSystem\RenderingSystem\ImguiRenderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -75,6 +81,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Src\ComponentsSystem\Entity.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\PlatformSpecific\OpenGL\imguiOpenGLRenderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\ComponentsSystem\RenderingSystem\ImguiRenderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

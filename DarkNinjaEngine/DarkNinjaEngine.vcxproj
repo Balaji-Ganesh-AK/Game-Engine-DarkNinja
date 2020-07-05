@@ -102,7 +102,7 @@
       <PreprocessorDefinitions>GLFW_INCLUDE_NONE;_CRTDBG_MAP_ALLOC;DNE_ENABLE_ASSERTS;WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(SolutionDir)include\GLAD\include;$(SolutionDir)\include\glfw\include;$(SolutionDir)\include\;$(SolutionDir)\include\glfw\include;$(SolutionDir)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Src;$(SolutionDir)include\GLAD\include;$(SolutionDir)include\imgui;$(SolutionDir)\include\glfw\include;$(SolutionDir)\include\;$(SolutionDir)\include\glfw\include;$(SolutionDir)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -117,7 +117,7 @@
       <PreprocessorDefinitions>GLFW_INCLUDE_NONE;_CRTDBG_MAP_ALLOC;DNE_ENABLE_ASSERTS;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(SolutionDir)include\GLAD\include;$(SolutionDir)\include\glfw\include;$(SolutionDir)include\Src\Utlis;$(SolutionDir)include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Src;$(SolutionDir)include\GLAD\include;$(SolutionDir)include\imgui;$(SolutionDir)\include\glfw\include;$(SolutionDir)include\Src\Utlis;$(SolutionDir)include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -134,7 +134,7 @@
       <PreprocessorDefinitions>GLFW_INCLUDE_NONE;WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(SolutionDir)include\GLAD\include;$(SolutionDir)\include\glfw\include;$(SolutionDir)\include\;$(SolutionDir)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Src;$(SolutionDir)include\GLAD\include;$(SolutionDir)include\imgui;$(SolutionDir)\include\glfw\include;$(SolutionDir)\include\;$(SolutionDir)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -153,7 +153,7 @@
       <PreprocessorDefinitions>GLFW_INCLUDE_NONE;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(SolutionDir)include\GLAD\include;$(SolutionDir)\include\glfw\include;$(SolutionDir)include\Src\Utlis;$(SolutionDir)include\;$(SolutionDir)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Src;$(SolutionDir)include\GLAD\include;$(SolutionDir)include\imgui;$(SolutionDir)\include\glfw\include;$(SolutionDir)include\Src\Utlis;$(SolutionDir)include\;$(SolutionDir)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -165,6 +165,7 @@
   <ItemGroup>
     <ClInclude Include="Src\ComponentsSystem\Components.h" />
     <ClInclude Include="Src\ComponentsSystem\Entity.h" />
+    <ClInclude Include="Src\ComponentsSystem\RenderingSystem\ImguiRenderer.h" />
     <ClInclude Include="Src\Event\Event.h" />
     <ClInclude Include="Src\Event\KeyboardEvent.h" />
     <ClInclude Include="Src\Event\MouseEvent.h" />
@@ -174,6 +175,7 @@
     <ClInclude Include="Src\Core.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Src\Engine.h" />
+    <ClInclude Include="Src\PlatformSpecific\OpenGL\imguiOpenGLRenderer.h" />
     <ClInclude Include="Src\Utlis\Helper.h" />
     <ClInclude Include="Src\Utlis\SmartPointer.h" />
     <ClInclude Include="Src\Window.h" />
@@ -181,6 +183,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\ComponentsSystem\Entity.cpp" />
+    <ClCompile Include="Src\ComponentsSystem\RenderingSystem\ImguiRenderer.cpp" />
     <ClCompile Include="Src\Logger.cpp" />
     <ClCompile Include="Src\Engine.cpp" />
     <ClCompile Include="pch.cpp">
@@ -188,6 +191,16 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Src\PlatformSpecific\OpenGL\imguiOpenGLRenderer.cpp">
+      <DisableSpecificWarnings Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <DisableSpecificWarnings Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <DisableSpecificWarnings Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <DisableSpecificWarnings Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <ClCompile Include="Src\PlatformSpecific\Windows\WindowsWindow.cpp" />
   </ItemGroup>

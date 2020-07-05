@@ -21,8 +21,11 @@ namespace  Engine
 		
 		void ShutDown();
 		void Run();
+		inline static Application& Instance() { return *_instance_; }
+		inline Window& GetWindow() { return *_window_; }
 	private:
 
+		static Application* _instance_;
 		bool OnWindowClose(WindowCloseEvent& e);
 		std::unique_ptr<Window> _window_;
 		bool _is_running_ = true;

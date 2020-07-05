@@ -1,32 +1,37 @@
 // DarkNinjaEngine.cpp : Defines the functions for the static library.
 //
 
-#include <pch.h>
+#include "pch.h"
 
 #include "Engine.h"
+
+
 #include "Logger.h"
-
-
-#include <glad/glad.h>
-
 #include "ComponentsSystem/Entity.h"
-#include "imgui/imgui.h"
+
+#include "ComponentsSystem/RenderingSystem/ImguiRenderer.h"
 
 
 namespace Engine
 {
+
+	Application* Application::_instance_ = nullptr;
+	
 	Application::Application()
 	{
-		
+		_instance_ = this;
 #ifdef _LOGGER
 		Logger::Init();
 		DNE_ENGINE_TRACE("Started!");
 
 #endif
 
+		
 		_window_ = std::unique_ptr<Window>(Window::Create());
 		_window_->SetEventCallBack(std::bind(&Application::OnEvent, this, std::placeholders::_1));
 		std::cout << "Dark Ninja Engine Started!" << std::endl;
+		
+		
 		
 	
 #ifdef _LOGGER
@@ -59,13 +64,13 @@ namespace Engine
 
 	void Application::Run()
 	{
-	
+		IMGUI::Instance().Init();
 		while(_is_running_)
 		{
 
-			EntityManager::Instance().Update();
-			glClearColor(0, 0, 1, 1);
-			glClear(GL_COLOR_BUFFER_BIT);
+			
+			//EntityManager::Instance().Update();
+			IMGUI::Instance().Update();
 			_window_->Update();
 		}
 
