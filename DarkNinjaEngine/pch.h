@@ -12,5 +12,6 @@
 #include <iostream>
 #include <functional>
 #include <memory>
+#include <vector>
 #include <algorithm>
 #endif //PCH_H

@@ -16,4 +16,7 @@
 //------------Debugger--------------------//
 
 
+#include "ComponentsSystem/Entity.h"
+
+
 
