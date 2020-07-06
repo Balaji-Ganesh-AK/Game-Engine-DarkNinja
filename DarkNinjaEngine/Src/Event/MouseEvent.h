@@ -57,8 +57,10 @@ namespace Engine
 	class MouseButtonPressedEvent :public Event
 	{
 	public:
-		MouseButtonPressedEvent(int keycode) :_mouse_code_(keycode)
+		MouseButtonPressedEvent(int mousecode) :_mouse_code_(mousecode)
 		{};
+
+		int GetMouseButton() const { return _mouse_code_; }
 		std::string ToString() const override
 		{
 			std::stringstream ss;
@@ -74,8 +76,9 @@ namespace Engine
 	class MouseButtonReleasedEvent :public Event
 	{
 	public:
-		MouseButtonReleasedEvent(int keycode) :_mouse_code_(keycode)
+		MouseButtonReleasedEvent(int mousecode) :_mouse_code_(mousecode)
 		{};
+		int GetMouseButton() const { return _mouse_code_; }
 		std::string ToString() const override
 		{
 			std::stringstream ss;

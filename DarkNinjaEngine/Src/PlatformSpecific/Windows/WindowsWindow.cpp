@@ -6,6 +6,8 @@
 #include "../../Logger.h"
 #include <glad/glad.h>
 
+
+
 namespace Engine
 {
 
@@ -42,6 +44,7 @@ namespace Engine
 
 	void WindowsWindow::Init(const WindowProperties& properties)
 	{
+
 		_windows_data_.Title = properties.Title;
 		_windows_data_.Width = properties.width;
 		_windows_data_.Height = properties.height;
@@ -60,21 +63,24 @@ namespace Engine
 		}
 
 
-		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+		/*glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
-		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);*/
 		
 		_glfw_window_ = glfwCreateWindow((int)properties.width, (int)properties.height, _windows_data_.Title.c_str(), nullptr, nullptr);
 
+	   
+	
+		
 		glfwMakeContextCurrent(_glfw_window_);
-
+		
 		int success = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 #ifdef  _LOGGER
 		DNE_ENGINE_ASSERT(success, " GLAD Window Created!");
 #endif
 		glfwSetWindowUserPointer(_glfw_window_, &_windows_data_);
 		SetVSync(true);
-
+		
 		glfwSetWindowSizeCallback(_glfw_window_, [](GLFWwindow* window, int width, int height)
 			{
 				WindowsData& data = *(WindowsData*)glfwGetWindowUserPointer(window);
@@ -175,6 +181,7 @@ namespace Engine
 	void WindowsWindow::Update()
 	{
 		glfwPollEvents();
+		
 		glfwSwapBuffers(_glfw_window_);
 	}
 

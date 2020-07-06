@@ -60,10 +60,28 @@
     <ClInclude Include="Src\ComponentsSystem\Entity.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Src\PlatformSpecific\OpenGL\imguiOpenGLRenderer.h">
+    <ClInclude Include="Src\ComponentsSystem\RenderingSystem\ImguiRenderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Src\ComponentsSystem\RenderingSystem\ImguiRenderer.h">
+    <ClInclude Include="Src\PlatformSpecific\OpenGL\ImGui\imconfig.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\PlatformSpecific\OpenGL\ImGui\imgui.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\PlatformSpecific\OpenGL\ImGui\imgui_internal.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\PlatformSpecific\OpenGL\ImGui\imguiOpenGLRenderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\PlatformSpecific\OpenGL\ImGui\imstb_rectpack.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\PlatformSpecific\OpenGL\ImGui\imstb_textedit.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\PlatformSpecific\OpenGL\ImGui\imstb_truetype.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -83,10 +101,22 @@
     <ClCompile Include="Src\ComponentsSystem\Entity.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Src\PlatformSpecific\OpenGL\imguiOpenGLRenderer.cpp">
+    <ClCompile Include="Src\ComponentsSystem\RenderingSystem\ImguiRenderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Src\ComponentsSystem\RenderingSystem\ImguiRenderer.cpp">
+    <ClCompile Include="Src\PlatformSpecific\OpenGL\ImGui\imgui.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\PlatformSpecific\OpenGL\ImGui\imgui_draw.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\PlatformSpecific\OpenGL\ImGui\imgui_widgets.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\PlatformSpecific\OpenGL\ImGui\imguiOpenGLRenderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\PlatformSpecific\OpenGL\ImGui\imgui_demo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
