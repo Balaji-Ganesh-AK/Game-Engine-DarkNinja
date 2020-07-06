@@ -6,26 +6,6 @@
 
 namespace Engine
 {
-
-
-	
-	class testKeyPressedEvent : public Event
-	{
-	public:
-		testKeyPressedEvent() {};
-		std::string ToString() const override
-		{
-			std::stringstream ss;
-			ss << "Key Pressed Event: " << _key_code_;
-			return ss.str();
-		}
-		
-		
-
-	private:
-		int _key_code_;
-	};
-	
 	class KeyboardEvent : public Event
 	{
 	protected:

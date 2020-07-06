@@ -59,7 +59,7 @@ namespace Engine
 
 #define EVENT_CLASS_CATEGORY(cat) virtual int GetCategoryValue() const override{return cat;};
 	
-	class EventDispatcher
+	/*class EventDispatcher
 	{
 	public:
 		EventDispatcher(Event& event)
@@ -73,6 +73,31 @@ namespace Engine
 			if(_event_.GetEventType() == T::GetStaticType())
 			{
 				_event_.handled = func(static_cast<T&>(_event_));
+				return true;
+			}
+			return false;
+		}
+
+	private:
+		Event& _event_;
+	};*/
+	class EventDispatcher
+	{
+		template<typename T>
+		using EventFn = std::function<bool(T&)>;
+		
+	public:
+		EventDispatcher(Event& event)
+			:_event_(event)
+		{
+
+		}
+		template<typename T>
+		bool Dispatch(EventFn<T> func)
+		{
+			if (_event_.GetEventType() == T::GetStaticType())
+			{
+				_event_.handled = func(*(T*)&_event_);
 				return true;
 			}
 			return false;

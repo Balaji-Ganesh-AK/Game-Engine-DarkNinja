@@ -26,6 +26,9 @@
 
 #endif
 
+
+#define DNE_BIND_SINGLE_EVENT(fn) std::bind(&fn, this, std::placeholders::_1)
+
 inline bool NaNCheck(float i_val)
 {
 	return i_val == i_val ? false : true;
