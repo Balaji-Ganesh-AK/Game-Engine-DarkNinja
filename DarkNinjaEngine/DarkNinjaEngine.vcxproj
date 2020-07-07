@@ -170,6 +170,7 @@
     <ClInclude Include="Src\Event\KeyboardEvent.h" />
     <ClInclude Include="Src\Event\MouseEvent.h" />
     <ClInclude Include="Src\Event\WindowEvent.h" />
+    <ClInclude Include="Src\Input.h" />
     <ClInclude Include="Src\Logger.h" />
     <ClInclude Include="Src\Entrypoint.h" />
     <ClInclude Include="Src\Core.h" />
@@ -182,6 +183,7 @@
     <ClInclude Include="Src\PlatformSpecific\OpenGL\ImGui\imstb_rectpack.h" />
     <ClInclude Include="Src\PlatformSpecific\OpenGL\ImGui\imstb_textedit.h" />
     <ClInclude Include="Src\PlatformSpecific\OpenGL\ImGui\imstb_truetype.h" />
+    <ClInclude Include="Src\PlatformSpecific\Windows\WindowInput.h" />
     <ClInclude Include="Src\Utlis\Helper.h" />
     <ClInclude Include="Src\Utlis\SmartPointer.h" />
     <ClInclude Include="Src\Window.h" />
@@ -208,6 +210,7 @@
     <ClCompile Include="Src\PlatformSpecific\OpenGL\ImGui\imgui_demo.cpp" />
     <ClCompile Include="Src\PlatformSpecific\OpenGL\ImGui\imgui_draw.cpp" />
     <ClCompile Include="Src\PlatformSpecific\OpenGL\ImGui\imgui_widgets.cpp" />
+    <ClCompile Include="Src\PlatformSpecific\Windows\WindowInput.cpp" />
     <ClCompile Include="Src\PlatformSpecific\Windows\WindowsWindow.cpp" />
   </ItemGroup>
   <ItemGroup>

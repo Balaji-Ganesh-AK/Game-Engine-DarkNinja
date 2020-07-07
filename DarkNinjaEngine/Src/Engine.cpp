@@ -12,6 +12,7 @@
 #include "Logger.h"
 #include "ComponentsSystem/Entity.h"
 #include "ComponentsSystem/RenderingSystem/ImguiRenderer.h"
+#include "Input.h"
 
 
 namespace Engine
@@ -74,6 +75,9 @@ namespace Engine
 			//EntityManager::Instance().Update();
 			
 			glClear(GL_COLOR_BUFFER_BIT);
+
+			auto x = Input::GetMouseX();
+			DNE_ENGINE_TRACE("{0}",x);
 			IMGUI::Instance().Update();
 			_window_->Update();
 		
