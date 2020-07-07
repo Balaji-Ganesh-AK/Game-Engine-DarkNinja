@@ -1,11 +1,15 @@
 Game-Engine-DarkNinja
 
-This is my 2nd Game Engine. I am gonna develop a custom rendering engine for this project.
 
+This is my 2nd Game Engine. This project aims to develop a game engine better than the one I previously created.
 
-I am planning on adding the following features for this project.
+# Implemented so far.
+* Event system for the game (Handles Keyboard, windows, and mouse events.)
+* Input polling.
+* Simple ECS.
+* Integrated ImGui for GUI.
 
-
-* Custom rendering engine.
-* Custom networking protocols.
-* Unity like ECS system.
+# TODO
+* Custom rendering engine
+* Unity like ECS system
+* Custom networking protocols for multiplayer.
