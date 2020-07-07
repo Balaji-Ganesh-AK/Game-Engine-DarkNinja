@@ -20,7 +20,7 @@ namespace Engine
 		void SetEventCallBack(const EventCallBackFn& callback) override { _windows_data_.EventCallBack = callback; }
 		void SetVSync(bool enabled) override;
 		bool IsVSync() const override;
-		virtual void* GetNativeWindow() const override { return _glfw_window_; };
+		void* GetNativeWindow() const override { return _glfw_window_; };
 
 
 
