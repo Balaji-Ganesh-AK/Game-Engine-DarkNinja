@@ -11,5 +11,6 @@ namespace Engine
 		bool IsMousePressedImp(int button) override;
 		float GetMouseXImp() override;
 		float GetMouseYImp() override;
+		Vec2 GetMousePositionImp() override;
 	};
 }

@@ -171,11 +171,16 @@
     <ClInclude Include="Src\Event\MouseEvent.h" />
     <ClInclude Include="Src\Event\WindowEvent.h" />
     <ClInclude Include="Src\Input.h" />
+    <ClInclude Include="Src\KeyCodes.h" />
     <ClInclude Include="Src\Logger.h" />
     <ClInclude Include="Src\Entrypoint.h" />
     <ClInclude Include="Src\Core.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Src\Engine.h" />
+    <ClInclude Include="Src\Math\Vec2.h" />
+    <ClInclude Include="Src\Math\Vec3.h" />
+    <ClInclude Include="Src\Math\Vec4.h" />
+    <ClInclude Include="Src\MouseCodes.h" />
     <ClInclude Include="Src\PlatformSpecific\OpenGL\ImGui\imconfig.h" />
     <ClInclude Include="Src\PlatformSpecific\OpenGL\ImGui\imgui.h" />
     <ClInclude Include="Src\PlatformSpecific\OpenGL\ImGui\imguiOpenGLRenderer.h" />
@@ -200,6 +205,9 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Src\Math\Vec2.cpp" />
+    <ClCompile Include="Src\Math\Vec3.cpp" />
+    <ClCompile Include="Src\Math\Vec4.cpp" />
     <ClCompile Include="Src\PlatformSpecific\OpenGL\ImGui\imgui.cpp" />
     <ClCompile Include="Src\PlatformSpecific\OpenGL\ImGui\imguiOpenGLRenderer.cpp">
       <DisableSpecificWarnings Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>

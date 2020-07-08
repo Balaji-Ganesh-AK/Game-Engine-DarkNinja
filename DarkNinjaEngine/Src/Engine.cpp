@@ -1,18 +1,15 @@
 // DarkNinjaEngine.cpp : Defines the functions for the static library.
-//
+
 
 #include "pch.h"
-
 #include "Engine.h"
-
 #include <glad/glad.h>
-
-
-
 #include "Logger.h"
 #include "ComponentsSystem/Entity.h"
 #include "ComponentsSystem/RenderingSystem/ImguiRenderer.h"
 #include "Input.h"
+#include "KeyCodes.h"
+#include "MouseCodes.h"
 
 
 namespace Engine
@@ -33,9 +30,9 @@ namespace Engine
 		_window_ = std::unique_ptr<Window>(Window::Create());
 		_window_->SetEventCallBack(std::bind(&Application::OnEvent, this, std::placeholders::_1));
 		std::cout << "Dark Ninja Engine Started!" << std::endl;
-
+#ifdef  _IMGUI
 		IMGUI::Instance().Init();
-		
+#endif
 #ifdef _LOGGER
 		
 		/*DNE_ENGINE_TRACE("Game Object name!", test->GetName());*/
@@ -56,8 +53,9 @@ namespace Engine
 #endif
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<WindowCloseEvent>(DNE_BIND_SINGLE_EVENT(Application::OnWindowClose));
-
+#ifdef _IMGUI
 		IMGUI::Instance().OnEvent(e);
+#endif
 	}
 
 
@@ -72,13 +70,25 @@ namespace Engine
 		while(_is_running_)
 		{
 			
-			//EntityManager::Instance().Update();
+			EntityManager::Instance().Update();
 			
 			glClear(GL_COLOR_BUFFER_BIT);
+			
+			if(Input::IsKeyPressed(Key::Space))
+#ifdef _LOGGER
+			  DNE_ENGINE_TRACE("Space is pressed ");
+#endif
+			if(Input::IsMousePressed(Mouse::ButtonRight))
+			{
+#ifdef _LOGGER
+				DNE_ENGINE_TRACE("Mouse button is pressed ");
+#endif
+			}
 
-			auto x = Input::GetMouseX();
-			DNE_ENGINE_TRACE("{0}",x);
+#ifdef  _IMGUI
 			IMGUI::Instance().Update();
+#endif
+			
 			_window_->Update();
 		
 		}
