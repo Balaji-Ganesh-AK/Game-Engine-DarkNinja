@@ -49,7 +49,7 @@ public:
 	{
 		Engine::Entity* test = new Engine::Entity("Test");
 
-		test->AttachComponent(new Level());
+		//test->AttachComponent(new Level());
 	
 	}
 	~Pong()

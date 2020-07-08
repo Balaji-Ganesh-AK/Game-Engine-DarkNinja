@@ -15,6 +15,8 @@
 #pragma region IM_GUI_CLASS
 namespace Engine
 {
+
+#ifdef _IMGUI
 	class IMGUI
 	{
 	public:
@@ -49,6 +51,7 @@ namespace Engine
 		static IMGUI _instance_;
 		float _time_ = 0.0f;
 	};
+#endif
 }
 
 #pragma endregion 

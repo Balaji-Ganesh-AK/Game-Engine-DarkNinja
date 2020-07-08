@@ -6,8 +6,9 @@
 
 #pragma region IM_GUI_CLASS
 
-
+#ifdef _IMGUI
 Engine::IMGUI Engine::IMGUI::_instance_;
+
 namespace Engine
 {
 
@@ -176,4 +177,5 @@ namespace Engine
 		return false;
 	}
 }
+#endif
 #pragma endregion 
