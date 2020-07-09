@@ -29,7 +29,7 @@
 #define SPDLOG_INLINE
 #else // !defined(SPDLOG_COMPILED_LIB)
 #define SPDLOG_API
-#define SPDLOG_HEADER_ONLY
+//#define SPDLOG_HEADER_ONLY
 #define SPDLOG_INLINE inline
 #endif // #ifdef SPDLOG_COMPILED_LIB
 

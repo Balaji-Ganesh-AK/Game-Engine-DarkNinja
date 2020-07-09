@@ -42,7 +42,7 @@ namespace Engine
 	template <class T>
 	T* Entity::GetComponent()
 	{
-		//
+		
 		T* ptr = nullptr;
 
 		for (int i = 0; i < _components_list_.size(); i++)

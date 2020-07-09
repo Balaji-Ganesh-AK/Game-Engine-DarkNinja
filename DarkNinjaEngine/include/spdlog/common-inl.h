@@ -2,7 +2,9 @@
 // Distributed under the MIT License (http://opensource.org/licenses/MIT)
 
 #pragma once
-#pragma warning(push, 0)
+#pragma warning(push)
+#pragma warning( disable : 26812)
+#pragma warning( disable : 6387) 
 //Some includes with unfixable warnings
 
 #ifndef SPDLOG_HEADER_ONLY

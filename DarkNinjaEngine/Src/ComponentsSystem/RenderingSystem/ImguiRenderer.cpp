@@ -63,7 +63,7 @@ namespace Engine
 
 		ImGuiIO& io = ImGui::GetIO(); 
 		Engine::Application& app = Engine::Application::Instance();
-		io.DisplaySize = ImVec2(app.GetWindow().GetWidth(), app.GetWindow().GetHeight());
+		io.DisplaySize = ImVec2(static_cast<float>(app.GetWindow().GetWidth()), static_cast<float>(app.GetWindow().GetHeight()));
 
 		float time = (float)glfwGetTime();
 		io.DeltaTime = _time_ > 0.0f ? (time - _time_) : (1.0f / 60.0f);
@@ -150,8 +150,8 @@ namespace Engine
 	bool IMGUI::OnMouseScrollEvent(MouseScrollEvent& e)
 	{
 		ImGuiIO& io = ImGui::GetIO();
-		io.MouseWheelH += e.GetMouseX();
-		io.MouseWheel += e.GetMouseY();
+		io.MouseWheelH += static_cast<float>(e.GetMouseX());
+		io.MouseWheel += static_cast<float>(e.GetMouseY());
 		
 		return false;
 	}
@@ -170,7 +170,7 @@ namespace Engine
 	{
 
 		ImGuiIO& io = ImGui::GetIO();
-		io.DisplaySize = ImVec2(e.GetWidth(),e.GetHeight());
+		io.DisplaySize = ImVec2(static_cast<float>(e.GetWidth()),static_cast<float>(e.GetHeight()));
 		io.DisplayFramebufferScale = ImVec2(1.0f,1.0f);
 		glViewport(0, 0, e.GetWidth(), e.GetHeight());
 		

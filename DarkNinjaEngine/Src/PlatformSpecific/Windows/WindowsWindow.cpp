@@ -166,7 +166,7 @@ namespace Engine
 		{
 				WindowsData& data = *(WindowsData*)glfwGetWindowUserPointer(window);
 
-				MouseMovedEvent event(xpos, ypos);
+				MouseMovedEvent event(static_cast<float>(xpos), static_cast<float>(ypos));
 				data.EventCallBack(event);
 		});
 

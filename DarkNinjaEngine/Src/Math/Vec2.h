@@ -14,8 +14,8 @@ namespace Engine
 		//operations
 		//Vec2(const float & x, const float & y);
 		Vec2 zero();
-		Vec2(const int & x, const int & y);
-		Vec2& Random(const int & other);
+		Vec2(const float& x, const float& y);
+		Vec2& Random(const float& other);
 		Vec2& addition(const Vec2& other); // reference , just reads the values and doesnt not store them
 		Vec2 & subtraction(const Vec2 & other);
 		Vec2 & division(const Vec2 & other);

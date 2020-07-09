@@ -8,15 +8,15 @@ namespace Engine
 			x = 0;
 			y = 0;
 	}
-	Vec2::Vec2(const int& x, const int& y)
+	Vec2::Vec2(const float& x, const float& y)
 	{
 		this->x = x;
 		this->y = y;
 	}
- 	Vec2& Vec2::Random(const int& other)
+ 	Vec2& Vec2::Random(const float& other)
 	{
-		this->x = rand() % 100;
-		this->y = rand() % 100;
+		this->x = static_cast<float>(rand() % 100);
+		this->y = static_cast<float>(rand() % 100);
 		return *this;
 		
 

@@ -54,8 +54,8 @@ namespace Engine
 		Vec2 _mouse_pos_;
 		double xpos, ypos;
 		glfwGetCursorPos(window, &xpos, &ypos);
-		_mouse_pos_.x = xpos;
-		_mouse_pos_.y = ypos;
+		_mouse_pos_.x = static_cast<float>(xpos);
+		_mouse_pos_.y = static_cast<float>(ypos);
 		return _mouse_pos_;
 	}
 }

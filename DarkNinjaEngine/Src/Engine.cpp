@@ -53,6 +53,7 @@ namespace Engine
 #endif
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<WindowCloseEvent>(DNE_BIND_SINGLE_EVENT(Application::OnWindowClose));
+		dispatcher.Dispatch<WindowResizeEvent>(DNE_BIND_SINGLE_EVENT(Application::OnWindowsResize));
 #ifdef _IMGUI
 		IMGUI::Instance().OnEvent(e);
 #endif
@@ -99,6 +100,14 @@ namespace Engine
 	{
 
 		_is_running_ = false;
+		return true;
+	}
+
+	bool Application::OnWindowsResize(WindowResizeEvent& e)
+	{
+#ifdef _LOGGER
+		DNE_ENGINE_INFO("Windows Resize Event");
+#endif
 		return true;
 	}
 }
