@@ -2,7 +2,7 @@
 // Distributed under the MIT License (http://opensource.org/licenses/MIT)
 
 #pragma once
-
+#pragma warning(disable : 26812) 
 #include <atomic>
 #include <utility>
 // null, no cost dummy "mutex" and dummy "atomic" int

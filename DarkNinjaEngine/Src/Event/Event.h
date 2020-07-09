@@ -46,7 +46,7 @@ namespace Engine
 		virtual std::string ToString() const { return GetName(); }
 
 
-		bool IsInEventCategory(EventCategory category)
+		bool IsInEventCategory(EventCategory category) const
 		{
 			return GetCategoryValue()&category;
 		}

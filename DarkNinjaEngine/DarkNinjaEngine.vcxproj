@@ -154,7 +154,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>$(SolutionDir);$(SolutionDir)Src;$(SolutionDir)include\GLAD\include;$(SolutionDir)include\imgui;$(SolutionDir)\include\glfw\include;$(SolutionDir)include\Src\Utlis;$(SolutionDir)include\;$(SolutionDir)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -166,6 +166,7 @@
   <ItemGroup>
     <ClInclude Include="Src\ComponentsSystem\Components.h" />
     <ClInclude Include="Src\ComponentsSystem\Entity.h" />
+    <ClInclude Include="Src\ComponentsSystem\RenderingSystem\RenderingContext.h" />
     <ClInclude Include="Src\ComponentsSystem\RenderingSystem\ImguiRenderer.h" />
     <ClInclude Include="Src\Event\Event.h" />
     <ClInclude Include="Src\Event\KeyboardEvent.h" />
@@ -189,6 +190,7 @@
     <ClInclude Include="Src\PlatformSpecific\OpenGL\ImGui\imstb_rectpack.h" />
     <ClInclude Include="Src\PlatformSpecific\OpenGL\ImGui\imstb_textedit.h" />
     <ClInclude Include="Src\PlatformSpecific\OpenGL\ImGui\imstb_truetype.h" />
+    <ClInclude Include="Src\PlatformSpecific\OpenGL\OpenGLContext.h" />
     <ClInclude Include="Src\PlatformSpecific\Windows\WindowInput.h" />
     <ClInclude Include="Src\Utlis\Helper.h" />
     <ClInclude Include="Src\Utlis\SmartPointer.h" />
@@ -197,6 +199,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\ComponentsSystem\Entity.cpp" />
+    <ClCompile Include="Src\ComponentsSystem\RenderingSystem\RenderingContext.cpp" />
     <ClCompile Include="Src\ComponentsSystem\RenderingSystem\ImguiRenderer.cpp" />
     <ClCompile Include="Src\Logger.cpp" />
     <ClCompile Include="Src\Engine.cpp" />
@@ -224,6 +227,7 @@
     <ClCompile Include="Src\PlatformSpecific\OpenGL\ImGui\imgui_demo.cpp" />
     <ClCompile Include="Src\PlatformSpecific\OpenGL\ImGui\imgui_draw.cpp" />
     <ClCompile Include="Src\PlatformSpecific\OpenGL\ImGui\imgui_widgets.cpp" />
+    <ClCompile Include="Src\PlatformSpecific\OpenGL\OpenGLContext.cpp" />
     <ClCompile Include="Src\PlatformSpecific\Windows\WindowInput.cpp" />
     <ClCompile Include="Src\PlatformSpecific\Windows\WindowsWindow.cpp" />
   </ItemGroup>

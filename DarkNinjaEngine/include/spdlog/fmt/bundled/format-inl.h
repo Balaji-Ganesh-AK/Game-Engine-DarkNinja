@@ -4,7 +4,8 @@
 // All rights reserved.
 //
 // For the license information refer to format.h.
-
+#  pragma warning(disable : 26451)
+#  pragma warning(disable : 26812) 
 #ifndef FMT_FORMAT_INL_H_
 #define FMT_FORMAT_INL_H_
 

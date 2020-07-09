@@ -39,7 +39,30 @@ namespace Engine
 
 #endif
 
+		glGenVertexArrays(1, &_vertex_array_);
+		glBindVertexArray(_vertex_array_);
 
+		glGenBuffers(1, &_vertex_buffer_);
+		glBindBuffer(GL_ARRAY_BUFFER ,_vertex_buffer_);
+
+		float vertices[3 * 3] = {
+			-0.5f,-.5f,0.0f,
+			0.5f, -0.5f, 0.0f,
+			0.0f, 0.5f, 0.0f
+
+		};
+		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+
+		glEnableVertexAttribArray(0);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);
+
+		glGenBuffers(1, &_index_buffer_);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,_index_buffer_);
+
+		unsigned int indices[3] = {  0,1,2};
+
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 	}
 
 	Application::~Application()
@@ -71,9 +94,13 @@ namespace Engine
 		while(_is_running_)
 		{
 			
-			EntityManager::Instance().Update();
 			
 			glClear(GL_COLOR_BUFFER_BIT);
+
+			EntityManager::Instance().Update();
+
+		
+			glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, nullptr);
 			
 			if(Input::IsKeyPressed(Key::Space))
 #ifdef _LOGGER
@@ -106,7 +133,7 @@ namespace Engine
 	bool Application::OnWindowsResize(WindowResizeEvent& e)
 	{
 #ifdef _LOGGER
-		DNE_ENGINE_INFO("Windows Resize Event");
+		//DNE_ENGINE_INFO("Windows Resize Event");
 #endif
 		return true;
 	}

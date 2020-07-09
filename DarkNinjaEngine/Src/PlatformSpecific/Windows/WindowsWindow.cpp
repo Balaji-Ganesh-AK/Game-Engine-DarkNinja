@@ -1,10 +1,11 @@
 #include "pch.h"
 #include "WindowsWindow.h"
+
+#include "Logger.h"
 #include "../Src/Event/WindowEvent.h"
 #include "../Src/Event/KeyboardEvent.h"
 #include "../Src/Event/MouseEvent.h"
-#include "../../Logger.h"
-#include <glad/glad.h>
+
 
 
 
@@ -19,12 +20,12 @@ namespace Engine
 	}
 	WindowsWindow::WindowsWindow(const WindowProperties& prop)
 	{
-		Init(prop);
+		WindowsWindow::Init(prop);
 	}
 
 	WindowsWindow::~WindowsWindow()
 	{
-		ShutDown();
+		WindowsWindow::ShutDown();
 	}
 
 
@@ -44,18 +45,18 @@ namespace Engine
 
 	void WindowsWindow::Init(const WindowProperties& properties)
 	{
-
+	
 		_windows_data_.Title = properties.Title;
 		_windows_data_.Width = properties.width;
 		_windows_data_.Height = properties.height;
 
 //#ifdef  _LOGGER
-//		DNE_ENGINE_INFO("Creating Window {0} ({1},{2})", properties.Title, properties.width, properties.height);
+//		DNE_ENGINE_INFO("Creating Window {0} ({1},{2})"), properties.Title, properties.width, properties.height);
 //#endif
 
 		if (!_GLFW_Initialized)
 		{
-			int success = glfwInit();
+			const int success = glfwInit();
 #ifdef  _LOGGER
 			DNE_ENGINE_ASSERT(success, " GLFW Window Not Created!");
 #endif
@@ -63,27 +64,20 @@ namespace Engine
 		}
 
 
-		/*glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
-		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);*/
-		
-		_glfw_window_ = glfwCreateWindow((int)properties.width, (int)properties.height, _windows_data_.Title.c_str(), nullptr, nullptr);
 
-	   
+		
+		_glfw_window_ = glfwCreateWindow(static_cast<int>(properties.width), static_cast<int>(properties.height), _windows_data_.Title.c_str(), nullptr, nullptr);
+		_rendering_context_ = new OpenGLContext(_glfw_window_);
+		_rendering_context_->Init();
 	
 		
-		glfwMakeContextCurrent(_glfw_window_);
-		
-		int success = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
-#ifdef  _LOGGER
-		DNE_ENGINE_ASSERT(success, " GLAD Window Created!");
-#endif
+
 		glfwSetWindowUserPointer(_glfw_window_, &_windows_data_);
 		SetVSync(true);
 		
 		glfwSetWindowSizeCallback(_glfw_window_, [](GLFWwindow* window, int width, int height)
 			{
-				WindowsData& data = *(WindowsData*)glfwGetWindowUserPointer(window);
+				WindowsData& data = *static_cast<WindowsData*>(glfwGetWindowUserPointer(window));
 				data.Width = width;
 				data.Height = height;
 			
@@ -93,7 +87,7 @@ namespace Engine
 			});
 		glfwSetWindowCloseCallback(_glfw_window_, [](GLFWwindow* window)
 		{
-				WindowsData& data = *(WindowsData*)glfwGetWindowUserPointer(window);
+				WindowsData& data = *static_cast<WindowsData*>(glfwGetWindowUserPointer(window));
 
 				WindowCloseEvent event;
 				
@@ -104,7 +98,7 @@ namespace Engine
 
 		glfwSetKeyCallback(_glfw_window_, [](GLFWwindow* window, int key, int scancode, int action , int mods)
 		{
-				WindowsData& data = *(WindowsData*)glfwGetWindowUserPointer(window);
+				WindowsData& data = *static_cast<WindowsData*>(glfwGetWindowUserPointer(window));
 				switch (action)
 				{
 				case GLFW_PRESS:
@@ -128,13 +122,12 @@ namespace Engine
 					data.EventCallBack(event);
 					break;
 					}
-					
-					
+				default: ;
 				}
 		});
 		glfwSetMouseButtonCallback(_glfw_window_, [](GLFWwindow* window, int button, int action ,int mods)
 		{
-			WindowsData& data = *(WindowsData*)glfwGetWindowUserPointer(window);
+			WindowsData& data = *static_cast<WindowsData*>(glfwGetWindowUserPointer(window));
 			switch (action)
 			{
 			case GLFW_PRESS:
@@ -150,12 +143,13 @@ namespace Engine
 					data.EventCallBack(event);
 					break;
 				}
+			default: ;
 			}
 		});
 
 		glfwSetScrollCallback(_glfw_window_, [](GLFWwindow* window, double xOffset, double yOffset)
 		{
-				WindowsData& data = *(WindowsData*)glfwGetWindowUserPointer(window);
+				WindowsData& data = *static_cast<WindowsData*>(glfwGetWindowUserPointer(window));
 
 				MouseScrollEvent event(xOffset, yOffset);
 				data.EventCallBack(event);
@@ -164,7 +158,7 @@ namespace Engine
 		});
 		glfwSetCursorPosCallback(_glfw_window_, [](GLFWwindow* window, double xpos, double ypos)
 		{
-				WindowsData& data = *(WindowsData*)glfwGetWindowUserPointer(window);
+				WindowsData& data = *static_cast<WindowsData*>(glfwGetWindowUserPointer(window));
 
 				MouseMovedEvent event(static_cast<float>(xpos), static_cast<float>(ypos));
 				data.EventCallBack(event);
@@ -180,9 +174,7 @@ namespace Engine
 
 	void WindowsWindow::Update()
 	{
-		glfwPollEvents();
-		
-		glfwSwapBuffers(_glfw_window_);
+		_rendering_context_->SwapBuffers();
 	}
 
 	

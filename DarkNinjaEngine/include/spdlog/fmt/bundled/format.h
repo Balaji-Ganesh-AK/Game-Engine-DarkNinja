@@ -30,6 +30,8 @@
  without including the above copyright and permission notices.
  */
 
+#  pragma warning(disable : 26451) 
+#  pragma warning(disable : 26812) 
 #ifndef FMT_FORMAT_H_
 #define FMT_FORMAT_H_
 

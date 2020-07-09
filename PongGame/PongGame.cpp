@@ -29,7 +29,7 @@ Level::~Level()
 
 void Level::Update()
 {
-	DNE_CLIENT_TRACE("Level component");
+	//DNE_CLIENT_TRACE("Level component testing!");
 }
 
 void Level::Init()
@@ -49,7 +49,7 @@ public:
 	{
 		Engine::Entity* test = new Engine::Entity("Test");
 
-		//test->AttachComponent(new Level());
+		test->AttachComponent(new Level());
 	
 	}
 	~Pong()
