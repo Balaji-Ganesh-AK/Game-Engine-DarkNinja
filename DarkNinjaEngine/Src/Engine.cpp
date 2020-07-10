@@ -60,9 +60,37 @@ namespace Engine
 		glGenBuffers(1, &_index_buffer_);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,_index_buffer_);
 
-		unsigned int indices[3] = {  0,1,2};
+		unsigned int indices[3] = { 0,1,2 };
 
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+
+		std::string vertexSrc = R"(
+				#version 430 core
+
+		layout(location = 0) in vec3 a_Position;
+		out vec3 v_Position;
+		void main()
+		{
+			v_Position = a_Position;
+			gl_Position = vec4(a_Position,1.0);
+		}
+
+		)";
+
+		std::string fragmentSrc = R"(
+				#version 430 core
+
+		layout(location = 0) out vec4 o_Color;
+
+		in vec3 v_Position;
+		void main()
+		{
+			o_Color = vec4(v_Position*0.8 +.5,1.0);
+		}
+
+		)";
+		
+		_shader_.reset(new Shader(vertexSrc,fragmentSrc));
 	}
 
 	Application::~Application()
@@ -96,11 +124,13 @@ namespace Engine
 			
 			
 			glClear(GL_COLOR_BUFFER_BIT);
+			_shader_->Bind();
+			glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, nullptr);
 
-			EntityManager::Instance().Update();
+
 
 		
-			glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, nullptr);
+			EntityManager::Instance().Update();
 			
 			if(Input::IsKeyPressed(Key::Space))
 #ifdef _LOGGER

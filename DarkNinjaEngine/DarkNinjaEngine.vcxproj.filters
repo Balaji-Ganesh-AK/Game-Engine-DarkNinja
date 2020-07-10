@@ -111,6 +111,9 @@
     <ClInclude Include="Src\ComponentsSystem\RenderingSystem\RenderingContext.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Src\ComponentsSystem\RenderingSystem\Shader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -164,8 +167,14 @@
     <ClCompile Include="Src\ComponentsSystem\RenderingSystem\RenderingContext.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Src\ComponentsSystem\RenderingSystem\Shader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Src\Utlis\NamingConventions.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="include\GLAD\bin\Glad.lib" />
   </ItemGroup>
 </Project>

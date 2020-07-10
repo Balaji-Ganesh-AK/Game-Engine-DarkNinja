@@ -5,6 +5,7 @@
 #define _IMGUI
 
 #include "Window.h"
+#include "ComponentsSystem/RenderingSystem/Shader.h"
 #include "Event/WindowEvent.h"
 namespace  Engine
 {
@@ -29,6 +30,8 @@ namespace  Engine
 		bool OnWindowClose(WindowCloseEvent& e);
 		bool OnWindowsResize(WindowResizeEvent& e);
 		std::unique_ptr<Window> _window_;
+		std::unique_ptr<Shader> _shader_;
+	
 		bool _is_running_ = true;
 
 

@@ -168,6 +168,7 @@
     <ClInclude Include="Src\ComponentsSystem\Entity.h" />
     <ClInclude Include="Src\ComponentsSystem\RenderingSystem\RenderingContext.h" />
     <ClInclude Include="Src\ComponentsSystem\RenderingSystem\ImguiRenderer.h" />
+    <ClInclude Include="Src\ComponentsSystem\RenderingSystem\Shader.h" />
     <ClInclude Include="Src\Event\Event.h" />
     <ClInclude Include="Src\Event\KeyboardEvent.h" />
     <ClInclude Include="Src\Event\MouseEvent.h" />
@@ -201,6 +202,7 @@
     <ClCompile Include="Src\ComponentsSystem\Entity.cpp" />
     <ClCompile Include="Src\ComponentsSystem\RenderingSystem\RenderingContext.cpp" />
     <ClCompile Include="Src\ComponentsSystem\RenderingSystem\ImguiRenderer.cpp" />
+    <ClCompile Include="Src\ComponentsSystem\RenderingSystem\Shader.cpp" />
     <ClCompile Include="Src\Logger.cpp" />
     <ClCompile Include="Src\Engine.cpp" />
     <ClCompile Include="pch.cpp">
@@ -233,6 +235,9 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="Src\Utlis\NamingConventions.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="include\GLAD\bin\Glad.lib" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
