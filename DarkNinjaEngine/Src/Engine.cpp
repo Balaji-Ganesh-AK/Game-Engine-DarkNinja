@@ -42,8 +42,7 @@ namespace Engine
 		glGenVertexArrays(1, &_vertex_array_);
 		glBindVertexArray(_vertex_array_);
 
-		glGenBuffers(1, &_vertex_buffer_);
-		glBindBuffer(GL_ARRAY_BUFFER ,_vertex_buffer_);
+
 
 		float vertices[3 * 3] = {
 			-0.5f,-.5f,0.0f,
@@ -51,19 +50,21 @@ namespace Engine
 			0.0f, 0.5f, 0.0f
 
 		};
-		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+		_vertex_buffer_.reset(VertexBuffer::Create(vertices, sizeof(vertices)));
 
 
 		glEnableVertexAttribArray(0);
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);
 
-		glGenBuffers(1, &_index_buffer_);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,_index_buffer_);
+		//glGenBuffers(1, &_index_buffer_);
+		//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _index_buffer_);
+		uint32_t indices[3] = { 0,1,2 };
 
-		unsigned int indices[3] = { 0,1,2 };
 
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
-
+		_index_buffer__test.reset(IndexBuffer::Create(indices,sizeof(indices)/ sizeof(uint32_t)));
+	
+		//glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 		std::string vertexSrc = R"(
 				#version 430 core
 
@@ -125,7 +126,8 @@ namespace Engine
 			
 			glClear(GL_COLOR_BUFFER_BIT);
 			_shader_->Bind();
-			glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, nullptr);
+			glBindVertexArray(_vertex_array_);
+			glDrawElements(GL_TRIANGLES,_index_buffer__test->GetCount(), GL_UNSIGNED_INT, nullptr);
 
 
 

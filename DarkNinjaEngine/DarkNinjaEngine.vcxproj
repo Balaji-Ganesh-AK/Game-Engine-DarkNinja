@@ -164,8 +164,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Src\PlatformSpecific\OpenGL\OpenGLBuffer.h" />
     <ClInclude Include="Src\ComponentsSystem\Components.h" />
     <ClInclude Include="Src\ComponentsSystem\Entity.h" />
+    <ClInclude Include="Src\ComponentsSystem\RenderingSystem\Buffer.h" />
     <ClInclude Include="Src\ComponentsSystem\RenderingSystem\RenderingContext.h" />
     <ClInclude Include="Src\ComponentsSystem\RenderingSystem\ImguiRenderer.h" />
     <ClInclude Include="Src\ComponentsSystem\RenderingSystem\Shader.h" />
@@ -199,7 +201,9 @@
     <ClInclude Include="Src\PlatformSpecific\Windows\WindowsWindow.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Src\PlatformSpecific\OpenGL\OpenGLBuffer.cpp" />
     <ClCompile Include="Src\ComponentsSystem\Entity.cpp" />
+    <ClCompile Include="Src\ComponentsSystem\RenderingSystem\Buffer.cpp" />
     <ClCompile Include="Src\ComponentsSystem\RenderingSystem\RenderingContext.cpp" />
     <ClCompile Include="Src\ComponentsSystem\RenderingSystem\ImguiRenderer.cpp" />
     <ClCompile Include="Src\ComponentsSystem\RenderingSystem\Shader.cpp" />
