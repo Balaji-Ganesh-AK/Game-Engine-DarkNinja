@@ -53,18 +53,21 @@ namespace Engine
 
 		_vertex_buffer_.reset(VertexBuffer::Create(vertices, sizeof(vertices)));
 
-
-		glEnableVertexAttribArray(0);
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);
-
-		//glGenBuffers(1, &_index_buffer_);
-		//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _index_buffer_);
 		uint32_t indices[3] = { 0,1,2 };
 
 
-		_index_buffer__test.reset(IndexBuffer::Create(indices,sizeof(indices)/ sizeof(uint32_t)));
-	
-		//glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+		_index_buffer_.reset(IndexBuffer::Create(indices,std::size(indices)));
+
+	/*	BufferLayout layout = {
+			{
+				ShaderDataType::Vec3, "a_Position"
+			}
+		}*/
+
+		glEnableVertexAttribArray(0);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_TRUE, 3 * sizeof(float), nullptr);
+
+		
 		std::string vertexSrc = R"(
 				#version 430 core
 
@@ -126,8 +129,8 @@ namespace Engine
 			
 			glClear(GL_COLOR_BUFFER_BIT);
 			_shader_->Bind();
-			glBindVertexArray(_vertex_array_);
-			glDrawElements(GL_TRIANGLES,_index_buffer__test->GetCount(), GL_UNSIGNED_INT, nullptr);
+			//glBindVertexArray(_vertex_array_);
+			glDrawElements(GL_TRIANGLES,_index_buffer_->GetCount(), GL_UNSIGNED_INT, nullptr);
 
 
 
