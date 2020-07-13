@@ -1,7 +1,7 @@
 #pragma once
 
 
-
+#define _LOGGER
 #define _IMGUI
 
 #include "Window.h"
@@ -33,12 +33,13 @@ namespace  Engine
 		std::unique_ptr<Window> _window_;
 		std::unique_ptr<Shader> _shader_;
 		std::unique_ptr<VertexBuffer> _vertex_buffer_;
-		std::unique_ptr<IndexBuffer> _index_buffer__test;
+		std::unique_ptr<IndexBuffer> _index_buffer_;
+		
 	
 		bool _is_running_ = true;
 
 
-		unsigned int _vertex_array_, _index_buffer_;
+		unsigned int _vertex_array_;
 	};
     Application* CreateApplication();
 }

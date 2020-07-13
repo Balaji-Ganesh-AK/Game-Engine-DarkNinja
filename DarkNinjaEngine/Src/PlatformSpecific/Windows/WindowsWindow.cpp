@@ -174,6 +174,7 @@ namespace Engine
 
 	void WindowsWindow::Update()
 	{
+		
 		_rendering_context_->SwapBuffers();
 	}
 
