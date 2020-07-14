@@ -17,27 +17,7 @@ namespace Engine
 
 	Application* Application::_instance_ = nullptr;
 
-	static GLenum ShaderDataTypeToOpenGlType(ShaderDataType Type)
-	{
-		switch (Type)
-		{
-		
-		case ShaderDataType::FVec: return GL_FLOAT;
-		case ShaderDataType::FVec2:return GL_FLOAT;
-		case ShaderDataType::FVec3:return GL_FLOAT;
-		case ShaderDataType::FVec4:return GL_FLOAT;
-		case ShaderDataType::Mat3: return GL_FLOAT;
-		case ShaderDataType::Mat4: return GL_FLOAT;
-		case ShaderDataType::Int:  return GL_INT;
-		case ShaderDataType::Bool: return GL_BOOL;
-		}
-
-
-#ifdef _LOGGER
-		DNE_SIMPLE_ASSERT(false, "Unknown Data type");
-#endif
-		return 0;
-	}
+	
 	
 	Application::Application()
 	{
@@ -55,16 +35,9 @@ namespace Engine
 #ifdef  _IMGUI
 		IMGUI::Instance().Init();
 #endif
-#ifdef _LOGGER
-		
-		/*DNE_ENGINE_TRACE("Game Object name!", test->GetName());*/
-
-#endif
-
-		glGenVertexArrays(1, &_vertex_array_);
-		glBindVertexArray(_vertex_array_);
 
 
+		_vertex_array_.reset(VertexArray::Create());
 
 		float vertices[3 * 7] = {
 			-0.5f,-.5f, 0.0f,    1.0f, 1.0f, 0.0f, 1.0f,
@@ -75,11 +48,6 @@ namespace Engine
 
 		_vertex_buffer_.reset(VertexBuffer::Create(vertices, sizeof(vertices)));
 
-		uint32_t indices[3] = { 0,1,2 };
-
-
-		_index_buffer_.reset(IndexBuffer::Create(indices,std::size(indices)));
-
 		{
 			BufferLayout layout = {
 				{ShaderDataType::FVec3, "a_Position"},
@@ -88,22 +56,16 @@ namespace Engine
 			};
 			_vertex_buffer_->SetLayout(layout);
 		}
-		
-		uint32_t index = 0;
-		const auto& layout = _vertex_buffer_->GetLayout();
-		for(auto const &element : layout)
-		{
-			glEnableVertexAttribArray(index);
-			glVertexAttribPointer(index,
-				element.GetComponentCount(),
-				ShaderDataTypeToOpenGlType(element.Type),
-				element.Normalized ? GL_TRUE : GL_FALSE,
-				layout.GetStride(),
-				reinterpret_cast<const void*>(element.Offset));
-			index++;
-		}
-	
-	
+
+		_vertex_array_->AddVertexBuffer(_vertex_buffer_);
+
+
+		uint32_t indices[3] = { 0,1,2 };
+
+
+		_index_buffer_.reset(IndexBuffer::Create(indices, std::size(indices)));
+		_vertex_array_->SetIndexBuffer(_index_buffer_);
+
 		std::string vertexSrc = R"(
 				#version 430 core
 
@@ -170,7 +132,7 @@ namespace Engine
 			glClear(GL_COLOR_BUFFER_BIT);
 			glClearColor(0.1,0.1,0.1,0.1);
 			_shader_->Bind();
-			//glBindVertexArray(_vertex_array_);
+			_vertex_array_->Bind();
 			glDrawElements(GL_TRIANGLES,_index_buffer_->GetCount(), GL_UNSIGNED_INT, nullptr);
 
 

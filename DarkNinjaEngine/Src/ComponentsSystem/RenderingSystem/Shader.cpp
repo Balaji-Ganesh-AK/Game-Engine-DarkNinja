@@ -8,14 +8,10 @@
 
 namespace Engine
 {
-
 	Shader::Shader(const std::string& vertexShaderSrc, const std::string& fragmentShaderSrc)
 	{
-
-
-
-			// Create an empty vertex shader handle
-			GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
+		// Create an empty vertex shader handle
+		GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
 
 		// Send the vertex shader source code to GL
 		// Note that std::string's .c_str is NULL character terminated.
@@ -72,7 +68,7 @@ namespace Engine
 			glDeleteShader(vertexShader);
 
 			DNE_ENGINE_ERROR("{0}", infoLog.data());
-			DNE_ENGINE_ASSERT(false,"Fragment Shader compilation failed!");
+			DNE_ENGINE_ASSERT(false, "Fragment Shader compilation failed!");
 			return;
 		}
 
