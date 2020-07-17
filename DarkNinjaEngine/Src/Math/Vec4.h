@@ -3,63 +3,63 @@
 
 namespace  Engine
 {
-	struct  vector4D
+	struct  vec4
 	{
 		float x, y, z, w;
-		vector4D()=default;
-		vector4D(float x, float y, float z, float w);
+		vec4()=default;
+		vec4(float x, float y, float z, float w);
 
 
-		static vector4D Down();
-		static vector4D Zero();
-		static vector4D Up();
-		static vector4D Right();
-		static vector4D Left();
+		static vec4 Down();
+		static vec4 Zero();
+		static vec4 Up();
+		static vec4 Right();
+		static vec4 Left();
 
-		vector4D& Add(const vector4D& other);
-		vector4D& Subtract(const vector4D& other);
-		vector4D& Multiply(const vector4D& other);
-		vector4D& Divide(const vector4D& other);
+		vec4& Add(const vec4& other);
+		vec4& Subtract(const vec4& other);
+		vec4& Multiply(const vec4& other);
+		vec4& Divide(const vec4& other);
 
-		vector4D& Add(float value);
-		vector4D& Subtract(float value);
-		vector4D& Multiply(float value);
-		vector4D& Divide(float value);
+		vec4& Add(float value);
+		vec4& Subtract(float value);
+		vec4& Multiply(float value);
+		vec4& Divide(float value);
 
-		friend vector4D operator+(vector4D left, const vector4D& right);
-		friend vector4D operator-(vector4D left, const vector4D& right);
-		friend vector4D operator*(vector4D left, const vector4D& right);
-		friend vector4D operator/(vector4D left, const vector4D& right);
+		friend vec4 operator+(vec4 left, const vec4& right);
+		friend vec4 operator-(vec4 left, const vec4& right);
+		friend vec4 operator*(vec4 left, const vec4& right);
+		friend vec4 operator/(vec4 left, const vec4& right);
 
-		friend vector4D operator+(vector4D left, float value);
-		friend vector4D operator-(vector4D left, float value);
-		friend vector4D operator*(vector4D left, float value);
-		friend vector4D operator/(vector4D left, float value);
+		friend vec4 operator+(vec4 left, float value);
+		friend vec4 operator-(vec4 left, float value);
+		friend vec4 operator*(vec4 left, float value);
+		friend vec4 operator/(vec4 left, float value);
 
-		bool operator==(const vector4D& other) const;
-		bool operator!=(const vector4D& other) const;
-		bool operator>(const vector4D& other) const;
-		bool operator<(const vector4D& other) const;
-		bool operator>=(const vector4D& other) const;
-		bool operator<=(const vector4D& other) const;
+		bool operator==(const vec4& other) const;
+		bool operator!=(const vec4& other) const;
+		bool operator>(const vec4& other) const;
+		bool operator<(const vec4& other) const;
+		bool operator>=(const vec4& other) const;
+		bool operator<=(const vec4& other) const;
 
-		vector4D operator+=(const vector4D& other);
-		vector4D operator-=(const vector4D& other);
-		vector4D operator*=(const vector4D& other);
-		vector4D operator/=(const vector4D& other);
+		vec4 operator+=(const vec4& other);
+		vec4 operator-=(const vec4& other);
+		vec4 operator*=(const vec4& other);
+		vec4 operator/=(const vec4& other);
 
-		vector4D operator+=(float value);
-		vector4D operator-=(float value);
-		vector4D operator*=(float value);
-		vector4D operator/=(float value);
+		vec4 operator+=(float value);
+		vec4 operator-=(float value);
+		vec4 operator*=(float value);
+		vec4 operator/=(float value);
 
 
 		float Magnitude() const;
-		vector4D Normalize() const;
-		float Dot(const vector4D& other)const;
+		vec4 Normalize() const;
+		float Dot(const vec4& other)const;
 
 
-		friend std::ostream& operator<<(std::ostream& stream, const vector4D& other);
+		friend std::ostream& operator<<(std::ostream& stream, const vec4& other);
 
 
 	};

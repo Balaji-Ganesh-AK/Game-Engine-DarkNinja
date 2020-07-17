@@ -165,7 +165,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Src\ComponentsSystem\RenderingSystem\Renderer.h" />
     <ClInclude Include="Src\ComponentsSystem\RenderingSystem\VertexArray.h" />
+    <ClInclude Include="Src\PlatformSpecific\OpenGL\OpenGLRenderer.h" />
     <ClInclude Include="Src\PlatformSpecific\OpenGL\OpenGLBuffer.h" />
     <ClInclude Include="Src\ComponentsSystem\Components.h" />
     <ClInclude Include="Src\ComponentsSystem\Entity.h" />
@@ -204,6 +206,7 @@
     <ClInclude Include="Src\PlatformSpecific\Windows\WindowsWindow.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Src\ComponentsSystem\RenderingSystem\Renderer.cpp" />
     <ClCompile Include="Src\ComponentsSystem\RenderingSystem\VertexArray.cpp" />
     <ClCompile Include="Src\PlatformSpecific\OpenGL\OpenGLBuffer.cpp" />
     <ClCompile Include="Src\ComponentsSystem\Entity.cpp" />
@@ -238,6 +241,7 @@
     <ClCompile Include="Src\PlatformSpecific\OpenGL\ImGui\imgui_draw.cpp" />
     <ClCompile Include="Src\PlatformSpecific\OpenGL\ImGui\imgui_widgets.cpp" />
     <ClCompile Include="Src\PlatformSpecific\OpenGL\OpenGLContext.cpp" />
+    <ClCompile Include="Src\PlatformSpecific\OpenGL\OpenGLRenderer.cpp" />
     <ClCompile Include="Src\PlatformSpecific\OpenGL\OpenGLVertexArray.cpp" />
     <ClCompile Include="Src\PlatformSpecific\Windows\WindowInput.cpp" />
     <ClCompile Include="Src\PlatformSpecific\Windows\WindowsWindow.cpp" />

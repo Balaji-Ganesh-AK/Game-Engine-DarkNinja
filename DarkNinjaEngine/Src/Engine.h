@@ -8,6 +8,7 @@
 #include "ComponentsSystem/RenderingSystem/Buffer.h"
 #include "ComponentsSystem/RenderingSystem/Shader.h"
 #include "ComponentsSystem/RenderingSystem/VertexArray.h"
+#include "ComponentsSystem/RenderingSystem/Renderer.h"
 #include "Event/WindowEvent.h"
 namespace  Engine
 {
@@ -31,13 +32,17 @@ namespace  Engine
 		static Application* _instance_;
 		bool OnWindowClose(WindowCloseEvent& e);
 		bool OnWindowsResize(WindowResizeEvent& e);
+
+		vec4 _clear_color_ = vec4(0.1, 0.1, 0.1, 0.1);
 		
 		std::unique_ptr<Window> _window_;
 		std::shared_ptr<Shader> _shader_;
+		std::shared_ptr<Shader> _shader_square_;
 		
 		std::shared_ptr<VertexArray> _vertex_array_;
-		std::shared_ptr<VertexBuffer> _vertex_buffer_;
-		std::shared_ptr<IndexBuffer> _index_buffer_;
+
+		std::shared_ptr<VertexArray> _vertex_array_square_;
+	
 	
 		bool _is_running_ = true;
 

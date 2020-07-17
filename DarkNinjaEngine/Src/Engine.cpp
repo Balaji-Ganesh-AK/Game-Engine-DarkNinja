@@ -3,7 +3,6 @@
 
 #include "pch.h"
 #include "Engine.h"
-#include <glad/glad.h>
 #include "Logger.h"
 #include "ComponentsSystem/Entity.h"
 #include "ComponentsSystem/RenderingSystem/ImguiRenderer.h"
@@ -32,6 +31,7 @@ namespace Engine
 		_window_ = std::unique_ptr<Window>(Window::Create());
 		_window_->SetEventCallBack(std::bind(&Application::OnEvent, this, std::placeholders::_1));
 		std::cout << "Dark Ninja Engine Started!" << std::endl;
+		
 #ifdef  _IMGUI
 		IMGUI::Instance().Init();
 #endif
@@ -45,7 +45,7 @@ namespace Engine
 			0.0f, 0.5f, 0.0f,    0.0f, 1.0f, 0.0f, 1.0f
 
 		};
-
+		std::shared_ptr<VertexBuffer> _vertex_buffer_;
 		_vertex_buffer_.reset(VertexBuffer::Create(vertices, sizeof(vertices)));
 
 		{
@@ -63,6 +63,7 @@ namespace Engine
 		uint32_t indices[3] = { 0,1,2 };
 
 
+		std::shared_ptr<IndexBuffer> _index_buffer_;
 		_index_buffer_.reset(IndexBuffer::Create(indices, std::size(indices)));
 		_vertex_array_->SetIndexBuffer(_index_buffer_);
 
@@ -98,6 +99,71 @@ namespace Engine
 		)";
 		
 		_shader_.reset(new Shader(vertexSrc,fragmentSrc));
+
+
+
+		//square
+		float verticessq[3 * 4] = {
+		-0.5f,-.5f, 0.0f,    
+		0.5f, -0.5f, 0.0f,   
+		0.5f, 0.5f, 0.0f,    
+		-0.5f, 0.5f, 0.0f
+
+		};
+		
+		_vertex_array_square_.reset(VertexArray::Create());
+
+		std::shared_ptr<VertexBuffer> _vertex_buffer_square;
+		_vertex_buffer_square.reset(VertexBuffer::Create(verticessq, sizeof(verticessq)));
+
+		{
+			BufferLayout layoutsquare = {
+				{ShaderDataType::FVec3, "a_Position"},
+
+			};
+			_vertex_buffer_square->SetLayout(layoutsquare);
+		}
+		_vertex_array_square_->AddVertexBuffer(_vertex_buffer_square);
+
+		uint32_t indicessquare[6] = { 0,1,2 ,2,3,0};
+
+
+		std::shared_ptr<IndexBuffer> _index_buffer_square;
+		_index_buffer_square.reset(IndexBuffer::Create(indicessquare, std::size(indicessquare)));
+		_vertex_array_square_->SetIndexBuffer(_index_buffer_square);
+
+
+		std::string vertexSrcSquare = R"(
+				#version 430 core
+
+		layout(location = 0) in vec3 a_Position;
+	
+		out vec3 v_Position;
+
+		void main()
+		{
+			v_Position = a_Position;
+			gl_Position = vec4(a_Position,1.0);
+		}
+
+		)";
+
+		std::string fragmentSrcSquare = R"(
+				#version 430 core
+
+		layout(location = 0) out vec4 o_Color;
+
+		in vec3 v_Position;
+
+		void main()
+		{
+			o_Color = vec4(0.2,0.3,0.8,1.0);
+
+		}
+
+		)";
+
+		_shader_square_.reset(new Shader(vertexSrcSquare, fragmentSrcSquare));
 	}
 
 	Application::~Application()
@@ -129,11 +195,25 @@ namespace Engine
 		while(_is_running_)
 		{
 			
-			glClear(GL_COLOR_BUFFER_BIT);
-			glClearColor(0.1,0.1,0.1,0.1);
+		
+			Renderer::GetInstance().ClearColor();
+			Renderer::GetInstance().SetClearColor(_clear_color_);
+
+			Renderer::BeginScene();
+			
+			_shader_square_->Bind();
+			Renderer::Submit(_vertex_array_square_);
+		
+
 			_shader_->Bind();
-			_vertex_array_->Bind();
-			glDrawElements(GL_TRIANGLES,_index_buffer_->GetCount(), GL_UNSIGNED_INT, nullptr);
+			Renderer::Submit(_vertex_array_);
+			
+			
+			Renderer::EndScene();
+		
+			
+			
+			
 
 
 
