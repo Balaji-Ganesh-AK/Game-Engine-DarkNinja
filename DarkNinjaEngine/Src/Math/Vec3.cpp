@@ -2,62 +2,62 @@
 #include "Vec3.h"
 
 
-namespace vector3D
+namespace Engine
 {
-	vector3D::vector3D() :x(0.0f), y(0.0f), z(0.0f)
+	vec3::vec3() :x(0.0f), y(0.0f), z(0.0f)
 	{
 	}
 
-	vector3D::vector3D(float x, float y, float z) : x(x), y(y),z(z)
+	vec3::vec3(float x, float y, float z) : x(x), y(y),z(z)
 	{
 	}
 
-	vector3D vector3D::Down()
+	vec3 vec3::Down()
 	{
-		vector3D temp;
+		vec3 temp;
 		temp.x = 0.0;
 		temp.y = 1.0;
 		temp.z = 0.0;
 		return temp;
 	}
 
-	vector3D vector3D::Zero()
+	vec3 vec3::Zero()
 	{
-		vector3D temp;
+		vec3 temp;
 		temp.x = 0.0;
 		temp.y = 0.0;
 		temp.z = 0.0;
 		return temp;
 	}
 
-	vector3D vector3D::Up()
+	vec3 vec3::Up()
 	{
-		vector3D temp;
+		vec3 temp;
 		temp.x = 0;
 		temp.y = -1;
 		temp.z = 0;
 		return temp;
 	}
 
-	vector3D vector3D::Right()
+	vec3 vec3::Right()
 	{
-		vector3D temp;
+		vec3 temp;
 		temp.x = 1;
 		temp.y = 0;
 		temp.z = 0;
 		return temp;
 	}
 
-	vector3D vector3D::Left()
+	vec3 vec3::Left()
 	{
-		vector3D temp;
+		vec3 temp;
 		temp.x = -1;
 		temp.y = 0;
 		temp.z = 0;
 		return temp;
 	}
 
-	vector3D& vector3D::Add(const vector3D& other)
+	vec3& vec3::Add(const vec3& other)
 	{
 		x += other.x;
 		y += other.y;
@@ -65,7 +65,7 @@ namespace vector3D
 		return *this;
 	}
 
-	vector3D& vector3D::Subtract(const vector3D& other)
+	vec3& vec3::Subtract(const vec3& other)
 	{
 		y -= other.y;
 		x -= other.x;
@@ -73,7 +73,7 @@ namespace vector3D
 		return *this;
 	}
 
-	vector3D& vector3D::Multiply(const vector3D& other)
+	vec3& vec3::Multiply(const vec3& other)
 	{
 		x *= other.x;
 		y *= other.y;
@@ -81,7 +81,7 @@ namespace vector3D
 		return *this;
 	}
 
-	vector3D& vector3D::Divide(const vector3D& other)
+	vec3& vec3::Divide(const vec3& other)
 	{
 		x /= other.x;
 		y /= other.y;
@@ -89,7 +89,7 @@ namespace vector3D
 		return *this;
 	}
 
-	vector3D& vector3D::Add(float value)
+	vec3& vec3::Add(float value)
 	{
 		x += value;
 		y += value;
@@ -97,7 +97,7 @@ namespace vector3D
 		return *this;
 	}
 
-	vector3D& vector3D::Subtract(float value)
+	vec3& vec3::Subtract(float value)
 	{
 		x -= value;
 		y -= value;
@@ -105,7 +105,7 @@ namespace vector3D
 		return *this;
 	}
 
-	vector3D& vector3D::Multiply(float value)
+	vec3& vec3::Multiply(float value)
 	{
 		x *= value;
 		y *= value;
@@ -113,7 +113,7 @@ namespace vector3D
 		return *this;
 	}
 
-	vector3D& vector3D::Divide(float value)
+	vec3& vec3::Divide(float value)
 	{
 		x /= value;
 		y /= value;
@@ -121,133 +121,133 @@ namespace vector3D
 		return *this;
 	}
 
-	bool vector3D::operator==(const vector3D& other) const
+	bool vec3::operator==(const vec3& other) const
 	{
 		return x == other.x && y == other.y && z ==other.z;
 	}
 
-	bool vector3D::operator!=(const vector3D& other) const
+	bool vec3::operator!=(const vec3& other) const
 	{
 		return !(*this == other);
 	}
 
-	bool vector3D::operator>(const vector3D& other) const
+	bool vec3::operator>(const vec3& other) const
 	{
 		return x > other.x && y > other.y && z > other.z;
 	}
 
-	bool vector3D::operator<(const vector3D& other) const
+	bool vec3::operator<(const vec3& other) const
 	{
 		return x < other.x && y < other.y && z< other.z;
 	}
 
-	bool vector3D::operator>=(const vector3D& other) const
+	bool vec3::operator>=(const vec3& other) const
 	{
 		return x >= other.x && y >= other.y && z>= other.z;
 	}
 
-	bool vector3D::operator<=(const vector3D& other) const
+	bool vec3::operator<=(const vec3& other) const
 	{
 		return x <= other.x && y <= other.y && z<= other.z;
 	}
 
-	vector3D vector3D::operator+=(const vector3D& other)
+	vec3 vec3::operator+=(const vec3& other)
 	{
 		return Add(other);
 	}
 
-	vector3D vector3D::operator-=(const vector3D& other)
+	vec3 vec3::operator-=(const vec3& other)
 	{
 		return Subtract(other);
 	}
 
-	vector3D vector3D::operator*=(const vector3D& other)
+	vec3 vec3::operator*=(const vec3& other)
 	{
 		return Multiply(other);
 	}
 
-	vector3D vector3D::operator/=(const vector3D& other)
+	vec3 vec3::operator/=(const vec3& other)
 	{
 		return Divide(other);
 	}
 
-	vector3D vector3D::operator+=(float value)
+	vec3 vec3::operator+=(float value)
 	{
 		return Add(value);
 	}
 
-	vector3D vector3D::operator-=(float value)
+	vec3 vec3::operator-=(float value)
 	{
 		return Subtract(value);
 	}
 
-	vector3D vector3D::operator*=(float value)
+	vec3 vec3::operator*=(float value)
 	{
 		return Multiply(value);
 	}
 
-	vector3D vector3D::operator/=(float value)
+	vec3 vec3::operator/=(float value)
 	{
 		return Divide(value);
 	}
 
-	float vector3D::Magnitude() const
+	float vec3::Magnitude() const
 	{
 		return sqrt(x * x + y * y + z*z);
 	}
 
-	vector3D vector3D::Normalize() const
+	vec3 vec3::Normalize() const
 	{
 		float temp = Magnitude();
-		return vector3D(x / temp, y / temp , z/temp);
+		return vec3(x / temp, y / temp , z/temp);
 	}
 
-	float vector3D::Dot(const vector3D& other) const
+	float vec3::Dot(const vec3& other) const
 	{
 		return x * other.x + y * other.y + z*other.z;
 	}
 
-	vector3D operator+(vector3D left, const vector3D& right)
+	vec3 operator+(vec3 left, const vec3& right)
 	{
 		return left.Add(right);
 	}
 
-	vector3D operator-(vector3D left, const vector3D& right)
+	vec3 operator-(vec3 left, const vec3& right)
 	{
 		return left.Subtract(right);
 	}
 
-	vector3D operator*(vector3D left, const vector3D& right)
+	vec3 operator*(vec3 left, const vec3& right)
 	{
 		return left.Multiply(right);
 	}
 
-	vector3D operator/(vector3D left, const vector3D& right)
+	vec3 operator/(vec3 left, const vec3& right)
 	{
 		return left.Divide(right);
 	}
 
-	vector3D operator+(vector3D left, float value)
+	vec3 operator+(vec3 left, float value)
 	{
-		return  vector3D(left.x + value, left.y + value , left.z + value);
+		return  vec3(left.x + value, left.y + value , left.z + value);
 	}
 
-	vector3D operator-(vector3D left, float value)
+	vec3 operator-(vec3 left, float value)
 	{
-		return  vector3D(left.x - value, left.y - value ,left.z - value);
+		return  vec3(left.x - value, left.y - value ,left.z - value);
 	}
 
-	vector3D operator*(vector3D left, float value)
+	vec3 operator*(vec3 left, float value)
 	{
-		return  vector3D(left.x * value, left.y * value, left.z *value);
+		return  vec3(left.x * value, left.y * value, left.z *value);
 	}
 
-	vector3D operator/(vector3D left, float value)
+	vec3 operator/(vec3 left, float value)
 	{
-		return  vector3D(left.x / value, left.y / value, left.z /value);
+		return  vec3(left.x / value, left.y / value, left.z /value);
 	}
 
-	std::ostream& operator<<(std::ostream& stream, const vector3D& other)
+	std::ostream& operator<<(std::ostream& stream, const vec3& other)
 	{
 		stream << "(" << other.x << "," << other.y << "," <<other.z <<")";
 		return stream;

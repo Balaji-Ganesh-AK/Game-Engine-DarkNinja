@@ -1,65 +1,65 @@
 #pragma once
 #include <iostream>
 
-namespace  vector3D
+namespace  Engine
 {
-	struct  vector3D
+	struct  vec3
 	{
 		float x, y ,z;
-		vector3D();
-		vector3D(float x, float y, float z);
+		vec3();
+		vec3(float x, float y, float z);
 
 
-		static vector3D Down();
-		static vector3D Zero();
-		static vector3D Up();
-		static vector3D Right();
-		static vector3D Left();
+		static vec3 Down();
+		static vec3 Zero();
+		static vec3 Up();
+		static vec3 Right();
+		static vec3 Left();
 
-		vector3D& Add(const vector3D& other);
-		vector3D& Subtract(const vector3D& other);
-		vector3D& Multiply(const vector3D& other);
-		vector3D& Divide(const vector3D& other);
+		vec3& Add(const vec3& other);
+		vec3& Subtract(const vec3& other);
+		vec3& Multiply(const vec3& other);
+		vec3& Divide(const vec3& other);
 
-		vector3D& Add(float value);
-		vector3D& Subtract(float value);
-		vector3D& Multiply(float value);
-		vector3D& Divide(float value);
+		vec3& Add(float value);
+		vec3& Subtract(float value);
+		vec3& Multiply(float value);
+		vec3& Divide(float value);
 
-		friend vector3D operator+(vector3D left, const vector3D& right);
-		friend vector3D operator-(vector3D left, const vector3D& right);
-		friend vector3D operator*(vector3D left, const vector3D& right);
-		friend vector3D operator/(vector3D left, const vector3D& right);
+		friend vec3 operator+(vec3 left, const vec3& right);
+		friend vec3 operator-(vec3 left, const vec3& right);
+		friend vec3 operator*(vec3 left, const vec3& right);
+		friend vec3 operator/(vec3 left, const vec3& right);
 
-		friend vector3D operator+(vector3D left, float value);
-		friend vector3D operator-(vector3D left, float value);
-		friend vector3D operator*(vector3D left, float value);
-		friend vector3D operator/(vector3D left, float value);
+		friend vec3 operator+(vec3 left, float value);
+		friend vec3 operator-(vec3 left, float value);
+		friend vec3 operator*(vec3 left, float value);
+		friend vec3 operator/(vec3 left, float value);
 
-		bool operator==(const vector3D& other) const;
-		bool operator!=(const vector3D& other) const;
-		bool operator>(const vector3D& other) const;
-		bool operator<(const vector3D& other) const;
-		bool operator>=(const vector3D& other) const;
-		bool operator<=(const vector3D& other) const;
+		bool operator==(const vec3& other) const;
+		bool operator!=(const vec3& other) const;
+		bool operator>(const vec3& other) const;
+		bool operator<(const vec3& other) const;
+		bool operator>=(const vec3& other) const;
+		bool operator<=(const vec3& other) const;
 
-		vector3D operator+=(const vector3D& other);
-		vector3D operator-=(const vector3D& other);
-		vector3D operator*=(const vector3D& other);
-		vector3D operator/=(const vector3D& other);
+		vec3 operator+=(const vec3& other);
+		vec3 operator-=(const vec3& other);
+		vec3 operator*=(const vec3& other);
+		vec3 operator/=(const vec3& other);
 
-		vector3D operator+=(float value);
-		vector3D operator-=(float value);
-		vector3D operator*=(float value);
-		vector3D operator/=(float value);
+		vec3 operator+=(float value);
+		vec3 operator-=(float value);
+		vec3 operator*=(float value);
+		vec3 operator/=(float value);
 
 
 		float Magnitude() const;
-		vector3D Normalize() const;
-		float Dot(const vector3D& other)const;
+		vec3 Normalize() const;
+		float Dot(const vec3& other)const;
 
 
-		friend std::ostream& operator<<(std::ostream& stream, const vector3D& other);
+		friend std::ostream& operator<<(std::ostream& stream, const vec3& other);
 
 
 	};

@@ -6,7 +6,7 @@ namespace  Engine
 	struct  vec4
 	{
 		float x, y, z, w;
-		vec4()=default;
+		vec4();
 		vec4(float x, float y, float z, float w);
 
 

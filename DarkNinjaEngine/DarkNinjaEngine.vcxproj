@@ -165,6 +165,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Src\ComponentsSystem\RenderingSystem\Camera.h" />
     <ClInclude Include="Src\ComponentsSystem\RenderingSystem\Renderer.h" />
     <ClInclude Include="Src\ComponentsSystem\RenderingSystem\VertexArray.h" />
     <ClInclude Include="Src\PlatformSpecific\OpenGL\OpenGLRenderer.h" />
@@ -202,10 +203,12 @@
     <ClInclude Include="Src\PlatformSpecific\Windows\WindowInput.h" />
     <ClInclude Include="Src\Utlis\Helper.h" />
     <ClInclude Include="Src\Utlis\SmartPointer.h" />
+    <ClInclude Include="Src\Utlis\TimeStamp.h" />
     <ClInclude Include="Src\Window.h" />
     <ClInclude Include="Src\PlatformSpecific\Windows\WindowsWindow.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Src\ComponentsSystem\RenderingSystem\Camera.cpp" />
     <ClCompile Include="Src\ComponentsSystem\RenderingSystem\Renderer.cpp" />
     <ClCompile Include="Src\ComponentsSystem\RenderingSystem\VertexArray.cpp" />
     <ClCompile Include="Src\PlatformSpecific\OpenGL\OpenGLBuffer.cpp" />
@@ -245,6 +248,7 @@
     <ClCompile Include="Src\PlatformSpecific\OpenGL\OpenGLVertexArray.cpp" />
     <ClCompile Include="Src\PlatformSpecific\Windows\WindowInput.cpp" />
     <ClCompile Include="Src\PlatformSpecific\Windows\WindowsWindow.cpp" />
+    <ClCompile Include="Src\Utlis\TimeStamp.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Src\Utlis\NamingConventions.txt" />

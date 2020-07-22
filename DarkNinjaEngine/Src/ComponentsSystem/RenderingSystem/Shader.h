@@ -2,6 +2,7 @@
 
 
 #include <string>
+#include <glm/glm/fwd.hpp>
 
 
 namespace Engine
@@ -15,6 +16,8 @@ namespace Engine
 
 		void Bind() const;
 		 void UnBind() const;
+
+		 void UniformMat4Upload(const std::string& name, const glm::mat4& matrix);
 
 	private:
 		uint32_t _render_ID_;

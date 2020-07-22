@@ -9,16 +9,16 @@
 #include "Input.h"
 #include "KeyCodes.h"
 #include "MouseCodes.h"
-#include "glm/glm/glm.hpp"
+
+
 
 namespace Engine
 {
 
 	Application* Application::_instance_ = nullptr;
-
-	glm::mat4 test;
 	
 	Application::Application()
+		:_camera_(-1,1,-1,1)
 	{
 		_instance_ = this;
 #ifdef _LOGGER
@@ -29,6 +29,7 @@ namespace Engine
 
 		
 		_window_ = std::unique_ptr<Window>(Window::Create());
+		_window_->SetVSync(true);
 		_window_->SetEventCallBack(std::bind(&Application::OnEvent, this, std::placeholders::_1));
 		std::cout << "Dark Ninja Engine Started!" << std::endl;
 		
@@ -72,13 +73,17 @@ namespace Engine
 
 		layout(location = 0) in vec3 a_Position;
 		layout(location = 1) in vec4 a_Color;
+
+		uniform mat4 u_ViewProjection;
+		uniform mat4 u_Transform;
+		
 		out vec3 v_Position;
 		out vec4 v_Color;
 		void main()
 		{
 			v_Position = a_Position;
 		    v_Color =a_Color;
-			gl_Position = vec4(a_Position,1.0);
+			gl_Position = u_ViewProjection*u_Transform*vec4(a_Position,1.0);
 		}
 
 		)";
@@ -137,13 +142,16 @@ namespace Engine
 				#version 430 core
 
 		layout(location = 0) in vec3 a_Position;
-	
+
+		uniform mat4 u_ViewProjection;
+		uniform mat4 u_Transform;
+		
 		out vec3 v_Position;
 
 		void main()
 		{
 			v_Position = a_Position;
-			gl_Position = vec4(a_Position,1.0);
+			gl_Position = u_ViewProjection*u_Transform*vec4(a_Position,1.0);
 		}
 
 		)";
@@ -180,6 +188,7 @@ namespace Engine
 		dispatcher.Dispatch<WindowResizeEvent>(DNE_BIND_SINGLE_EVENT(Application::OnWindowsResize));
 #ifdef _IMGUI
 		IMGUI::Instance().OnEvent(e);
+		Renderer::BeginScene(_camera_);
 #endif
 	}
 
@@ -194,40 +203,49 @@ namespace Engine
 		
 		while(_is_running_)
 		{
+			TimeStamp::Run();
+			DNE_ENGINE_INFO("FPS {0}", 1/TimeStamp::DeltaTime());
 			
+			
+#pragma region Renderer
 		
 			Renderer::GetInstance().ClearColor();
 			Renderer::GetInstance().SetClearColor(_clear_color_);
 
-			Renderer::BeginScene();
-			
-			_shader_square_->Bind();
-			Renderer::Submit(_vertex_array_square_);
-		
 
-			_shader_->Bind();
-			Renderer::Submit(_vertex_array_);
+		
+			
+			Renderer::Submit(_vertex_array_square_,_shader_square_);
+	
+			Renderer::Submit(_vertex_array_,_shader_);
 			
 			
 			Renderer::EndScene();
-		
-			
-			
-			
+#pragma endregion  Renderer
 
-
-
-		
-			EntityManager::Instance().Update();
+			
+		    EntityManager::Instance().Update();
 			
 			if(Input::IsKeyPressed(Key::Space))
+			{
+				
 #ifdef _LOGGER
 			  DNE_ENGINE_TRACE("Space is pressed ");
+			  _camera_position_.x -= .004f;
+			  _camera_position_.y += .004f;
+			  _camera_position_.z -= .004f;
+			  _camera_position_.w += .004f;
+			
+			  _camera_.CameraMove(_camera_position_.x, _camera_position_.y, 
+				  _camera_position_.z, _camera_position_.w);
+				
 #endif
+			}
 			if(Input::IsMousePressed(Mouse::ButtonRight))
 			{
 #ifdef _LOGGER
 				DNE_ENGINE_TRACE("Mouse button is pressed ");
+				
 #endif
 			}
 

@@ -6,10 +6,12 @@
 
 #include "Window.h"
 #include "ComponentsSystem/RenderingSystem/Buffer.h"
+#include "ComponentsSystem/RenderingSystem/Camera.h"
 #include "ComponentsSystem/RenderingSystem/Shader.h"
 #include "ComponentsSystem/RenderingSystem/VertexArray.h"
 #include "ComponentsSystem/RenderingSystem/Renderer.h"
 #include "Event/WindowEvent.h"
+#include "Utlis/TimeStamp.h"
 namespace  Engine
 {
 	
@@ -46,7 +48,10 @@ namespace  Engine
 	
 		bool _is_running_ = true;
 
+		OrthographicCamera _camera_;
 
+	
+		vec4 _camera_position_ = vec4(-1,1,-1,1);
 
 	};
     Application* CreateApplication();

@@ -23,31 +23,23 @@ namespace Engine
 
 		static IMGUI& Instance() { return _instance_; }
 		void Update();
-
-
 		void Init();
-
-
 		void End();
 		void OnEvent(Event& e);
 	private:
 
 
 #pragma region Events
-
-
-		
-		
-		bool OnMouseButtonPressedEvent(MouseButtonPressedEvent& e );
+		bool OnMouseButtonPressedEvent(MouseButtonPressedEvent& e);
 		bool OnMouseButtonReleasedEvent(MouseButtonReleasedEvent& e);
 		bool OnMouseMovedEvent(MouseMovedEvent& e);
 		bool OnMouseScrollEvent(MouseScrollEvent& e);
 		bool OnKeyPressedEvent(KeyPressedEvent& e);
 		bool OnKeyReleasedEvent(KeyReleasedEvent& e);
-		bool OnWindowResizeEvent(WindowResizeEvent&e );
-	
-		
-#pragma endregion 
+		bool OnWindowResizeEvent(WindowResizeEvent& e);
+
+
+#pragma endregion
 		static IMGUI _instance_;
 		float _time_ = 0.0f;
 	};

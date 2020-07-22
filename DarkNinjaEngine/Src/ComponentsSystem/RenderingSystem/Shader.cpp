@@ -5,6 +5,7 @@
 #include <glad/glad.h>
 
 #include "Logger.h"
+#include "glm/glm/gtc/type_ptr.hpp"
 
 namespace Engine
 {
@@ -125,5 +126,12 @@ namespace Engine
 	void Shader::UnBind() const
 	{
 		glUseProgram(0);
+	}
+
+	void Shader::UniformMat4Upload(const std::string& name,const glm::mat4& matrix)
+	{
+		GLint Location = glGetUniformLocation(_render_ID_, name.c_str());
+		glUniformMatrix4fv(Location, 1,GL_FALSE, glm::value_ptr(matrix));
+		
 	}
 }

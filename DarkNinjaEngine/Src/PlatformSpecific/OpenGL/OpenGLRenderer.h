@@ -10,7 +10,7 @@ namespace Engine
 		void ClearColor() const override;
 
 	private:
-		void DrawIndexed(const std::shared_ptr<VertexArray>& vertexArray) const override;
+		void DrawIndexed(const std::shared_ptr<VertexArray>& vertexArray, const std::shared_ptr<Shader>& ShaderData) const override;
 		
 	};
 }
