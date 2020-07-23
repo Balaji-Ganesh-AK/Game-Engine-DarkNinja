@@ -34,7 +34,7 @@ namespace Engine
 		std::cout << "Dark Ninja Engine Started!" << std::endl;
 		
 #ifdef  _IMGUI
-		IMGUI::Instance().Init();
+	
 #endif
 
 
@@ -187,7 +187,7 @@ namespace Engine
 		dispatcher.Dispatch<WindowCloseEvent>(DNE_BIND_SINGLE_EVENT(Application::OnWindowClose));
 		dispatcher.Dispatch<WindowResizeEvent>(DNE_BIND_SINGLE_EVENT(Application::OnWindowsResize));
 #ifdef _IMGUI
-		IMGUI::Instance().OnEvent(e);
+		
 		Renderer::BeginScene(_camera_);
 #endif
 	}
@@ -248,10 +248,6 @@ namespace Engine
 				
 #endif
 			}
-
-#ifdef  _IMGUI
-			IMGUI::Instance().Update();
-#endif
 			
 			_window_->Update();
 		

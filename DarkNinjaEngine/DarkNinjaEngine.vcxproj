@@ -165,12 +165,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Src\ComponentsSystem\Components.h" />
     <ClInclude Include="Src\ComponentsSystem\RenderingSystem\Camera.h" />
     <ClInclude Include="Src\ComponentsSystem\RenderingSystem\Renderer.h" />
     <ClInclude Include="Src\ComponentsSystem\RenderingSystem\VertexArray.h" />
     <ClInclude Include="Src\PlatformSpecific\OpenGL\OpenGLRenderer.h" />
     <ClInclude Include="Src\PlatformSpecific\OpenGL\OpenGLBuffer.h" />
-    <ClInclude Include="Src\ComponentsSystem\Components.h" />
     <ClInclude Include="Src\ComponentsSystem\Entity.h" />
     <ClInclude Include="Src\ComponentsSystem\RenderingSystem\Buffer.h" />
     <ClInclude Include="Src\ComponentsSystem\RenderingSystem\RenderingContext.h" />
@@ -191,13 +191,6 @@
     <ClInclude Include="Src\Math\Vec3.h" />
     <ClInclude Include="Src\Math\Vec4.h" />
     <ClInclude Include="Src\MouseCodes.h" />
-    <ClInclude Include="Src\PlatformSpecific\OpenGL\ImGui\imconfig.h" />
-    <ClInclude Include="Src\PlatformSpecific\OpenGL\ImGui\imgui.h" />
-    <ClInclude Include="Src\PlatformSpecific\OpenGL\ImGui\imguiOpenGLRenderer.h" />
-    <ClInclude Include="Src\PlatformSpecific\OpenGL\ImGui\imgui_internal.h" />
-    <ClInclude Include="Src\PlatformSpecific\OpenGL\ImGui\imstb_rectpack.h" />
-    <ClInclude Include="Src\PlatformSpecific\OpenGL\ImGui\imstb_textedit.h" />
-    <ClInclude Include="Src\PlatformSpecific\OpenGL\ImGui\imstb_truetype.h" />
     <ClInclude Include="Src\PlatformSpecific\OpenGL\OpenGLContext.h" />
     <ClInclude Include="Src\PlatformSpecific\OpenGL\OpenGLVertexArray.h" />
     <ClInclude Include="Src\PlatformSpecific\Windows\WindowInput.h" />
@@ -228,21 +221,6 @@
     <ClCompile Include="Src\Math\Vec2.cpp" />
     <ClCompile Include="Src\Math\Vec3.cpp" />
     <ClCompile Include="Src\Math\Vec4.cpp" />
-    <ClCompile Include="Src\PlatformSpecific\OpenGL\ImGui\imgui.cpp">
-      <DisableSpecificWarnings Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">26495</DisableSpecificWarnings>
-      <DisableSpecificWarnings Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">26495</DisableSpecificWarnings>
-      <DisableSpecificWarnings Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">26495</DisableSpecificWarnings>
-      <DisableSpecificWarnings Condition="'$(Configuration)|$(Platform)'=='Release|x64'">26495</DisableSpecificWarnings>
-    </ClCompile>
-    <ClCompile Include="Src\PlatformSpecific\OpenGL\ImGui\imguiOpenGLRenderer.cpp">
-      <DisableSpecificWarnings Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
-      <DisableSpecificWarnings Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
-      <DisableSpecificWarnings Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
-      <DisableSpecificWarnings Condition="'$(Configuration)|$(Platform)'=='Release|x64'">4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
-    </ClCompile>
-    <ClCompile Include="Src\PlatformSpecific\OpenGL\ImGui\imgui_demo.cpp" />
-    <ClCompile Include="Src\PlatformSpecific\OpenGL\ImGui\imgui_draw.cpp" />
-    <ClCompile Include="Src\PlatformSpecific\OpenGL\ImGui\imgui_widgets.cpp" />
     <ClCompile Include="Src\PlatformSpecific\OpenGL\OpenGLContext.cpp" />
     <ClCompile Include="Src\PlatformSpecific\OpenGL\OpenGLRenderer.cpp" />
     <ClCompile Include="Src\PlatformSpecific\OpenGL\OpenGLVertexArray.cpp" />
