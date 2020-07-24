@@ -169,6 +169,13 @@
     <ClInclude Include="Src\ComponentsSystem\RenderingSystem\Camera.h" />
     <ClInclude Include="Src\ComponentsSystem\RenderingSystem\Renderer.h" />
     <ClInclude Include="Src\ComponentsSystem\RenderingSystem\VertexArray.h" />
+    <ClInclude Include="Src\PlatformSpecific\OpenGL\ImGui\imgui.h" />
+    <ClInclude Include="Src\PlatformSpecific\OpenGL\ImGui\imgui_impl_glfw.h" />
+    <ClInclude Include="Src\PlatformSpecific\OpenGL\ImGui\imgui_impl_opengl3.h" />
+    <ClInclude Include="Src\PlatformSpecific\OpenGL\ImGui\imgui_internal.h" />
+    <ClInclude Include="Src\PlatformSpecific\OpenGL\ImGui\imstb_rectpack.h" />
+    <ClInclude Include="Src\PlatformSpecific\OpenGL\ImGui\imstb_textedit.h" />
+    <ClInclude Include="Src\PlatformSpecific\OpenGL\ImGui\imstb_truetype.h" />
     <ClInclude Include="Src\PlatformSpecific\OpenGL\OpenGLRenderer.h" />
     <ClInclude Include="Src\PlatformSpecific\OpenGL\OpenGLBuffer.h" />
     <ClInclude Include="Src\ComponentsSystem\Entity.h" />
@@ -204,6 +211,12 @@
     <ClCompile Include="Src\ComponentsSystem\RenderingSystem\Camera.cpp" />
     <ClCompile Include="Src\ComponentsSystem\RenderingSystem\Renderer.cpp" />
     <ClCompile Include="Src\ComponentsSystem\RenderingSystem\VertexArray.cpp" />
+    <ClCompile Include="Src\PlatformSpecific\OpenGL\ImGui\imgui.cpp" />
+    <ClCompile Include="Src\PlatformSpecific\OpenGL\ImGui\imgui_demo.cpp" />
+    <ClCompile Include="Src\PlatformSpecific\OpenGL\ImGui\imgui_draw.cpp" />
+    <ClCompile Include="Src\PlatformSpecific\OpenGL\ImGui\imgui_impl_glfw.cpp" />
+    <ClCompile Include="Src\PlatformSpecific\OpenGL\ImGui\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="Src\PlatformSpecific\OpenGL\ImGui\imgui_widgets.cpp" />
     <ClCompile Include="Src\PlatformSpecific\OpenGL\OpenGLBuffer.cpp" />
     <ClCompile Include="Src\ComponentsSystem\Entity.cpp" />
     <ClCompile Include="Src\ComponentsSystem\RenderingSystem\Buffer.cpp" />

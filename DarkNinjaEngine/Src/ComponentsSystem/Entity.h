@@ -21,6 +21,7 @@ namespace Engine
 
 		void Init();
 		void Update();
+		void UpdateOnGUI();
 		void End();
 
 		void AttachComponent(Components* component);
@@ -75,6 +76,7 @@ namespace Engine
 		EntityManager();
 		void Init();
 		void Update();
+		void UpdateOnGUI();
 		void End();
 		void AddEntity(Entity* entity);
 

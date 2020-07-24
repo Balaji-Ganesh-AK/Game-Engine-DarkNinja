@@ -7,6 +7,7 @@
 #include "Window.h"
 #include "ComponentsSystem/RenderingSystem/Buffer.h"
 #include "ComponentsSystem/RenderingSystem/Camera.h"
+#include "ComponentsSystem/RenderingSystem/ImguiRenderer.h"
 #include "ComponentsSystem/RenderingSystem/Shader.h"
 #include "ComponentsSystem/RenderingSystem/VertexArray.h"
 #include "ComponentsSystem/RenderingSystem/Renderer.h"
@@ -44,8 +45,9 @@ namespace  Engine
 		std::shared_ptr<VertexArray> _vertex_array_;
 
 		std::shared_ptr<VertexArray> _vertex_array_square_;
-	
-	
+
+		IMGUI* m_ImGuiLayer;
+		
 		bool _is_running_ = true;
 
 		OrthographicCamera _camera_;

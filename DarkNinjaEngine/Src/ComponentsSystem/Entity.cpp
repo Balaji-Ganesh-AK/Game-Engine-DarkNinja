@@ -38,6 +38,15 @@ namespace Engine
 		for(int i = 0; i<_components_list_.size(); i ++)
 		{
 			_components_list_[i]->Update();
+			
+		}
+	}
+
+	void Entity::UpdateOnGUI()
+	{
+		for (int i = 0; i < _components_list_.size(); i++)
+		{
+			_components_list_[i]->OnGUI();
 		}
 	}
 
@@ -76,6 +85,15 @@ namespace Engine
 		}
 
 	}
+
+	void EntityManager::UpdateOnGUI()
+	{
+		for (auto it = EntityManager::Instance()._entity_list_stack_.begin(); it != EntityManager::Instance()._entity_list_stack_.end(); ++it)
+		{
+			it->second->UpdateOnGUI();
+		}
+	}
+
 
 	void EntityManager::AddEntity(Entity* entity)
 	{

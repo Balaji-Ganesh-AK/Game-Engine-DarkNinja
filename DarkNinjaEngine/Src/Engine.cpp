@@ -3,6 +3,9 @@
 
 #include "pch.h"
 #include "Engine.h"
+
+#include <imgui.h>
+
 #include "Logger.h"
 #include "ComponentsSystem/Entity.h"
 #include "ComponentsSystem/RenderingSystem/ImguiRenderer.h"
@@ -32,7 +35,8 @@ namespace Engine
 		_window_->SetVSync(true);
 		_window_->SetEventCallBack(std::bind(&Application::OnEvent, this, std::placeholders::_1));
 		std::cout << "Dark Ninja Engine Started!" << std::endl;
-		
+		m_ImGuiLayer = new IMGUI;
+		m_ImGuiLayer->Init();
 #ifdef  _IMGUI
 	
 #endif
@@ -172,6 +176,9 @@ namespace Engine
 		)";
 
 		_shader_square_.reset(new Shader(vertexSrcSquare, fragmentSrcSquare));
+
+
+		
 	}
 
 	Application::~Application()
@@ -188,7 +195,7 @@ namespace Engine
 		dispatcher.Dispatch<WindowResizeEvent>(DNE_BIND_SINGLE_EVENT(Application::OnWindowsResize));
 #ifdef _IMGUI
 		
-		Renderer::BeginScene(_camera_);
+	
 #endif
 	}
 
@@ -204,11 +211,11 @@ namespace Engine
 		while(_is_running_)
 		{
 			TimeStamp::Run();
-			DNE_ENGINE_INFO("FPS {0}", 1/TimeStamp::DeltaTime());
+			//DNE_ENGINE_INFO("FPS {0}", 1/TimeStamp::DeltaTime());
 			
 			
 #pragma region Renderer
-		
+			Renderer::BeginScene(_camera_);
 			Renderer::GetInstance().ClearColor();
 			Renderer::GetInstance().SetClearColor(_clear_color_);
 
@@ -223,7 +230,10 @@ namespace Engine
 			Renderer::EndScene();
 #pragma endregion  Renderer
 
-			
+
+			m_ImGuiLayer->Begin();
+			EntityManager::Instance().UpdateOnGUI();
+			m_ImGuiLayer->End();
 		    EntityManager::Instance().Update();
 			
 			if(Input::IsKeyPressed(Key::Space))
@@ -236,7 +246,7 @@ namespace Engine
 			  _camera_position_.z -= .004f;
 			  _camera_position_.w += .004f;
 			
-			  _camera_.CameraMove(_camera_position_.x, _camera_position_.y, 
+    			 _camera_.CameraMove(_camera_position_.x, _camera_position_.y, 
 				  _camera_position_.z, _camera_position_.w);
 				
 #endif
