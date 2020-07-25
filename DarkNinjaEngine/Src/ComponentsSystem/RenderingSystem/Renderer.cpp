@@ -8,10 +8,14 @@ namespace Engine
 	Renderer* Renderer::_renderer_ = new OpenGLRenderer;
 	
 	Renderer::SceneData* Renderer::_scene_data_ = new Renderer::SceneData();
-	
-	void Renderer::BeginScene(OrthographicCamera camera)
+
+
+
+
+	void Renderer::BeginScene(OrthographicCamera* camera)
 	{
-		_scene_data_->_view_projection_matrix_ = camera.GetViewProjectionMatrix();
+		_scene_data_->camera = camera;
+		_scene_data_->_view_projection_matrix_ = camera->GetViewProjectionMatrix();
 	}
 
 	void Renderer::EndScene()
@@ -22,7 +26,8 @@ namespace Engine
 	{
 		ShaderData->Bind();
 
-		ShaderData->UniformMat4Upload("u_ViewProjection", _scene_data_->_view_projection_matrix_);
+		//ShaderData->UniformMat4Upload("u_ViewProjection", _scene_data_->_view_projection_matrix_);
+		ShaderData->UniformMat4Upload("u_ViewProjection", _scene_data_->camera->GetViewProjectionMatrix());
 		ShaderData->UniformMat4Upload("u_Transform", transform);
 		_renderer_->DrawIndexed(vertexArray, ShaderData);
 	}

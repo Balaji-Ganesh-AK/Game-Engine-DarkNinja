@@ -134,4 +134,10 @@ namespace Engine
 		glUniformMatrix4fv(Location, 1,GL_FALSE, glm::value_ptr(matrix));
 		
 	}
+
+	void Shader::UniformIntUpload(const std::string& name, const int value)
+	{
+		GLint Location = glGetUniformLocation(_render_ID_, name.c_str());
+		glUniform1i(Location, value);
+	}
 }

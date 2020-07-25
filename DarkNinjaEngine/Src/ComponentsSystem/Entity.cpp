@@ -32,6 +32,15 @@ namespace Engine
 		AddGameObject();
 	}
 
+	void Entity::ComponentInit()
+	{
+		for (int i = 0; i < _components_list_.size(); i++)
+		{
+			_components_list_[i]->Init();
+
+		}
+	}
+
 	void Entity::Update()
 	{
 
@@ -52,6 +61,11 @@ namespace Engine
 
 	void Entity::End()
 	{
+		for (int i = 0; i < _components_list_.size(); i++)
+		{
+			_components_list_[i]->End();
+
+		}
 	}
 
 	void Entity::AttachComponent(Components* component)
@@ -75,6 +89,13 @@ namespace Engine
 	{
 	}
 
+	void EntityManager::Init()
+	{
+		for (auto it = EntityManager::Instance()._entity_list_stack_.begin(); it != EntityManager::Instance()._entity_list_stack_.end(); ++it)
+		{
+			it->second->ComponentInit();
+		}
+	}
 
 
 	void EntityManager::Update()

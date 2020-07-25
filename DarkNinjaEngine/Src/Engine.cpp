@@ -5,6 +5,8 @@
 #include "Engine.h"
 
 #include <imgui.h>
+#include <glm/glm/ext/matrix_transform.inl>
+
 
 #include "Logger.h"
 #include "ComponentsSystem/Entity.h"
@@ -21,7 +23,7 @@ namespace Engine
 	Application* Application::_instance_ = nullptr;
 	
 	Application::Application()
-		:_camera_(-1,1,-1,1)
+		:_camera_(-1.6,1.6,-1.6,1.6)
 	{
 		_instance_ = this;
 #ifdef _LOGGER
@@ -35,8 +37,11 @@ namespace Engine
 		_window_->SetVSync(true);
 		_window_->SetEventCallBack(std::bind(&Application::OnEvent, this, std::placeholders::_1));
 		std::cout << "Dark Ninja Engine Started!" << std::endl;
+		
+		Renderer::BeginScene(&_camera_);
 		m_ImGuiLayer = new IMGUI;
 		m_ImGuiLayer->Init();
+		
 #ifdef  _IMGUI
 	
 #endif
@@ -112,11 +117,11 @@ namespace Engine
 
 
 		//square
-		float verticessq[3 * 4] = {
-		-0.5f,-.5f, 0.0f,    
-		0.5f, -0.5f, 0.0f,   
-		0.5f, 0.5f, 0.0f,    
-		-0.5f, 0.5f, 0.0f
+		float verticessq[5 * 4] = {
+			-0.5f, -.5f, 0.0f, 0.0f, 0.0f,
+			0.5f, -0.5f, 0.0f, 1.0f, 0.0f,
+			0.5f, 0.5f, 0.0f, 1.0f, 1.0f,
+			-0.5f, 0.5f, 0.0f, 0.0f, 1.0f
 
 		};
 		
@@ -128,6 +133,7 @@ namespace Engine
 		{
 			BufferLayout layoutsquare = {
 				{ShaderDataType::FVec3, "a_Position"},
+				{ShaderDataType::FVec2, "a_TexCord"}
 
 			};
 			_vertex_buffer_square->SetLayout(layoutsquare);
@@ -146,6 +152,7 @@ namespace Engine
 				#version 430 core
 
 		layout(location = 0) in vec3 a_Position;
+	
 
 		uniform mat4 u_ViewProjection;
 		uniform mat4 u_Transform;
@@ -177,8 +184,50 @@ namespace Engine
 
 		_shader_square_.reset(new Shader(vertexSrcSquare, fragmentSrcSquare));
 
+#pragma region texture stuff
+		std::string textureVertexSrc = R"(
+				#version 430 core
 
+		layout(location = 0) in vec3 a_Position;
+		layout(location = 1) in vec2 a_TexCord;
+
+		uniform mat4 u_ViewProjection;
+		uniform mat4 u_Transform;
 		
+		out vec3 v_Position;
+		out vec2 v_TexCord;
+		void main()
+		{
+			v_Position = a_Position;
+		v_TexCord = a_TexCord;
+			gl_Position = u_ViewProjection*u_Transform*vec4(a_Position,1.0);
+		}
+
+		)";
+
+		std::string textureFragmentSrc = R"(
+				#version 430 core
+
+		layout(location = 0) out vec4 o_Color;
+
+		in vec3 v_Position;
+		in vec2 v_TexCord;
+
+		uniform sampler2D u_Texture;
+		void main()
+		{
+		
+			o_Color = texture(u_Texture, v_TexCord);
+		}
+
+		)";
+
+		_texture_shader_.reset(new Shader(textureVertexSrc, textureFragmentSrc));
+		_texture_test_ = Texture2D::Create("Resources/Assets/Textures/Checkerboard.png");
+
+		_texture_shader_->Bind();
+		_texture_shader_->UniformIntUpload("u_Texture", 0);
+#pragma endregion 
 	}
 
 	Application::~Application()
@@ -197,6 +246,8 @@ namespace Engine
 		
 	
 #endif
+
+		
 	}
 
 
@@ -207,7 +258,7 @@ namespace Engine
 	
 	void Application::Run()
 	{
-		
+		EntityManager::Instance().Init();
 		while(_is_running_)
 		{
 			TimeStamp::Run();
@@ -215,22 +266,23 @@ namespace Engine
 			
 			
 #pragma region Renderer
-			Renderer::BeginScene(_camera_);
+			
 			Renderer::GetInstance().ClearColor();
 			Renderer::GetInstance().SetClearColor(_clear_color_);
 
+		
 
 		
-			
-			Renderer::Submit(_vertex_array_square_,_shader_square_);
+			_texture_test_->Bind();
+			Renderer::Submit(_vertex_array_square_,_texture_shader_);
 	
-			Renderer::Submit(_vertex_array_,_shader_);
+		//	Renderer::Submit(_vertex_array_,_shader_);
 			
 			
 			Renderer::EndScene();
 #pragma endregion  Renderer
 
-
+			
 			m_ImGuiLayer->Begin();
 			EntityManager::Instance().UpdateOnGUI();
 			m_ImGuiLayer->End();
@@ -251,13 +303,7 @@ namespace Engine
 				
 #endif
 			}
-			if(Input::IsMousePressed(Mouse::ButtonRight))
-			{
-#ifdef _LOGGER
-				DNE_ENGINE_TRACE("Mouse button is pressed ");
-				
-#endif
-			}
+		
 			
 			_window_->Update();
 		

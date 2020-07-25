@@ -11,6 +11,7 @@
 #include "ComponentsSystem/RenderingSystem/Shader.h"
 #include "ComponentsSystem/RenderingSystem/VertexArray.h"
 #include "ComponentsSystem/RenderingSystem/Renderer.h"
+#include "ComponentsSystem/RenderingSystem/TextureComponent.h"
 #include "Event/WindowEvent.h"
 #include "Utlis/TimeStamp.h"
 namespace  Engine
@@ -41,11 +42,16 @@ namespace  Engine
 		std::unique_ptr<Window> _window_;
 		std::shared_ptr<Shader> _shader_;
 		std::shared_ptr<Shader> _shader_square_;
+		std::shared_ptr<Shader> _texture_shader_;
 		
 		std::shared_ptr<VertexArray> _vertex_array_;
 
 		std::shared_ptr<VertexArray> _vertex_array_square_;
 
+		std::shared_ptr<Texture2D> _texture_test_;
+
+
+		
 		IMGUI* m_ImGuiLayer;
 		
 		bool _is_running_ = true;

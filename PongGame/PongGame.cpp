@@ -52,7 +52,8 @@ void Level::Update()
 
 void Level::Init()
 {
-	DNE_CLIENT_TRACE("Created");
+	
+	DNE_CLIENT_TRACE("asdasd3");
 }
 
 void Level::End()

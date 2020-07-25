@@ -20,6 +20,7 @@ namespace Engine
 
 
 		void Init();
+		void ComponentInit();
 		void Update();
 		void UpdateOnGUI();
 		void End();

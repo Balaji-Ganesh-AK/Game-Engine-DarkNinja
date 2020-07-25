@@ -117,7 +117,7 @@
       <PreprocessorDefinitions>SPDLOG_HEADER_ONLY;GLFW_INCLUDE_NONE;_CRTDBG_MAP_ALLOC;DNE_ENABLE_ASSERTS;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(SolutionDir);$(SolutionDir)Src;$(SolutionDir)include\GLAD\include;$(SolutionDir)include\imgui;$(SolutionDir)\include\glfw\include;$(SolutionDir)include\Src\Utlis;$(SolutionDir)include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir);$(SolutionDir)Src;$(SolutionDir)include\GLAD\include;$(SolutionDir)include\imgui;$(SolutionDir)\include\stb\;$(SolutionDir)\include\glfw\include;$(SolutionDir)\include\;$(SolutionDir)include\Src\Utlis;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -165,9 +165,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="include\stb\stb_image.h" />
     <ClInclude Include="Src\ComponentsSystem\Components.h" />
     <ClInclude Include="Src\ComponentsSystem\RenderingSystem\Camera.h" />
     <ClInclude Include="Src\ComponentsSystem\RenderingSystem\Renderer.h" />
+    <ClInclude Include="Src\ComponentsSystem\RenderingSystem\TextureComponent.h" />
     <ClInclude Include="Src\ComponentsSystem\RenderingSystem\VertexArray.h" />
     <ClInclude Include="Src\PlatformSpecific\OpenGL\ImGui\imgui.h" />
     <ClInclude Include="Src\PlatformSpecific\OpenGL\ImGui\imgui_impl_glfw.h" />
@@ -199,6 +201,7 @@
     <ClInclude Include="Src\Math\Vec4.h" />
     <ClInclude Include="Src\MouseCodes.h" />
     <ClInclude Include="Src\PlatformSpecific\OpenGL\OpenGLContext.h" />
+    <ClInclude Include="Src\PlatformSpecific\OpenGL\OpenGLTexture.h" />
     <ClInclude Include="Src\PlatformSpecific\OpenGL\OpenGLVertexArray.h" />
     <ClInclude Include="Src\PlatformSpecific\Windows\WindowInput.h" />
     <ClInclude Include="Src\Utlis\Helper.h" />
@@ -208,8 +211,10 @@
     <ClInclude Include="Src\PlatformSpecific\Windows\WindowsWindow.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="include\stb\stb_image.cpp" />
     <ClCompile Include="Src\ComponentsSystem\RenderingSystem\Camera.cpp" />
     <ClCompile Include="Src\ComponentsSystem\RenderingSystem\Renderer.cpp" />
+    <ClCompile Include="Src\ComponentsSystem\RenderingSystem\TextureComponent.cpp" />
     <ClCompile Include="Src\ComponentsSystem\RenderingSystem\VertexArray.cpp" />
     <ClCompile Include="Src\PlatformSpecific\OpenGL\ImGui\imgui.cpp" />
     <ClCompile Include="Src\PlatformSpecific\OpenGL\ImGui\imgui_demo.cpp" />
@@ -236,6 +241,7 @@
     <ClCompile Include="Src\Math\Vec4.cpp" />
     <ClCompile Include="Src\PlatformSpecific\OpenGL\OpenGLContext.cpp" />
     <ClCompile Include="Src\PlatformSpecific\OpenGL\OpenGLRenderer.cpp" />
+    <ClCompile Include="Src\PlatformSpecific\OpenGL\OpenGLTexture.cpp" />
     <ClCompile Include="Src\PlatformSpecific\OpenGL\OpenGLVertexArray.cpp" />
     <ClCompile Include="Src\PlatformSpecific\Windows\WindowInput.cpp" />
     <ClCompile Include="Src\PlatformSpecific\Windows\WindowsWindow.cpp" />
@@ -246,6 +252,9 @@
   </ItemGroup>
   <ItemGroup>
     <Library Include="include\GLAD\bin\Glad.lib" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Checkerboard.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
