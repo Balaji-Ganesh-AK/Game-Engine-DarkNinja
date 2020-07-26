@@ -11,7 +11,7 @@
 #include "ComponentsSystem/RenderingSystem/Shader.h"
 #include "ComponentsSystem/RenderingSystem/VertexArray.h"
 #include "ComponentsSystem/RenderingSystem/Renderer.h"
-#include "ComponentsSystem/RenderingSystem/TextureComponent.h"
+#include "ComponentsSystem/RenderingSystem/Texture.h"
 #include "Event/WindowEvent.h"
 #include "Utlis/TimeStamp.h"
 namespace  Engine

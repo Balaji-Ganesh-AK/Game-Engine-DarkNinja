@@ -117,35 +117,7 @@ namespace Engine
 
 
 		//square
-		float verticessq[5 * 4] = {
-			-0.5f, -.5f, 0.0f, 0.0f, 0.0f,
-			0.5f, -0.5f, 0.0f, 1.0f, 0.0f,
-			0.5f, 0.5f, 0.0f, 1.0f, 1.0f,
-			-0.5f, 0.5f, 0.0f, 0.0f, 1.0f
-
-		};
 		
-		_vertex_array_square_.reset(VertexArray::Create());
-
-		std::shared_ptr<VertexBuffer> _vertex_buffer_square;
-		_vertex_buffer_square.reset(VertexBuffer::Create(verticessq, sizeof(verticessq)));
-
-		{
-			BufferLayout layoutsquare = {
-				{ShaderDataType::FVec3, "a_Position"},
-				{ShaderDataType::FVec2, "a_TexCord"}
-
-			};
-			_vertex_buffer_square->SetLayout(layoutsquare);
-		}
-		_vertex_array_square_->AddVertexBuffer(_vertex_buffer_square);
-
-		uint32_t indicessquare[6] = { 0,1,2 ,2,3,0};
-
-
-		std::shared_ptr<IndexBuffer> _index_buffer_square;
-		_index_buffer_square.reset(IndexBuffer::Create(indicessquare, std::size(indicessquare)));
-		_vertex_array_square_->SetIndexBuffer(_index_buffer_square);
 
 
 		std::string vertexSrcSquare = R"(
@@ -222,11 +194,13 @@ namespace Engine
 
 		)";
 
-		_texture_shader_.reset(new Shader(textureVertexSrc, textureFragmentSrc));
-		_texture_test_ = Texture2D::Create("Resources/Assets/Textures/Checkerboard.png");
+		//_texture_shader_.reset(new Shader(textureVertexSrc, textureFragmentSrc));
+		//_texture_test_ = Texture2D::Create("Resources/Assets/Textures/Checkerboard.png");
 
-		_texture_shader_->Bind();
-		_texture_shader_->UniformIntUpload("u_Texture", 0);
+		//_texture_shader_->Bind();
+	//	_texture_shader_->UniformIntUpload("u_Texture", 0);
+	//
+		
 #pragma endregion 
 	}
 
@@ -273,13 +247,13 @@ namespace Engine
 		
 
 		
-			_texture_test_->Bind();
-			Renderer::Submit(_vertex_array_square_,_texture_shader_);
+			//_texture_test_->Bind();
+			//Renderer::Submit(_vertex_array_square_,_texture_shader_);
 	
 		//	Renderer::Submit(_vertex_array_,_shader_);
 			
 			
-			Renderer::EndScene();
+			
 #pragma endregion  Renderer
 
 			
@@ -287,7 +261,7 @@ namespace Engine
 			EntityManager::Instance().UpdateOnGUI();
 			m_ImGuiLayer->End();
 		    EntityManager::Instance().Update();
-			
+			Renderer::EndScene();
 			if(Input::IsKeyPressed(Key::Space))
 			{
 				

@@ -10,10 +10,9 @@ namespace Engine
 	Renderer::SceneData* Renderer::_scene_data_ = new Renderer::SceneData();
 
 
-
-
 	void Renderer::BeginScene(OrthographicCamera* camera)
 	{
+		_renderer_->Init();
 		_scene_data_->camera = camera;
 		_scene_data_->_view_projection_matrix_ = camera->GetViewProjectionMatrix();
 	}

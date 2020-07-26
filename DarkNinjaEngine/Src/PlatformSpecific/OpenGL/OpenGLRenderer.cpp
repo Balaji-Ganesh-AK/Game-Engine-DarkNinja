@@ -20,4 +20,11 @@ namespace Engine
 		vertexArray->Bind();
 		glDrawElements(GL_TRIANGLES, vertexArray->GetIndexBuffers()->GetCount(), GL_UNSIGNED_INT, nullptr);
 	}
+
+	void OpenGLRenderer::Init() const
+	{
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		
+	}
 }

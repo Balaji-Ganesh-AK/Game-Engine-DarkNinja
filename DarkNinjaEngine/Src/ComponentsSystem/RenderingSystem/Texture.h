@@ -1,16 +1,12 @@
 #pragma once
-#include "ComponentsSystem/Components.h"
-
 
 namespace Engine
 {
-	class TextureComponent
+	class Texture
 	{
 	public:
 		
-	/*	virtual void Init() ;
-		virtual void Update() ;
-		virtual void End() ;*/
+
 
 		virtual void Bind(uint32_t slot =0) const = 0;
 		virtual uint32_t GetWidth() const = 0;
@@ -19,7 +15,7 @@ namespace Engine
 
 
 	//Specific for all 2D Texture
-	class Texture2D:public TextureComponent
+	class Texture2D:public Texture
 	{
 	public:
 		//Gets the file path of the 

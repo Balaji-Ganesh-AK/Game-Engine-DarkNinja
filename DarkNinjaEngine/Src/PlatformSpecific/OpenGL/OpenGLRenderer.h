@@ -11,6 +11,6 @@ namespace Engine
 
 	private:
 		void DrawIndexed(const std::shared_ptr<VertexArray>& vertexArray, const std::shared_ptr<Shader>& ShaderData) const override;
-		
+		void Init() const override;
 	};
 }

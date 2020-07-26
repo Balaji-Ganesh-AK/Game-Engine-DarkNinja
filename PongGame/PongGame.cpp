@@ -4,6 +4,8 @@
 #include <../Core.h>
 #include <imgui/imgui.h>
 
+#include "../DarkNinjaEngine/Src/ComponentsSystem/Material.h"
+
 
 class Level : public Engine::Components
 {
@@ -67,8 +69,12 @@ public:
 	Pong()
 	{
 		Engine::Entity* test = new Engine::Entity("Test");
+		Engine::Entity* test1 = new Engine::Entity("Test1");
 
 		test->AttachComponent(new Level());
+	
+		test->AttachComponent(new Engine::Material());
+		test->GetComponent <Engine::Material>()->SetTexture("Resources/Assets/Textures/TestingPNGBlend.png");
 	
 	}
 	~Pong()

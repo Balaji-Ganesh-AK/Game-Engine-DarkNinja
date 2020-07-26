@@ -39,7 +39,7 @@ namespace Engine
 	private:
 		
 		virtual void DrawIndexed(const std::shared_ptr<VertexArray>& vertexArray, const std::shared_ptr<Shader>& ShaderData) const = 0;
-
+		virtual void Init()const =0;
 		
 		static API _API_;
 		static Renderer* _renderer_;
