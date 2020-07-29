@@ -147,7 +147,10 @@
     <ClInclude Include="Src\ComponentsSystem\RenderingSystem\Texture.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Src\ComponentsSystem\Material.h">
+    <ClInclude Include="Src\ComponentsSystem\Renderer2D.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\ComponentsSystem\CameraController.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -242,7 +245,10 @@
     <ClCompile Include="Src\ComponentsSystem\RenderingSystem\Texture.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Src\ComponentsSystem\Material.cpp">
+    <ClCompile Include="Src\ComponentsSystem\Renderer2D.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\ComponentsSystem\CameraController.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

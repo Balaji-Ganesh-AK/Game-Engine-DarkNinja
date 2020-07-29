@@ -8,9 +8,14 @@ namespace Engine
 		:_projection_matrix_(glm::ortho(left,right,bottom,top, -1.0f,1.0f)),_view_matrix_(1.0f)
 	{
 		_view_projection_matrix_ = _projection_matrix_ * _view_matrix_;
+		_camera_size_.x = left;
+		_camera_size_.y = right;
+		_camera_size_.z = bottom;
+		_camera_size_.w = top;
+		
 	}
 
-	void OrthographicCamera::CameraMove(float left, float right, float bottom, float top)
+	void OrthographicCamera::SetProjection(float left, float right, float bottom, float top)
 	{
 		_projection_matrix_ = (glm::ortho(left, right, bottom, top, -1.0f, 1.0f));
 		_view_matrix_ = glm::mat4(1.0f);

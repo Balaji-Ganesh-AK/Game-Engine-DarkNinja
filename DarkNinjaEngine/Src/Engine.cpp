@@ -19,11 +19,11 @@
 
 namespace Engine
 {
-
+	Engine::Entity* Balajitest;
 	Application* Application::_instance_ = nullptr;
 	
 	Application::Application()
-		:_camera_(-1.6,1.6,-1.6,1.6)
+		:_camera_(-1.6,1.6,-1.6,1.6),_camera_controller_(_camera_)
 	{
 		_instance_ = this;
 #ifdef _LOGGER
@@ -39,6 +39,8 @@ namespace Engine
 		std::cout << "Dark Ninja Engine Started!" << std::endl;
 		
 		Renderer::BeginScene(&_camera_);
+		
+		
 		m_ImGuiLayer = new IMGUI;
 		m_ImGuiLayer->Init();
 		
@@ -200,7 +202,8 @@ namespace Engine
 		//_texture_shader_->Bind();
 	//	_texture_shader_->UniformIntUpload("u_Texture", 0);
 	//
-		
+
+		Balajitest = new Engine::Entity("");
 #pragma endregion 
 	}
 
@@ -216,10 +219,8 @@ namespace Engine
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<WindowCloseEvent>(DNE_BIND_SINGLE_EVENT(Application::OnWindowClose));
 		dispatcher.Dispatch<WindowResizeEvent>(DNE_BIND_SINGLE_EVENT(Application::OnWindowsResize));
-#ifdef _IMGUI
-		
-	
-#endif
+
+		_camera_controller_.OnEvent(e);
 
 		
 	}
@@ -245,12 +246,16 @@ namespace Engine
 			Renderer::GetInstance().SetClearColor(_clear_color_);
 
 		
-
+			
+			//if (Input::IsKeyPressed(Key::W))
+			//{
+			////	pos.x += 1 * TimeStamp::DeltaTime();
+			//}
 		
 			//_texture_test_->Bind();
 			//Renderer::Submit(_vertex_array_square_,_texture_shader_);
-	
-		//	Renderer::Submit(_vertex_array_,_shader_);
+		//	glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos);
+			//Renderer::Submit(_vertex_array_,_shader_, transform);
 			
 			
 			
@@ -262,25 +267,12 @@ namespace Engine
 			m_ImGuiLayer->End();
 		    EntityManager::Instance().Update();
 			Renderer::EndScene();
-			if(Input::IsKeyPressed(Key::Space))
-			{
-				
-#ifdef _LOGGER
-			  DNE_ENGINE_TRACE("Space is pressed ");
-			  _camera_position_.x -= .004f;
-			  _camera_position_.y += .004f;
-			  _camera_position_.z -= .004f;
-			  _camera_position_.w += .004f;
+			_camera_controller_.Update(TimeStamp::DeltaTime());
 			
-    			 _camera_.CameraMove(_camera_position_.x, _camera_position_.y, 
-				  _camera_position_.z, _camera_position_.w);
-				
-#endif
-			}
 		
+			GameLoop();
 			
 			_window_->Update();
-		
 		}
 
 	}
@@ -294,9 +286,14 @@ namespace Engine
 
 	bool Application::OnWindowsResize(WindowResizeEvent& e)
 	{
-#ifdef _LOGGER
-		//DNE_ENGINE_INFO("Windows Resize Event");
-#endif
-		return true;
+		if(e.GetHeight()==0||e.GetWidth()==0)
+		{
+			//Write function to handle when the windows is minimised;
+			//As of now this is not required in the engine.
+		}
+
+
+		Renderer::OnWindowResize(e.GetWidth(), e.GetHeight());
+		return false;
 	}
 }

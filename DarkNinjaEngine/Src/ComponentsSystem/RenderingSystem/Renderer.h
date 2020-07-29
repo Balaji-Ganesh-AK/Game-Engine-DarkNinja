@@ -24,7 +24,8 @@ namespace Engine
 		virtual void SetClearColor(vec4& color) const = 0;
 		virtual void ClearColor() const = 0;
 
-
+		//this needs to be reworked in future to handle more viewports. 
+		static void OnWindowResize( uint32_t width, uint32_t height) { _renderer_->SetViewPort(0, 0, width, height); }
 		static void BeginScene(OrthographicCamera* camera);
 		static void EndScene();
 		static void Submit(const std::shared_ptr<VertexArray>& vertexArray,
@@ -34,12 +35,13 @@ namespace Engine
 	
 		inline static Renderer& GetInstance() { return  *_renderer_; }
 		inline static API GetAPI() { return _API_; }
-
 		
 	private:
 		
 		virtual void DrawIndexed(const std::shared_ptr<VertexArray>& vertexArray, const std::shared_ptr<Shader>& ShaderData) const = 0;
 		virtual void Init()const =0;
+		//x and y is the from value and width and height are the new values.
+		virtual void SetViewPort(uint32_t x, uint32_t y, uint32_t width, uint32_t height) = 0;
 		
 		static API _API_;
 		static Renderer* _renderer_;

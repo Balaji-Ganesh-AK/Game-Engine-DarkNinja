@@ -43,6 +43,10 @@ namespace Engine
 		glTextureParameteri(_renderID_, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		glTextureParameteri(_renderID_, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
+		//these settings are default, can make the parameters as variables and give the user the
+		// ability to changes the parameter in run time.
+		glTextureParameteri(_renderID_, GL_TEXTURE_WRAP_S, GL_REPEAT);
+		glTextureParameteri(_renderID_, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
 		glTextureSubImage2D(_renderID_, 0, 0, 0, _width_, _height_, dataFormat, GL_UNSIGNED_BYTE, data);
 

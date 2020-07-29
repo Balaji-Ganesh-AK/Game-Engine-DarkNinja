@@ -166,12 +166,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="include\stb\stb_image.h" />
+    <ClInclude Include="Src\ComponentsSystem\CameraController.h" />
     <ClInclude Include="Src\ComponentsSystem\Components.h" />
     <ClInclude Include="Src\ComponentsSystem\RenderingSystem\Camera.h" />
     <ClInclude Include="Src\ComponentsSystem\RenderingSystem\Renderer.h" />
     <ClInclude Include="Src\ComponentsSystem\RenderingSystem\Texture.h" />
     <ClInclude Include="Src\ComponentsSystem\RenderingSystem\VertexArray.h" />
-    <ClInclude Include="Src\ComponentsSystem\Material.h" />
+    <ClInclude Include="Src\ComponentsSystem\Renderer2D.h" />
     <ClInclude Include="Src\PlatformSpecific\OpenGL\ImGui\imgui.h" />
     <ClInclude Include="Src\PlatformSpecific\OpenGL\ImGui\imgui_impl_glfw.h" />
     <ClInclude Include="Src\PlatformSpecific\OpenGL\ImGui\imgui_impl_opengl3.h" />
@@ -213,11 +214,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="include\stb\stb_image.cpp" />
+    <ClCompile Include="Src\ComponentsSystem\CameraController.cpp" />
     <ClCompile Include="Src\ComponentsSystem\RenderingSystem\Camera.cpp" />
     <ClCompile Include="Src\ComponentsSystem\RenderingSystem\Renderer.cpp" />
     <ClCompile Include="Src\ComponentsSystem\RenderingSystem\Texture.cpp" />
     <ClCompile Include="Src\ComponentsSystem\RenderingSystem\VertexArray.cpp" />
-    <ClCompile Include="Src\ComponentsSystem\Material.cpp" />
+    <ClCompile Include="Src\ComponentsSystem\Renderer2D.cpp" />
     <ClCompile Include="Src\PlatformSpecific\OpenGL\ImGui\imgui.cpp" />
     <ClCompile Include="Src\PlatformSpecific\OpenGL\ImGui\imgui_demo.cpp" />
     <ClCompile Include="Src\PlatformSpecific\OpenGL\ImGui\imgui_draw.cpp" />

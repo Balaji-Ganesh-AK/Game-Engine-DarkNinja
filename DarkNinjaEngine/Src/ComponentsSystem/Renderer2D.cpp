@@ -1,15 +1,18 @@
 #include "pch.h"
-#include "Material.h"
+#include "Renderer2D.h"
+
+#include <glm/glm/ext/matrix_transform.inl>
+
 
 #include "RenderingSystem/Renderer.h"
 
 namespace Engine
 {
-	Material::~Material()
+	Renderer2D::~Renderer2D()
 	{
 	}
 
-	void Material::Init()
+	void Renderer2D::Init()
 	{
 		float verticessq[5 * 4] = {
 			-0.5f, -.5f, 0.0f, 0.0f, 0.0f,
@@ -56,12 +59,15 @@ namespace Engine
 		uniform mat4 u_ViewProjection;
 		uniform mat4 u_Transform;
 		
+		
 		out vec3 v_Position;
 		out vec2 v_TexCord;
+		
 		void main()
 		{
 			v_Position = a_Position;
-		v_TexCord = a_TexCord;
+			v_TexCord = a_TexCord;
+			
 			gl_Position = u_ViewProjection*u_Transform*vec4(a_Position,1.0);
 		}
 
@@ -74,12 +80,12 @@ namespace Engine
 
 		in vec3 v_Position;
 		in vec2 v_TexCord;
-
+		
 		uniform sampler2D u_Texture;
 		void main()
 		{
 		
-			o_Color = texture(u_Texture, v_TexCord);
+			o_Color = texture(u_Texture, v_TexCord*10.0);
 		}
 
 		)";
@@ -92,15 +98,29 @@ namespace Engine
 		_texture_shader_->UniformIntUpload("u_Texture", 0);
 	}
 
-	void Material::Update()
+	void Renderer2D::Update()
 	{
 		_texture_->Bind();
-		Renderer::Submit(_vertex_array_square_,_texture_shader_);
+		Renderer::Submit(_vertex_array_square_,_texture_shader_, _transform_);
 	}
 
-	void Material::End()
+	void Renderer2D::End()
 	{
 	}
 
+	void Renderer2D::SetPosition(const vec3 Position)
+	{
+		_position_ = Position;
+		_transform_ = glm::translate(glm::mat4(1.0f), { _position_.x,_position_.y,_position_.z });
+	
+	}
 
+	void Renderer2D::SetScale(const vec2 Size)
+	{
+		_size_ = Size;
+
+		_transform_ = glm::translate(glm::mat4(1.0f), { _position_.x,_position_.y,_position_.z })
+		*glm::scale(glm::mat4(1.0f), {_size_.x, _size_.y,1.0f});
+		
+	}
 }

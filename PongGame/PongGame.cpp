@@ -4,7 +4,8 @@
 #include <../Core.h>
 #include <imgui/imgui.h>
 
-#include "../DarkNinjaEngine/Src/ComponentsSystem/Material.h"
+
+
 
 
 class Level : public Engine::Components
@@ -49,7 +50,7 @@ Level::~Level()
 
 void Level::Update()
 {
-	//DNE_CLIENT_TRACE("Level component testing!");
+	DNE_CLIENT_TRACE("Level component testing!");
 }
 
 void Level::Init()
@@ -66,17 +67,61 @@ void Level::End()
 class Pong : public Engine::Application
 {
 public:
+	Engine::Entity* test = new Engine::Entity("Test");
+	Engine::vec3 Position;
+	Engine::vec2 Size;
 	Pong()
 	{
-		Engine::Entity* test = new Engine::Entity("Test");
-		Engine::Entity* test1 = new Engine::Entity("Test1");
 
 		test->AttachComponent(new Level());
 	
-		test->AttachComponent(new Engine::Material());
-		test->GetComponent <Engine::Material>()->SetTexture("Resources/Assets/Textures/TestingPNGBlend.png");
-	
+		test->AttachComponent(new Engine::Renderer2D());
+		test->GetComponent <Engine::Renderer2D>()->SetTexture();
+		
+
+		
 	}
+	void GameLoop() override
+	{
+		if (Engine::Input::IsKeyPressed(Engine::KeyCodes::W))
+		{
+			Position.y += 0.1f* Engine::TimeStamp::DeltaTime();
+			test->GetComponent<Engine::Renderer2D>()->SetPosition(Position);
+		}
+		if (Engine::Input::IsKeyPressed(Engine::KeyCodes::Space))
+		{
+
+			test->GetComponent<Engine::Renderer2D>()->SetScale(Engine::vec2(10, 10));
+		}
+		if (Engine::Input::IsKeyPressed(Engine::Key::S))
+		{
+			Position.y -= 0.1f * Engine::TimeStamp::DeltaTime();
+			test->GetComponent<Engine::Renderer2D>()->SetPosition(Position);
+		}
+		if (Engine::Input::IsKeyPressed(Engine::Key::D))
+		{
+			Position.x += 0.1f * Engine::TimeStamp::DeltaTime();
+			test->GetComponent<Engine::Renderer2D>()->SetPosition(Position);
+		}
+		if (Engine::Input::IsKeyPressed(Engine::Key::A))
+		{
+			Position.x -= 0.1f * Engine::TimeStamp::DeltaTime();
+			test->GetComponent<Engine::Renderer2D>()->SetPosition(Position);
+		}
+		if (Engine::Input::IsKeyPressed(Engine::Key::Q))
+		{
+			Size.x += 10 * Engine::TimeStamp::DeltaTime();
+			Size.y += 10 * Engine::TimeStamp::DeltaTime();
+			test->GetComponent<Engine::Renderer2D>()->SetScale(Size);
+		}
+		if (Engine::Input::IsKeyPressed(Engine::Key::E))
+		{
+			Size.x -= 10 * Engine::TimeStamp::DeltaTime();
+			Size.y -= 10 * Engine::TimeStamp::DeltaTime();
+			test->GetComponent<Engine::Renderer2D>()->SetScale(Size);
+		}
+	}
+	
 	~Pong()
 	{
 		std::cout << "Game over!!";

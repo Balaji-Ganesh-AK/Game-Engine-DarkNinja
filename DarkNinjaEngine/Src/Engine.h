@@ -5,6 +5,7 @@
 #define _IMGUI
 
 #include "Window.h"
+#include "ComponentsSystem/CameraController.h"
 #include "ComponentsSystem/RenderingSystem/Buffer.h"
 #include "ComponentsSystem/RenderingSystem/Camera.h"
 #include "ComponentsSystem/RenderingSystem/ImguiRenderer.h"
@@ -29,6 +30,8 @@ namespace  Engine
 		
 		void ShutDown();
 		void Run();
+		//Override this function to handle the client's game loop code.
+		virtual void GameLoop() =0;
 		inline static Application& Instance() { return *_instance_; }
 		inline Window& GetWindow() { return *_window_; }
 	private:
@@ -50,6 +53,8 @@ namespace  Engine
 
 		std::shared_ptr<Texture2D> _texture_test_;
 
+		glm::vec3 pos;
+
 
 		
 		IMGUI* m_ImGuiLayer;
@@ -57,10 +62,10 @@ namespace  Engine
 		bool _is_running_ = true;
 
 		OrthographicCamera _camera_;
-
 	
 		vec4 _camera_position_ = vec4(-1,1,-1,1);
 
+		CameraController _camera_controller_;
 	};
     Application* CreateApplication();
 }
