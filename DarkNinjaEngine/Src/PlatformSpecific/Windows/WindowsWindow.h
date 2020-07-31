@@ -1,7 +1,12 @@
 #pragma once
 
+
+
+
 #include "../Src/Window.h"
-#include "glfw/include/GLFW/glfw3.h"
+#include "ComponentsSystem/RenderingSystem/RenderingContext.h"
+#include "PlatformSpecific/OpenGL/OpenGLContext.h"
+
 
 
 namespace Engine
@@ -29,6 +34,8 @@ namespace Engine
 		virtual void Init(const WindowProperties& properties);
 		virtual void ShutDown();
 		GLFWwindow* _glfw_window_;
+
+		RenderingContext* _rendering_context_;
 
 		struct WindowsData
 		{

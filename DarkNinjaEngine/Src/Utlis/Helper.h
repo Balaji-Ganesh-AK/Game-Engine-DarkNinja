@@ -2,6 +2,7 @@
 #include <cmath>
 #include <sstream>
 
+
 //This file contains all helper functions and macros for the game engine.
 
 
@@ -20,9 +21,11 @@
 #ifdef DNE_ENABLE_ASSERTS
 	#define DNE_CLIENT_ASSERT(x, ...) {if(!(x)) { DNE_CLIENT_ERROR("Assertion Failed! :{0}",__VA_ARGS__); __debugbreak(); } }
 	#define DNE_ENGINE_ASSERT(x, ...) {if(!(x)) { DNE_CLIENT_ERROR("Assertion Failed! :{0}",__VA_ARGS__); __debugbreak(); } }
+	#define DNE_SIMPLE_ASSERT(x, ...) {if(!(x)) { __debugbreak(); }}
 #else
 #define DNE_CLIENT_ASSERT(x, ...) 
-#define DNE_ENGINE_ASSERT(x, ...) 
+#define DNE_ENGINE_ASSERT(x, ...)
+#define DNE_SIMPLE_ASSERT(x, ...)
 
 #endif
 

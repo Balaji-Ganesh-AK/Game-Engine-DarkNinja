@@ -4,7 +4,8 @@
 // All rights reserved.
 //
 // For the license information refer to format.h.
-
+#  pragma warning(disable : 26451)
+#  pragma warning(disable : 26812) 
 #ifndef FMT_FORMAT_INL_H_
 #define FMT_FORMAT_INL_H_
 
@@ -27,7 +28,7 @@
 #endif
 
 #ifdef _MSC_VER
-#  pragma warning(push)
+#  pragma warning(push, 0)
 #  pragma warning(disable : 4702)  // unreachable code
 #endif
 

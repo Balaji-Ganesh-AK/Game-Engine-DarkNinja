@@ -2,7 +2,7 @@
 // Distributed under the MIT License (http://opensource.org/licenses/MIT)
 
 #pragma once
-
+#  pragma warning(disable : 26812)  // unreachable code
 #include <spdlog/common.h>
 #include <string>
 #include <unordered_map>

@@ -47,15 +47,15 @@ namespace Engine
 		return static_cast<float>(ypos);
 	}
 
-	Vec2 WindowInput::GetMousePositionImp()
+	vec2 WindowInput::GetMousePositionImp()
 	{
 		auto window = static_cast<GLFWwindow*>(Application::Instance().GetWindow().GetNativeWindow());
 		
-		Vec2 _mouse_pos_;
+		vec2 _mouse_pos_;
 		double xpos, ypos;
 		glfwGetCursorPos(window, &xpos, &ypos);
-		_mouse_pos_.x = xpos;
-		_mouse_pos_.y = ypos;
+		_mouse_pos_.x = static_cast<float>(xpos);
+		_mouse_pos_.y = static_cast<float>(ypos);
 		return _mouse_pos_;
 	}
 }

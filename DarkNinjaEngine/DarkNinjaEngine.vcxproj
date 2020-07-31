@@ -99,7 +99,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>GLFW_INCLUDE_NONE;_CRTDBG_MAP_ALLOC;DNE_ENABLE_ASSERTS;WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>SPDLOG_HEADER_ONLY;GLFW_INCLUDE_NONE;_CRTDBG_MAP_ALLOC;DNE_ENABLE_ASSERTS;WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>$(SolutionDir);$(SolutionDir)Src;$(SolutionDir)include\GLAD\include;$(SolutionDir)include\imgui;$(SolutionDir)\include\glfw\include;$(SolutionDir)\include\;$(SolutionDir)\include\glfw\include;$(SolutionDir)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -114,10 +114,11 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>GLFW_INCLUDE_NONE;_CRTDBG_MAP_ALLOC;DNE_ENABLE_ASSERTS;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>SPDLOG_HEADER_ONLY;GLFW_INCLUDE_NONE;_CRTDBG_MAP_ALLOC;DNE_ENABLE_ASSERTS;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(SolutionDir);$(SolutionDir)Src;$(SolutionDir)include\GLAD\include;$(SolutionDir)include\imgui;$(SolutionDir)\include\glfw\include;$(SolutionDir)include\Src\Utlis;$(SolutionDir)include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir);$(SolutionDir)Src;$(SolutionDir)include\GLAD\include;$(SolutionDir)include\imgui;$(SolutionDir)\include\stb\;$(SolutionDir)\include\glfw\include;$(SolutionDir)\include\;$(SolutionDir)include\Src\Utlis;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -131,7 +132,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>GLFW_INCLUDE_NONE;WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>SPDLOG_HEADER_ONLY;GLFW_INCLUDE_NONE;WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>$(SolutionDir);$(SolutionDir)Src;$(SolutionDir)include\GLAD\include;$(SolutionDir)include\imgui;$(SolutionDir)\include\glfw\include;$(SolutionDir)\include\;$(SolutionDir)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -150,10 +151,11 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>GLFW_INCLUDE_NONE;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>SPDLOG_HEADER_ONLY;GLFW_INCLUDE_NONE;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>$(SolutionDir);$(SolutionDir)Src;$(SolutionDir)include\GLAD\include;$(SolutionDir)include\imgui;$(SolutionDir)\include\glfw\include;$(SolutionDir)include\Src\Utlis;$(SolutionDir)include\;$(SolutionDir)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -163,9 +165,29 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="include\stb\stb_image.h" />
+    <ClInclude Include="Src\ComponentsSystem\CameraController.h" />
     <ClInclude Include="Src\ComponentsSystem\Components.h" />
+    <ClInclude Include="Src\ComponentsSystem\RenderingSystem.h" />
+    <ClInclude Include="Src\ComponentsSystem\RenderingSystem\Camera.h" />
+    <ClInclude Include="Src\ComponentsSystem\RenderingSystem\Renderer.h" />
+    <ClInclude Include="Src\ComponentsSystem\RenderingSystem\Texture.h" />
+    <ClInclude Include="Src\ComponentsSystem\RenderingSystem\VertexArray.h" />
+    <ClInclude Include="Src\ComponentsSystem\Renderer2D.h" />
+    <ClInclude Include="Src\PlatformSpecific\OpenGL\ImGui\imgui.h" />
+    <ClInclude Include="Src\PlatformSpecific\OpenGL\ImGui\imgui_impl_glfw.h" />
+    <ClInclude Include="Src\PlatformSpecific\OpenGL\ImGui\imgui_impl_opengl3.h" />
+    <ClInclude Include="Src\PlatformSpecific\OpenGL\ImGui\imgui_internal.h" />
+    <ClInclude Include="Src\PlatformSpecific\OpenGL\ImGui\imstb_rectpack.h" />
+    <ClInclude Include="Src\PlatformSpecific\OpenGL\ImGui\imstb_textedit.h" />
+    <ClInclude Include="Src\PlatformSpecific\OpenGL\ImGui\imstb_truetype.h" />
+    <ClInclude Include="Src\PlatformSpecific\OpenGL\OpenGLRenderer.h" />
+    <ClInclude Include="Src\PlatformSpecific\OpenGL\OpenGLBuffer.h" />
     <ClInclude Include="Src\ComponentsSystem\Entity.h" />
+    <ClInclude Include="Src\ComponentsSystem\RenderingSystem\Buffer.h" />
+    <ClInclude Include="Src\ComponentsSystem\RenderingSystem\RenderingContext.h" />
     <ClInclude Include="Src\ComponentsSystem\RenderingSystem\ImguiRenderer.h" />
+    <ClInclude Include="Src\ComponentsSystem\RenderingSystem\Shader.h" />
     <ClInclude Include="Src\Event\Event.h" />
     <ClInclude Include="Src\Event\KeyboardEvent.h" />
     <ClInclude Include="Src\Event\MouseEvent.h" />
@@ -181,22 +203,38 @@
     <ClInclude Include="Src\Math\Vec3.h" />
     <ClInclude Include="Src\Math\Vec4.h" />
     <ClInclude Include="Src\MouseCodes.h" />
-    <ClInclude Include="Src\PlatformSpecific\OpenGL\ImGui\imconfig.h" />
-    <ClInclude Include="Src\PlatformSpecific\OpenGL\ImGui\imgui.h" />
-    <ClInclude Include="Src\PlatformSpecific\OpenGL\ImGui\imguiOpenGLRenderer.h" />
-    <ClInclude Include="Src\PlatformSpecific\OpenGL\ImGui\imgui_internal.h" />
-    <ClInclude Include="Src\PlatformSpecific\OpenGL\ImGui\imstb_rectpack.h" />
-    <ClInclude Include="Src\PlatformSpecific\OpenGL\ImGui\imstb_textedit.h" />
-    <ClInclude Include="Src\PlatformSpecific\OpenGL\ImGui\imstb_truetype.h" />
+    <ClInclude Include="Src\PlatformSpecific\OpenGL\OpenGLContext.h" />
+    <ClInclude Include="Src\PlatformSpecific\OpenGL\OpenGLShader.h" />
+    <ClInclude Include="Src\PlatformSpecific\OpenGL\OpenGLTexture.h" />
+    <ClInclude Include="Src\PlatformSpecific\OpenGL\OpenGLVertexArray.h" />
     <ClInclude Include="Src\PlatformSpecific\Windows\WindowInput.h" />
     <ClInclude Include="Src\Utlis\Helper.h" />
     <ClInclude Include="Src\Utlis\SmartPointer.h" />
+    <ClInclude Include="Src\Utlis\TimeStamp.h" />
     <ClInclude Include="Src\Window.h" />
     <ClInclude Include="Src\PlatformSpecific\Windows\WindowsWindow.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="include\stb\stb_image.cpp" />
+    <ClCompile Include="Src\ComponentsSystem\CameraController.cpp" />
+    <ClCompile Include="Src\ComponentsSystem\RenderingSystem.cpp" />
+    <ClCompile Include="Src\ComponentsSystem\RenderingSystem\Camera.cpp" />
+    <ClCompile Include="Src\ComponentsSystem\RenderingSystem\Renderer.cpp" />
+    <ClCompile Include="Src\ComponentsSystem\RenderingSystem\Texture.cpp" />
+    <ClCompile Include="Src\ComponentsSystem\RenderingSystem\VertexArray.cpp" />
+    <ClCompile Include="Src\ComponentsSystem\Renderer2D.cpp" />
+    <ClCompile Include="Src\PlatformSpecific\OpenGL\ImGui\imgui.cpp" />
+    <ClCompile Include="Src\PlatformSpecific\OpenGL\ImGui\imgui_demo.cpp" />
+    <ClCompile Include="Src\PlatformSpecific\OpenGL\ImGui\imgui_draw.cpp" />
+    <ClCompile Include="Src\PlatformSpecific\OpenGL\ImGui\imgui_impl_glfw.cpp" />
+    <ClCompile Include="Src\PlatformSpecific\OpenGL\ImGui\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="Src\PlatformSpecific\OpenGL\ImGui\imgui_widgets.cpp" />
+    <ClCompile Include="Src\PlatformSpecific\OpenGL\OpenGLBuffer.cpp" />
     <ClCompile Include="Src\ComponentsSystem\Entity.cpp" />
+    <ClCompile Include="Src\ComponentsSystem\RenderingSystem\Buffer.cpp" />
+    <ClCompile Include="Src\ComponentsSystem\RenderingSystem\RenderingContext.cpp" />
     <ClCompile Include="Src\ComponentsSystem\RenderingSystem\ImguiRenderer.cpp" />
+    <ClCompile Include="Src\ComponentsSystem\RenderingSystem\Shader.cpp" />
     <ClCompile Include="Src\Logger.cpp" />
     <ClCompile Include="Src\Engine.cpp" />
     <ClCompile Include="pch.cpp">
@@ -208,21 +246,23 @@
     <ClCompile Include="Src\Math\Vec2.cpp" />
     <ClCompile Include="Src\Math\Vec3.cpp" />
     <ClCompile Include="Src\Math\Vec4.cpp" />
-    <ClCompile Include="Src\PlatformSpecific\OpenGL\ImGui\imgui.cpp" />
-    <ClCompile Include="Src\PlatformSpecific\OpenGL\ImGui\imguiOpenGLRenderer.cpp">
-      <DisableSpecificWarnings Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
-      <DisableSpecificWarnings Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
-      <DisableSpecificWarnings Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
-      <DisableSpecificWarnings Condition="'$(Configuration)|$(Platform)'=='Release|x64'">4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
-    </ClCompile>
-    <ClCompile Include="Src\PlatformSpecific\OpenGL\ImGui\imgui_demo.cpp" />
-    <ClCompile Include="Src\PlatformSpecific\OpenGL\ImGui\imgui_draw.cpp" />
-    <ClCompile Include="Src\PlatformSpecific\OpenGL\ImGui\imgui_widgets.cpp" />
+    <ClCompile Include="Src\PlatformSpecific\OpenGL\OpenGLContext.cpp" />
+    <ClCompile Include="Src\PlatformSpecific\OpenGL\OpenGLRenderer.cpp" />
+    <ClCompile Include="Src\PlatformSpecific\OpenGL\OpenGLShader.cpp" />
+    <ClCompile Include="Src\PlatformSpecific\OpenGL\OpenGLTexture.cpp" />
+    <ClCompile Include="Src\PlatformSpecific\OpenGL\OpenGLVertexArray.cpp" />
     <ClCompile Include="Src\PlatformSpecific\Windows\WindowInput.cpp" />
     <ClCompile Include="Src\PlatformSpecific\Windows\WindowsWindow.cpp" />
+    <ClCompile Include="Src\Utlis\TimeStamp.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Src\Utlis\NamingConventions.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="include\GLAD\bin\Glad.lib" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Checkerboard.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

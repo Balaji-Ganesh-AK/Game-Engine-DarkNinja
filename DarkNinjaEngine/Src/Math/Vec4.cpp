@@ -4,15 +4,18 @@
 
 namespace Engine
 {
+	vec4::vec4() :x(0.0f), y(0.0f), z(0.0f),w(0.0f)
+	{
+	}
 
-	vector4D::vector4D(float x, float y, float z, float w) : x(x), y(y), z(z), w(w)
+	vec4::vec4(float x, float y, float z, float w) : x(x), y(y), z(z), w(w)
 	{
 		
 	}
 
-	vector4D vector4D::Down()
+	vec4 vec4::Down()
 	{
-		vector4D temp;
+		vec4 temp;
 		temp.x = 0.0;
 		temp.y = -1.0;
 		temp.z = 0.0;
@@ -20,9 +23,9 @@ namespace Engine
 		return temp;
 	}
 
-	vector4D vector4D::Zero()
+	vec4 vec4::Zero()
 	{
-		vector4D temp;
+		vec4 temp;
 		temp.x = 0.0;
 		temp.y = 0.0;
 		temp.z = 0.0;
@@ -30,9 +33,9 @@ namespace Engine
 		return temp;
 	}
 
-	vector4D vector4D::Up()
+	vec4 vec4::Up()
 	{
-		vector4D temp;
+		vec4 temp;
 		temp.x = 0;
 		temp.y = 1;
 		temp.z = 0;
@@ -40,9 +43,9 @@ namespace Engine
 		return temp;
 	}
 
-	vector4D vector4D::Right()
+	vec4 vec4::Right()
 	{
-		vector4D temp;
+		vec4 temp;
 		temp.x = 1;
 		temp.y = 0;
 		temp.z = 0;
@@ -50,9 +53,9 @@ namespace Engine
 		return temp;
 	}
 
-	vector4D vector4D::Left()
+	vec4 vec4::Left()
 	{
-		vector4D temp;
+		vec4 temp;
 		temp.x = -1;
 		temp.y = 0;
 		temp.z = 0;
@@ -60,7 +63,7 @@ namespace Engine
 		return temp;
 	}
 
-	vector4D& vector4D::Add(const vector4D& other)
+	vec4& vec4::Add(const vec4& other)
 	{
 		x += other.x;
 		y += other.y;
@@ -69,7 +72,7 @@ namespace Engine
 		return *this;
 	}
 
-	vector4D& vector4D::Subtract(const vector4D& other)
+	vec4& vec4::Subtract(const vec4& other)
 	{
 		y -= other.y;
 		x -= other.x;
@@ -78,7 +81,7 @@ namespace Engine
 		return *this;
 	}
 
-	vector4D& vector4D::Multiply(const vector4D& other)
+	vec4& vec4::Multiply(const vec4& other)
 	{
 		x *= other.x;
 		y *= other.y;
@@ -87,7 +90,7 @@ namespace Engine
 		return *this;
 	}
 
-	vector4D& vector4D::Divide(const vector4D& other)
+	vec4& vec4::Divide(const vec4& other)
 	{
 		x /= other.x;
 		y /= other.y;
@@ -96,7 +99,7 @@ namespace Engine
 		return *this;
 	}
 
-	vector4D& vector4D::Add(float value)
+	vec4& vec4::Add(float value)
 	{
 		x += value;
 		y += value;
@@ -105,7 +108,7 @@ namespace Engine
 		return *this;
 	}
 
-	vector4D& vector4D::Subtract(float value)
+	vec4& vec4::Subtract(float value)
 	{
 		x -= value;
 		y -= value;
@@ -114,7 +117,7 @@ namespace Engine
 		return *this;
 	}
 
-	vector4D& vector4D::Multiply(float value)
+	vec4& vec4::Multiply(float value)
 	{
 		x *= value;
 		y *= value;
@@ -123,7 +126,7 @@ namespace Engine
 		return *this;
 	}
 
-	vector4D& vector4D::Divide(float value)
+	vec4& vec4::Divide(float value)
 	{
 		x /= value;
 		y /= value;
@@ -132,133 +135,133 @@ namespace Engine
 		return *this;
 	}
 
-	bool vector4D::operator==(const vector4D& other) const
+	bool vec4::operator==(const vec4& other) const
 	{
 		return x == other.x && y == other.y && z == other.z && w == other.w;
 	}
 
-	bool vector4D::operator!=(const vector4D& other) const
+	bool vec4::operator!=(const vec4& other) const
 	{
 		return !(*this == other);
 	}
 
-	bool vector4D::operator>(const vector4D& other) const
+	bool vec4::operator>(const vec4& other) const
 	{
 		return x > other.x && y > other.y && z > other.z && w > other.w;
 	}
 
-	bool vector4D::operator<(const vector4D& other) const
+	bool vec4::operator<(const vec4& other) const
 	{
 		return x < other.x && y < other.y && z < other.z && w< other.w;
 	}
 
-	bool vector4D::operator>=(const vector4D& other) const
+	bool vec4::operator>=(const vec4& other) const
 	{
 		return x >= other.x && y >= other.y && z >= other.z && w >=other.w;
 	}
 
-	bool vector4D::operator<=(const vector4D& other) const
+	bool vec4::operator<=(const vec4& other) const
 	{
 		return x <= other.x && y <= other.y && z <= other.z && w<=other.w;
 	}
 
-	vector4D vector4D::operator+=(const vector4D& other)
+	vec4 vec4::operator+=(const vec4& other)
 	{
 		return Add(other);
 	}
 
-	vector4D vector4D::operator-=(const vector4D& other)
+	vec4 vec4::operator-=(const vec4& other)
 	{
 		return Subtract(other);
 	}
 
-	vector4D vector4D::operator*=(const vector4D& other)
+	vec4 vec4::operator*=(const vec4& other)
 	{
 		return Multiply(other);
 	}
 
-	vector4D vector4D::operator/=(const vector4D& other)
+	vec4 vec4::operator/=(const vec4& other)
 	{
 		return Divide(other);
 	}
 
-	vector4D vector4D::operator+=(float value)
+	vec4 vec4::operator+=(float value)
 	{
 		return Add(value);
 	}
 
-	vector4D vector4D::operator-=(float value)
+	vec4 vec4::operator-=(float value)
 	{
 		return Subtract(value);
 	}
 
-	vector4D vector4D::operator*=(float value)
+	vec4 vec4::operator*=(float value)
 	{
 		return Multiply(value);
 	}
 
-	vector4D vector4D::operator/=(float value)
+	vec4 vec4::operator/=(float value)
 	{
 		return Divide(value);
 	}
 
-	float vector4D::Magnitude() const
+	float vec4::Magnitude() const
 	{
 		return sqrt(x * x + y * y + z * z + w*w);
 	}
 
-	vector4D vector4D::Normalize() const
+	vec4 vec4::Normalize() const
 	{
 		float temp = Magnitude();
-		return vector4D(x / temp, y / temp, z / temp, w/temp);
+		return vec4(x / temp, y / temp, z / temp, w/temp);
 	}
 
-	float vector4D::Dot(const vector4D& other) const
+	float vec4::Dot(const vec4& other) const
 	{
 		return x * other.x + y * other.y + z * other.z + w*other.w;
 	}
 
-	vector4D operator+(vector4D left, const vector4D& right)
+	vec4 operator+(vec4 left, const vec4& right)
 	{
 		return left.Add(right);
 	}
 
-	vector4D operator-(vector4D left, const vector4D& right)
+	vec4 operator-(vec4 left, const vec4& right)
 	{
 		return left.Subtract(right);
 	}
 
-	vector4D operator*(vector4D left, const vector4D& right)
+	vec4 operator*(vec4 left, const vec4& right)
 	{
 		return left.Multiply(right);
 	}
 
-	vector4D operator/(vector4D left, const vector4D& right)
+	vec4 operator/(vec4 left, const vec4& right)
 	{
 		return left.Divide(right);
 	}
 
-	vector4D operator+(vector4D left, float value)
+	vec4 operator+(vec4 left, float value)
 	{
-		return  vector4D(left.x + value, left.y + value, left.z + value, left.w+value);
+		return  vec4(left.x + value, left.y + value, left.z + value, left.w+value);
 	}
 
-	vector4D operator-(vector4D left, float value)
+	vec4 operator-(vec4 left, float value)
 	{
-		return  vector4D(left.x - value, left.y - value, left.z - value, left.w - value);
+		return  vec4(left.x - value, left.y - value, left.z - value, left.w - value);
 	}
 
-	vector4D operator*(vector4D left, float value)
+	vec4 operator*(vec4 left, float value)
 	{
-		return  vector4D(left.x * value, left.y * value, left.z * value , left.w* value);
+		return  vec4(left.x * value, left.y * value, left.z * value , left.w* value);
 	}
 
-	vector4D operator/(vector4D left, float value)
+	vec4 operator/(vec4 left, float value)
 	{
-		return  vector4D(left.x / value, left.y / value, left.z / value, left.z / value);
+		return  vec4(left.x / value, left.y / value, left.z / value, left.z / value);
 	}
 
-	std::ostream& operator<<(std::ostream& stream, const vector4D& other)
+	std::ostream& operator<<(std::ostream& stream, const vec4& other)
 	{
 		stream << "(" << other.x << "," << other.y << "," << other.z << ","<<other.w <<")";
 		return stream;

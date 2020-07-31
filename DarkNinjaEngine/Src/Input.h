@@ -3,7 +3,7 @@
 #include "KeyCodes.h"
 #include "MouseCodes.h"
 #include "Utlis/Helper.h"
-#include "Math/Vec2.h"
+#include "Math/vec2.h"
 namespace Engine
 {
 	class Input
@@ -19,13 +19,13 @@ namespace Engine
 
 		inline static float GetMouseX() { return _instance_->GetMouseXImp(); }
 		inline static float GetMouseY() { return _instance_->GetMouseYImp(); }
-		inline static Vec2 GetMousePosition() { return _instance_->GetMousePositionImp(); }
+		inline static vec2 GetMousePosition() { return _instance_->GetMousePositionImp(); }
 
 	protected:
 		virtual bool IsKeyPressedImp(int keycode) =0;
 		//virtual bool IsKeyRepeatImp(int keycode) = 0;
 		virtual bool IsMousePressedImp(int keycode) = 0;
-		virtual Vec2 GetMousePositionImp() = 0;
+		virtual vec2 GetMousePositionImp() = 0;
 		virtual float GetMouseXImp() = 0;
 		virtual float GetMouseYImp() = 0;
 		

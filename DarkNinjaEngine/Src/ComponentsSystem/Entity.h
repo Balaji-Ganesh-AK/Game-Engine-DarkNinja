@@ -5,11 +5,14 @@
 #include <vector>
 
 #include "Components.h"
+
 #include "../Logger.h"
 
 
 namespace Engine
 {
+	class RenderingSystem;
+
 
 #pragma region  Entityclass
 	class Entity
@@ -20,7 +23,9 @@ namespace Engine
 
 
 		void Init();
+		void ComponentInit();
 		void Update();
+		void UpdateOnGUI();
 		void End();
 
 		void AttachComponent(Components* component);
@@ -42,7 +47,7 @@ namespace Engine
 	template <class T>
 	T* Entity::GetComponent()
 	{
-		//
+		
 		T* ptr = nullptr;
 
 		for (int i = 0; i < _components_list_.size(); i++)
@@ -69,12 +74,14 @@ namespace Engine
 	//Singleton Class.
 	class EntityManager
 	{
+		friend RenderingSystem;
 	public:
 		// Delete copy constructor.
 		EntityManager(const EntityManager&) = delete;
 		EntityManager();
 		void Init();
 		void Update();
+		void UpdateOnGUI();
 		void End();
 		void AddEntity(Entity* entity);
 
