@@ -168,6 +168,7 @@
     <ClInclude Include="include\stb\stb_image.h" />
     <ClInclude Include="Src\ComponentsSystem\CameraController.h" />
     <ClInclude Include="Src\ComponentsSystem\Components.h" />
+    <ClInclude Include="Src\ComponentsSystem\RenderingSystem.h" />
     <ClInclude Include="Src\ComponentsSystem\RenderingSystem\Camera.h" />
     <ClInclude Include="Src\ComponentsSystem\RenderingSystem\Renderer.h" />
     <ClInclude Include="Src\ComponentsSystem\RenderingSystem\Texture.h" />
@@ -203,6 +204,7 @@
     <ClInclude Include="Src\Math\Vec4.h" />
     <ClInclude Include="Src\MouseCodes.h" />
     <ClInclude Include="Src\PlatformSpecific\OpenGL\OpenGLContext.h" />
+    <ClInclude Include="Src\PlatformSpecific\OpenGL\OpenGLShader.h" />
     <ClInclude Include="Src\PlatformSpecific\OpenGL\OpenGLTexture.h" />
     <ClInclude Include="Src\PlatformSpecific\OpenGL\OpenGLVertexArray.h" />
     <ClInclude Include="Src\PlatformSpecific\Windows\WindowInput.h" />
@@ -215,6 +217,7 @@
   <ItemGroup>
     <ClCompile Include="include\stb\stb_image.cpp" />
     <ClCompile Include="Src\ComponentsSystem\CameraController.cpp" />
+    <ClCompile Include="Src\ComponentsSystem\RenderingSystem.cpp" />
     <ClCompile Include="Src\ComponentsSystem\RenderingSystem\Camera.cpp" />
     <ClCompile Include="Src\ComponentsSystem\RenderingSystem\Renderer.cpp" />
     <ClCompile Include="Src\ComponentsSystem\RenderingSystem\Texture.cpp" />
@@ -245,6 +248,7 @@
     <ClCompile Include="Src\Math\Vec4.cpp" />
     <ClCompile Include="Src\PlatformSpecific\OpenGL\OpenGLContext.cpp" />
     <ClCompile Include="Src\PlatformSpecific\OpenGL\OpenGLRenderer.cpp" />
+    <ClCompile Include="Src\PlatformSpecific\OpenGL\OpenGLShader.cpp" />
     <ClCompile Include="Src\PlatformSpecific\OpenGL\OpenGLTexture.cpp" />
     <ClCompile Include="Src\PlatformSpecific\OpenGL\OpenGLVertexArray.cpp" />
     <ClCompile Include="Src\PlatformSpecific\Windows\WindowInput.cpp" />

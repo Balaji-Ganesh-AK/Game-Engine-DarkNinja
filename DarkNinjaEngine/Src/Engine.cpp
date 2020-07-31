@@ -14,6 +14,7 @@
 #include "Input.h"
 #include "KeyCodes.h"
 #include "MouseCodes.h"
+#include "ComponentsSystem/RenderingSystem.h"
 
 
 
@@ -114,7 +115,8 @@ namespace Engine
 
 		)";
 		
-		_shader_.reset(new Shader(vertexSrc,fragmentSrc));
+	
+		_shader_.reset(Shader::Create(vertexSrc,fragmentSrc));
 
 
 
@@ -156,7 +158,7 @@ namespace Engine
 
 		)";
 
-		_shader_square_.reset(new Shader(vertexSrcSquare, fragmentSrcSquare));
+		_shader_square_.reset( Shader::Create(vertexSrcSquare, fragmentSrcSquare));
 
 #pragma region texture stuff
 		std::string textureVertexSrc = R"(
@@ -240,35 +242,34 @@ namespace Engine
 			//DNE_ENGINE_INFO("FPS {0}", 1/TimeStamp::DeltaTime());
 			
 			
-#pragma region Renderer
-			
+
+#pragma region Renderer			
 			Renderer::GetInstance().ClearColor();
 			Renderer::GetInstance().SetClearColor(_clear_color_);
 
-		
-			
-			//if (Input::IsKeyPressed(Key::W))
-			//{
-			////	pos.x += 1 * TimeStamp::DeltaTime();
-			//}
-		
-			//_texture_test_->Bind();
-			//Renderer::Submit(_vertex_array_square_,_texture_shader_);
-		//	glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos);
-			//Renderer::Submit(_vertex_array_,_shader_, transform);
 			
 			
-			
-#pragma endregion  Renderer
-
+#pragma region IMGUILayer
 			
 			m_ImGuiLayer->Begin();
 			EntityManager::Instance().UpdateOnGUI();
 			m_ImGuiLayer->End();
+
+#pragma endregion IMGUILayer
+
+			
 		    EntityManager::Instance().Update();
-			Renderer::EndScene();
+
+
+			
+			RenderingSystem::Instance()->Run();
+			
+
+			//Todo Enable only editor window. 
 			_camera_controller_.Update(TimeStamp::DeltaTime());
 			
+			
+			Renderer::EndScene();
 		
 			GameLoop();
 			

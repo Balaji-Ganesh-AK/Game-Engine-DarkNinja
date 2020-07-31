@@ -5,11 +5,14 @@
 #include <vector>
 
 #include "Components.h"
+
 #include "../Logger.h"
 
 
 namespace Engine
 {
+	class RenderingSystem;
+
 
 #pragma region  Entityclass
 	class Entity
@@ -71,6 +74,7 @@ namespace Engine
 	//Singleton Class.
 	class EntityManager
 	{
+		friend RenderingSystem;
 	public:
 		// Delete copy constructor.
 		EntityManager(const EntityManager&) = delete;

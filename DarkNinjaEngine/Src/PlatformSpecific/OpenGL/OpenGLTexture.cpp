@@ -2,7 +2,6 @@
 #include "OpenGLTexture.h"
 
 #include "Logger.h"
-#include "GLAD/glad.h"
 #include "stb_image.h"
 #include "Utlis/Helper.h"
 
@@ -24,21 +23,19 @@ namespace Engine
 		_width_ = width;
 		_height_ = height;
 
-		GLenum dataFormat = 0, internalFormat = 0;
-
 		if(channels==4)
 		{
-			internalFormat = GL_RGBA8;
-			dataFormat = GL_RGBA;
+			_internal_format_ = GL_RGBA8;
+			_data_format_ = GL_RGBA;
 		}
 		else if(channels==3)
 		{
-			internalFormat = GL_RGB8;
-			dataFormat = GL_RGB;
+			_internal_format_ = GL_RGB8;
+			_data_format_ = GL_RGB;
 		}
-		DNE_ENGINE_ASSERT(internalFormat, "Format not supported");
+		DNE_ENGINE_ASSERT(_internal_format_, "Format not supported");
 		glCreateTextures(GL_TEXTURE_2D, 1, &_renderID_);
-		glTextureStorage2D(_renderID_, 1, internalFormat, _width_, _height_);
+		glTextureStorage2D(_renderID_, 1, _internal_format_, _width_, _height_);
 
 		glTextureParameteri(_renderID_, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		glTextureParameteri(_renderID_, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
@@ -48,10 +45,29 @@ namespace Engine
 		glTextureParameteri(_renderID_, GL_TEXTURE_WRAP_S, GL_REPEAT);
 		glTextureParameteri(_renderID_, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
-		glTextureSubImage2D(_renderID_, 0, 0, 0, _width_, _height_, dataFormat, GL_UNSIGNED_BYTE, data);
+		glTextureSubImage2D(_renderID_, 0, 0, 0, _width_, _height_, _data_format_, GL_UNSIGNED_BYTE, data);
 
 		
 		stbi_image_free(data);
+	}
+
+	OpenGLTexture2D::OpenGLTexture2D(uint32_t Width, uint32_t Height)
+		:_width_(Width), _height_(Height)
+	{
+		_internal_format_ = GL_RGBA8;
+		_data_format_ = GL_RGBA;
+
+
+		glCreateTextures(GL_TEXTURE_2D, 1, &_renderID_);
+		glTextureStorage2D(_renderID_, 1, _internal_format_, _width_, _height_);
+
+		glTextureParameteri(_renderID_, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTextureParameteri(_renderID_, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+
+		//these settings are default, can make the parameters as variables and give the user the
+		// ability to changes the parameter in run time.
+		glTextureParameteri(_renderID_, GL_TEXTURE_WRAP_S, GL_REPEAT);
+		glTextureParameteri(_renderID_, GL_TEXTURE_WRAP_T, GL_REPEAT);
 	}
 
 	OpenGLTexture2D::~OpenGLTexture2D()
@@ -73,4 +89,17 @@ namespace Engine
 	{
 		return _height_;
 	}
+
+	void OpenGLTexture2D::SetData(void* data, uint32_t size) const
+	{
+		const uint32_t bitsperpixel = _data_format_ == GL_RGBA ? 4 : 3;
+
+		//The buffer has to be the entire size of the texture
+		DNE_SIMPLE_ASSERT(size == _width_ * _height_ * bitsperpixel);
+
+
+		glTextureSubImage2D(_renderID_, 0, 0, 0, _width_, _height_, _data_format_, GL_UNSIGNED_BYTE, data);
+	}
+
+
 }

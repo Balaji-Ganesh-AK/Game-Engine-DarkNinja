@@ -66,9 +66,10 @@ namespace Engine
 		void main()
 		{
 			v_Position = a_Position;
+		
 			v_TexCord = a_TexCord;
 			
-			gl_Position = u_ViewProjection*u_Transform*vec4(a_Position,1.0);
+			gl_Position = u_ViewProjection * u_Transform * vec4(a_Position,1.0);
 		}
 
 		)";
@@ -80,39 +81,58 @@ namespace Engine
 
 		in vec3 v_Position;
 		in vec2 v_TexCord;
-		
+
+		uniform vec4 u_Color;
 		uniform sampler2D u_Texture;
+		
 		void main()
 		{
 		
-			o_Color = texture(u_Texture, v_TexCord*10.0);
+			o_Color = texture(u_Texture, v_TexCord ) * u_Color;
 		}
 
 		)";
 
-		_texture_shader_.reset(new Shader(textureVertexSrc, textureFragmentSrc));
-        _texture_ = Texture2D::Create(_path_);
+		
+		_texture_shader_.reset(Shader::Create(textureVertexSrc,textureFragmentSrc));
+      
 		
 		
 		_texture_shader_->Bind();
-		_texture_shader_->UniformIntUpload("u_Texture", 0);
+		_texture_shader_->SetInt("u_Texture", 0);
+		_texture_shader_->SetFloat4("u_Color", _color_.x, _color_.y, _color_.z, _color_.w);
+		
 	}
 
 	void Renderer2D::Update()
 	{
-		_texture_->Bind();
-		Renderer::Submit(_vertex_array_square_,_texture_shader_, _transform_);
+		
+	
 	}
 
 	void Renderer2D::End()
 	{
 	}
 
+	void Renderer2D::SetTexture(const std::string path)
+	{
+		_path_ = path;
+	
+	
+	}
+
 	void Renderer2D::SetPosition(const vec3 Position)
 	{
 		_position_ = Position;
-		_transform_ = glm::translate(glm::mat4(1.0f), { _position_.x,_position_.y,_position_.z });
-	
+		_transform_ = glm::translate(glm::mat4(1.0f), { _position_.x,_position_.y,_position_.z })
+			* glm::scale(glm::mat4(1.0f), { _size_.x, _size_.y,1.0f });
+		
+	}
+
+	void Renderer2D::SetColor(vec4 Color)
+	{
+		_color_ = Color;
+		//Renderer::SubmitColor(_vertex_array_square_, _texture_shader_, _color_);
 	}
 
 	void Renderer2D::SetScale(const vec2 Size)
@@ -122,5 +142,29 @@ namespace Engine
 		_transform_ = glm::translate(glm::mat4(1.0f), { _position_.x,_position_.y,_position_.z })
 		*glm::scale(glm::mat4(1.0f), {_size_.x, _size_.y,1.0f});
 		
+	}
+
+	void Renderer2D::DrawQuad(const vec4 Color, vec2 Size)
+	{
+		_texture_ = Texture2D::Create(1,1);
+		 uint32_t whitetexturedata = 0xffffffff;
+		 _texture_->SetData(&whitetexturedata,sizeof(uint32_t));
+		 
+		 _size_ = Size;
+		 _color_ = Color;
+		
+		 _transform_ = glm::translate(glm::mat4(1.0f), { _position_.x,_position_.y,_position_.z })
+			 * glm::scale(glm::mat4(1.0f), { _size_.x, _size_.y,1.0f });
+
+	}
+
+	void Renderer2D::DrawQuad(const std::string path, const vec2 Size)
+	{
+		_path_ = path;
+		_texture_ = Texture2D::Create(_path_);
+		_size_ = Size;
+
+		_transform_ = glm::translate(glm::mat4(1.0f), { _position_.x,_position_.y,_position_.z })
+			* glm::scale(glm::mat4(1.0f), { _size_.x, _size_.y,1.0f });
 	}
 }

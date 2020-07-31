@@ -5,6 +5,7 @@
 namespace Engine
 {
 	Renderer::API Renderer::_API_ = Renderer::API::OpenGL;
+	//TODO change it later to be generic 
 	Renderer* Renderer::_renderer_ = new OpenGLRenderer;
 	
 	Renderer::SceneData* Renderer::_scene_data_ = new Renderer::SceneData();
@@ -21,13 +22,16 @@ namespace Engine
 	{
 	}
 
-	void Renderer::Submit(const std::shared_ptr<VertexArray>& vertexArray, const std::shared_ptr<Shader>& ShaderData, const glm::mat4& transform)
+	void Renderer::Submit(const std::shared_ptr<VertexArray>& vertexArray, const std::shared_ptr<Shader>& ShaderData, const glm::mat4& transform,vec4 color)
 	{
 		ShaderData->Bind();
 
 		//ShaderData->UniformMat4Upload("u_ViewProjection", _scene_data_->_view_projection_matrix_);
-		ShaderData->UniformMat4Upload("u_ViewProjection", _scene_data_->camera->GetViewProjectionMatrix());
-		ShaderData->UniformMat4Upload("u_Transform", transform);
+		ShaderData->SetMat4("u_ViewProjection", _scene_data_->camera->GetViewProjectionMatrix());
+		ShaderData->SetMat4("u_Transform", transform);
+		ShaderData->SetFloat4("u_Color", color.x, color.y, color.z, color.w);
 		_renderer_->DrawIndexed(vertexArray, ShaderData);
 	}
+
+
 }

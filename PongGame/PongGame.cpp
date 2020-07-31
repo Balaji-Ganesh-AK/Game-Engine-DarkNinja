@@ -34,8 +34,7 @@ public:
 			show_another_window = true;
 		ImGui::End();
 
-		if (show_another_window)
-			ImGui::ShowDemoWindow(&show_another_window);
+		
 	}
 
 };
@@ -68,16 +67,20 @@ class Pong : public Engine::Application
 {
 public:
 	Engine::Entity* test = new Engine::Entity("Test");
+	Engine::Entity* test1 = new Engine::Entity("Test1");
 	Engine::vec3 Position;
 	Engine::vec2 Size;
 	Pong()
 	{
 
 		test->AttachComponent(new Level());
-	
-		test->AttachComponent(new Engine::Renderer2D());
-		test->GetComponent <Engine::Renderer2D>()->SetTexture();
 		
+		test->AttachComponent(new Engine::Renderer2D());
+		test->GetComponent<Engine::Renderer2D>()->DrawQuad("", Engine::vec2(2, 2));
+		
+		test1->AttachComponent(new Engine::Renderer2D());
+		test1->GetComponent<Engine::Renderer2D>()->DrawQuad(Engine::vec4(1, 0, 1, 1), Engine::vec2(1, 1));
+	
 
 		
 	}
@@ -96,6 +99,7 @@ public:
 		if (Engine::Input::IsKeyPressed(Engine::Key::S))
 		{
 			Position.y -= 0.1f * Engine::TimeStamp::DeltaTime();
+			
 			test->GetComponent<Engine::Renderer2D>()->SetPosition(Position);
 		}
 		if (Engine::Input::IsKeyPressed(Engine::Key::D))

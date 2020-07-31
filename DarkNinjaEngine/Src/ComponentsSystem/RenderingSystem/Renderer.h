@@ -30,7 +30,10 @@ namespace Engine
 		static void EndScene();
 		static void Submit(const std::shared_ptr<VertexArray>& vertexArray,
 		                          const std::shared_ptr<Shader>& ShaderData,
-			const glm::mat4& transform = glm::mat4(1.0f));
+			const glm::mat4& transform = glm::mat4(1.0f),
+			vec4 color = vec4(1,1,1,1));
+
+		static void SubmitColor(const std::shared_ptr<VertexArray>& vertexArray, const std::shared_ptr<Shader>& ShaderData , vec4 color);
 
 	
 		inline static Renderer& GetInstance() { return  *_renderer_; }
