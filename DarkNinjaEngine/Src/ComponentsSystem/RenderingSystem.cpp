@@ -2,6 +2,7 @@
 #include "RenderingSystem.h"
 
 #include "Renderer2D.h"
+#include "Transform/Transform.h"
 
 
 namespace Engine
@@ -18,12 +19,13 @@ namespace Engine
 
 			if(it->second->GetComponent<Renderer2D>())
 			{
+				
 				it->second->GetComponent<Renderer2D>()->_texture_->Bind();
 				//it->second->GetComponent<Renderer2D>()->_white_texture_->Bind();
 
 				Renderer::Submit(it->second->GetComponent<Renderer2D>()->_vertex_array_square_,
 				                 it->second->GetComponent<Renderer2D>()->_texture_shader_,
-				                 it->second->GetComponent<Renderer2D>()->_transform_,
+				                 it->second->GetComponent<Transform>()->GetTransformMatrix(),
 								 it->second->GetComponent<Renderer2D>()->_color_);
 				
 			

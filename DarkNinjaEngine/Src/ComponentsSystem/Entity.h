@@ -7,6 +7,7 @@
 #include "Components.h"
 
 #include "../Logger.h"
+#include "Transform/Transform.h"
 
 
 namespace Engine
@@ -75,6 +76,7 @@ namespace Engine
 	class EntityManager
 	{
 		friend RenderingSystem;
+	
 	public:
 		// Delete copy constructor.
 		EntityManager(const EntityManager&) = delete;

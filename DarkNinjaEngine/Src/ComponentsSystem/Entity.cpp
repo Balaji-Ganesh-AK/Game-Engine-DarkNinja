@@ -4,6 +4,8 @@
 #include  "Entity.h"
 
 
+
+
 Engine::EntityManager Engine::EntityManager::_instance_;
 //Engine::EntityManager EntityManagerMain;
 namespace Engine
@@ -13,6 +15,7 @@ namespace Engine
 	Entity::Entity(const char* name):_entity_name_(name ? _strdup(name): nullptr)
 	{
 		Init();
+		this->AttachComponent(new Transform);
 	}
 
 	Entity::~Entity()
@@ -91,9 +94,21 @@ namespace Engine
 
 	void EntityManager::Init()
 	{
+
+		
 		for (auto it = EntityManager::Instance()._entity_list_stack_.begin(); it != EntityManager::Instance()._entity_list_stack_.end(); ++it)
 		{
-			it->second->ComponentInit();
+			if (it->second->GetComponent<Transform>())
+			{
+				it->second->ComponentInit();
+				
+			}
+			else
+			{
+				std::cout << "Times called"<<it->second->GetName();
+				it->second->AttachComponent(new Transform);
+				it->second->ComponentInit();
+			}
 		}
 	}
 

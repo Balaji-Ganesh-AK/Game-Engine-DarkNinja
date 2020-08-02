@@ -43,15 +43,6 @@ namespace  Engine
 		vec4 _clear_color_ = vec4(0.1, 0.1, 0.1, 0.1);
 		
 		std::unique_ptr<Window> _window_;
-		std::shared_ptr<Shader> _shader_;
-		std::shared_ptr<Shader> _shader_square_;
-		std::shared_ptr<Shader> _texture_shader_;
-		
-		std::shared_ptr<VertexArray> _vertex_array_;
-
-		std::shared_ptr<VertexArray> _vertex_array_square_;
-
-		std::shared_ptr<Texture2D> _texture_test_;
 
 		glm::vec3 pos;
 
@@ -63,7 +54,7 @@ namespace  Engine
 
 		OrthographicCamera _camera_;
 	
-		vec4 _camera_position_ = vec4(-1,1,-1,1);
+		vec4 _camera_position_ = vec4(-1.6,1.6,-1.6,1.6);
 
 		CameraController _camera_controller_;
 	};

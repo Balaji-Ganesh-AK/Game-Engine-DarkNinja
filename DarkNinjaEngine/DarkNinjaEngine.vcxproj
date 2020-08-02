@@ -174,6 +174,7 @@
     <ClInclude Include="Src\ComponentsSystem\RenderingSystem\Texture.h" />
     <ClInclude Include="Src\ComponentsSystem\RenderingSystem\VertexArray.h" />
     <ClInclude Include="Src\ComponentsSystem\Renderer2D.h" />
+    <ClInclude Include="Src\ComponentsSystem\Transform\Transform.h" />
     <ClInclude Include="Src\PlatformSpecific\OpenGL\ImGui\imgui.h" />
     <ClInclude Include="Src\PlatformSpecific\OpenGL\ImGui\imgui_impl_glfw.h" />
     <ClInclude Include="Src\PlatformSpecific\OpenGL\ImGui\imgui_impl_opengl3.h" />
@@ -223,6 +224,7 @@
     <ClCompile Include="Src\ComponentsSystem\RenderingSystem\Texture.cpp" />
     <ClCompile Include="Src\ComponentsSystem\RenderingSystem\VertexArray.cpp" />
     <ClCompile Include="Src\ComponentsSystem\Renderer2D.cpp" />
+    <ClCompile Include="Src\ComponentsSystem\Transform\Transform.cpp" />
     <ClCompile Include="Src\PlatformSpecific\OpenGL\ImGui\imgui.cpp" />
     <ClCompile Include="Src\PlatformSpecific\OpenGL\ImGui\imgui_demo.cpp" />
     <ClCompile Include="Src\PlatformSpecific\OpenGL\ImGui\imgui_draw.cpp" />

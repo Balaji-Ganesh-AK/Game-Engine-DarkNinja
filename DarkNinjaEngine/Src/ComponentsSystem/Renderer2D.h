@@ -30,7 +30,7 @@ namespace Engine
 		void SetScale(const vec2 Size);
 
 		//Just a Quad with Color
-		void DrawQuad(const vec4 Color,vec2 Size=vec2(1,1));
+		void DrawQuad(const vec3 Position = vec3(0,0,0), const vec4 Color = vec4(0,0,0,0),vec2 size=vec2(1,1));
 
 		//Draw a quad with a texture;
 		void DrawQuad(const std::string path, const vec2 Size = vec2(1,1));

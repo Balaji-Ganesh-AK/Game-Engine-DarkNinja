@@ -13,6 +13,7 @@ namespace Engine
 	CameraController::CameraController( OrthographicCamera& orthographic_camera, bool rotation) : _camera_(&orthographic_camera), _camera_rotation_(rotation)
 	{
 		_camera_screen_ratio_ = _camera_->GetCameraSize().y;
+		
 	}
 
 	void Engine::CameraController::Update(float deltatime)
@@ -55,6 +56,7 @@ bool Engine::CameraController::OnMouseScrolledEvent(MouseScrollEvent& e)
 {
 	_zoom_level_ -= e.GetMouseY()*0.5f;
 	_zoom_level_ = std::max(_zoom_level_, 0.25f);
+	
 	_camera_->SetProjection(-_camera_screen_ratio_*_zoom_level_,_camera_screen_ratio_*_zoom_level_,-_zoom_level_,_zoom_level_);
 	return false;
 }
@@ -62,6 +64,8 @@ bool Engine::CameraController::OnMouseScrolledEvent(MouseScrollEvent& e)
 bool Engine::CameraController::OnWindowResizedEvent(WindowResizeEvent& e)
 {
 	_camera_screen_ratio_ = static_cast<float>(e.GetWidth()) / static_cast<float>(e.GetHeight());
+
+	
 	
 	_camera_->SetProjection(-_camera_screen_ratio_ * _zoom_level_, _camera_screen_ratio_ * _zoom_level_, -_zoom_level_, _zoom_level_);
 	return false;
