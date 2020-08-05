@@ -22,7 +22,7 @@ int main(int argc, char** argv)
 	Engine::Logger::GetClientLogger()->error("Client Started");
 #endif
 	app.GetData()->Run();
-	
+	app.GetData()->ShutDown();
 	
 	}
 

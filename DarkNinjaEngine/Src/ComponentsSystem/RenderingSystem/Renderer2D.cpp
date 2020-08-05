@@ -3,11 +3,9 @@
 
 #include <glm/glm/ext/matrix_transform.inl>
 
-
-#include "RenderingSystem/Renderer.h"
-
 namespace Engine
 {
+	
 	Renderer2D::~Renderer2D()
 	{
 	}
@@ -95,7 +93,7 @@ namespace Engine
 
 		
 		_texture_shader_.reset(Shader::Create(textureVertexSrc,textureFragmentSrc));
-      
+      	
 		
 		
 		_texture_shader_->Bind();
@@ -112,6 +110,7 @@ namespace Engine
 
 	void Renderer2D::End()
 	{
+		//delete _data_;
 	}
 
 	void Renderer2D::SetTexture(const std::string path)
@@ -121,49 +120,30 @@ namespace Engine
 	
 	}
 
-	void Renderer2D::SetPosition(const vec3 Position)
-	{
-		_position_ = Position;
-		_transform_ = glm::translate(glm::mat4(1.0f), { _position_.x,_position_.y,_position_.z })
-			* glm::scale(glm::mat4(1.0f), { _size_.x, _size_.y,1.0f });
-		
-	}
-
+	
 	void Renderer2D::SetColor(vec4 Color)
 	{
 		_color_ = Color;
 		//Renderer::SubmitColor(_vertex_array_square_, _texture_shader_, _color_);
 	}
 
-	void Renderer2D::SetScale(const vec2 Size)
-	{
-		_size_ = Size;
 
-		_transform_ = glm::translate(glm::mat4(1.0f), { _position_.x,_position_.y,_position_.z })
-		*glm::scale(glm::mat4(1.0f), {_size_.x, _size_.y,1.0f});
-		
-	}
-
-	void Renderer2D::DrawQuad(const vec3 Position, const vec4 Color, vec2 size)
+	void Renderer2D::DrawQuad()
 	{
 		_texture_ = Texture2D::Create(1, 1);
 		uint32_t whitetexturedata = 0xffffffff;
 		_texture_->SetData(&whitetexturedata, sizeof(uint32_t));
 
-		_size_ = size;
-		_color_ = Color;
-
-		_transform_ = glm::translate(glm::mat4(1.0f), { _position_.x,_position_.y,_position_.z })
-			* glm::scale(glm::mat4(1.0f), { _size_.x, _size_.y,1.0f });
+	
+		
 	}
 
-	void Renderer2D::DrawQuad(const std::string path, const vec2 Size)
+	void Renderer2D::DrawQuad(const std::string path)
 	{
 		_path_ = path;
 		_texture_ = Texture2D::Create(_path_);
-		_size_ = Size;
+		
 
-		_transform_ = glm::translate(glm::mat4(1.0f), { _position_.x,_position_.y,_position_.z })
-			* glm::scale(glm::mat4(1.0f), { _size_.x, _size_.y,1.0f });
+	
 	}
 }

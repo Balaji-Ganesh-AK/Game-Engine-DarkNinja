@@ -130,6 +130,14 @@ namespace Engine
 		}
 	}
 
+	void EntityManager::End()
+	{
+		for (auto it = EntityManager::Instance()._entity_list_stack_.begin(); it != EntityManager::Instance()._entity_list_stack_.end(); ++it)
+		{
+			it->second->End();
+		}
+	}
+
 
 	void EntityManager::AddEntity(Entity* entity)
 	{

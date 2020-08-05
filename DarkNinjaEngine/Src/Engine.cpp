@@ -70,6 +70,8 @@ namespace Engine
 
 	void Application::ShutDown()
 	{
+		EntityManager::Instance().End();
+		RenderingSystem::Instance()->Shutdown();
 		std::cout << "Game Engine Shutting Down" << std::endl;
 	}
 	
@@ -102,7 +104,7 @@ namespace Engine
 			_camera_controller_.Update(TimeStamp::DeltaTime());
 		    EntityManager::Instance().Update();
 
-
+			std::cout<<EntityManager::Instance().GetGameObjectCount()<<std::endl;
 			
 			RenderingSystem::Instance()->Run();
 			

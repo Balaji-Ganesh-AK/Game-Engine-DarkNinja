@@ -15,6 +15,19 @@ namespace Engine
 	private:
 
 		static RenderingSystem* _instance_;
+
+
+		struct Render2DData
+		{
+			std::shared_ptr<VertexArray> _vertex_array_square_;
+			std::shared_ptr<Texture2D> _texture_;
+			std::shared_ptr<Shader> _texture_shader_;
+		};
+
+
+		static Render2DData* _data_;
+
+		
 		
 		
 	};
