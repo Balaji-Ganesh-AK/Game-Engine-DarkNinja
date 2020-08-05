@@ -47,6 +47,7 @@ namespace Engine
 		vec2 _size_;
 		vec4 _color_ = vec4(1,1,1,1);
 		std::shared_ptr<VertexArray> _vertex_array_square_;
+		std::shared_ptr<VertexBuffer> _vertex_buffer_square;
 		std::shared_ptr<Texture2D> _texture_;
 		std::shared_ptr<Shader> _texture_shader_;
 	};

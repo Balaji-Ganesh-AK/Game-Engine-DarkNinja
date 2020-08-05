@@ -78,6 +78,7 @@ namespace Engine
 	void Application::Run()
 	{
 		EntityManager::Instance().Init();
+		RenderingSystem::Instance()->Init();
 		while(_is_running_)
 		{
 			TimeStamp::Run();
@@ -104,7 +105,7 @@ namespace Engine
 			_camera_controller_.Update(TimeStamp::DeltaTime());
 		    EntityManager::Instance().Update();
 
-			std::cout<<EntityManager::Instance().GetGameObjectCount()<<std::endl;
+		
 			
 			RenderingSystem::Instance()->Run();
 			

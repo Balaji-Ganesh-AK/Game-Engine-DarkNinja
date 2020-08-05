@@ -122,9 +122,12 @@ namespace Engine
 		virtual void UnBind()const = 0;
 		
 		virtual void SetLayout(BufferLayout& layout) = 0;
+		virtual void SetData(const void* data, uint32_t size=0) = 0;
+		
 		const virtual BufferLayout& GetLayout()  = 0;
 		
 		static  VertexBuffer* Create(float* Vertices, uint32_t size);
+		static VertexBuffer* Create(uint32_t size);
 	};
 
 
