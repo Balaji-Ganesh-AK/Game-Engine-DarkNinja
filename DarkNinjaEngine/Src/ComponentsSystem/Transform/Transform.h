@@ -34,7 +34,7 @@ namespace Engine
 	private:
 
 		vec2 _size_ = vec2(1,1);
-		vec3 _position_;
+		vec3 _position_ = vec3(1,1,1);
 		float _rotation_=0.0f;
 		bool _is_rotation_ = false;
 

@@ -33,6 +33,10 @@ namespace Engine
 			const glm::mat4& transform = glm::mat4(1.0f),
 			vec4 color = vec4(1,1,1,1));
 
+
+		static void Submit(const std::shared_ptr<VertexArray>& vertexArray, uint32_t IndexCount =0);
+
+		static glm::mat4 GetCameraViewProjection();
 		static void SubmitColor(const std::shared_ptr<VertexArray>& vertexArray, const std::shared_ptr<Shader>& ShaderData , vec4 color);
 
 	
@@ -42,6 +46,8 @@ namespace Engine
 	private:
 		
 		virtual void DrawIndexed(const std::shared_ptr<VertexArray>& vertexArray, const std::shared_ptr<Shader>& ShaderData) const = 0;
+
+		virtual void DrawIndexed(const std::shared_ptr<VertexArray>& vertexArray,uint32_t IndexCount = 0)const =0;
 		virtual void Init()const =0;
 		//x and y is the from value and width and height are the new values.
 		virtual void SetViewPort(uint32_t x, uint32_t y, uint32_t width, uint32_t height) = 0;

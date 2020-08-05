@@ -157,7 +157,8 @@ Pong::Pong()
 	test->AttachComponent(new Level());
 
 	test->AttachComponent(new Engine::Renderer2D());
-	test->GetComponent<Engine::Renderer2D>()->DrawQuad("");
+	test->GetComponent<Engine::Renderer2D>()->DrawQuad();
+	//test->GetComponent<Engine::Renderer2D>()->DrawQuad("");
 	test->GetComponent<Engine::Transform>()->SetPosition(Position);
 	test1->GetComponent<Engine::Transform>()->SetPosition(Engine::vec3(1, 1, 1));
 	test2->AttachComponent(new Engine::Renderer2D());

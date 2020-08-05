@@ -8,12 +8,13 @@ namespace Engine
 	public:
 
 		OpenGLVertexBuffer(float* Vertices, uint32_t size);
+		OpenGLVertexBuffer(uint32_t size);
 		virtual ~OpenGLVertexBuffer();
 
 
 	    const BufferLayout& GetLayout() override { return _layout_; }
 		void SetLayout(BufferLayout& layout) override { _layout_ = layout; }
-	
+		void SetData(const void* data, uint32_t size) override;
 
 		
 		void Bind() const override;

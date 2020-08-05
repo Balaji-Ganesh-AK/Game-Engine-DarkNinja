@@ -33,5 +33,14 @@ namespace Engine
 		_renderer_->DrawIndexed(vertexArray, ShaderData);
 	}
 
+	void Renderer::Submit(const std::shared_ptr<VertexArray>& vertexArray, uint32_t IndexCount)
+	{
+		_renderer_->DrawIndexed(vertexArray, IndexCount);
+	}
+		
 
+	glm::mat4 Renderer::GetCameraViewProjection()
+	{
+		return _renderer_->_scene_data_->camera->GetViewProjectionMatrix();
+	}
 }
