@@ -20,7 +20,7 @@
 #include "../DarkNinjaEngine/Src/Input.h"
 
 
-#include "../DarkNinjaEngine/Src/ComponentsSystem/Renderer2D.h"
+#include "../DarkNinjaEngine/Src/ComponentsSystem/RenderingSystem/Renderer2D.h"
 
 #include "ComponentsSystem/Entity.h"
 

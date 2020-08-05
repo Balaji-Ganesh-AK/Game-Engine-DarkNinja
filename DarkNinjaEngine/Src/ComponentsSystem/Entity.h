@@ -87,7 +87,7 @@ namespace Engine
 		void End();
 		void AddEntity(Entity* entity);
 
-		int GetGameObjectCount() const { return _game_object_count_; }
+		int GetGameObjectCount() const { return _entity_list_stack_.size(); }
 
 		int GetEmptyNameGameObjectCount() const { return _empty_name_gameobject_count_; }
 		void IncreaseEmptyNameGameObjectCount() { _empty_name_gameobject_count_++; }
