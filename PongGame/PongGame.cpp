@@ -5,7 +5,8 @@
 #include <imgui/imgui.h>
 
 
-Engine::vec3 Position;
+Engine::vec3 Position = Engine::vec3(1,1,0);
+Engine::vec3 Positiontest;
 Engine::vec4 Color = Engine::vec4(1, 0, 0, 1);
 std::vector<Engine::Entity*> List;
 
@@ -29,7 +30,7 @@ public:
 		
 		ImGui::Begin("Another Window", &show_another_window);   // Pass a pointer to our bool variable (the window will have a closing button that will clear the bool when clicked)
 		ImGui::Text("Hello from another window!");
-		ImGui::DragFloat2("Square Position", &Position.x);
+		ImGui::DragFloat2("Square Position", &Positiontest.x);
 		ImGui::ColorEdit4("Square Position", &Color.x);
 		if (ImGui::Button("Close Me"))
 			show_another_window = false;
@@ -69,9 +70,9 @@ void Level::End()
 class Pong : public Engine::Application
 {
 public:
-	Engine::Entity* test = new Engine::Entity("a");
-	Engine::Entity* test1 = new Engine::Entity("Test1");
-	Engine::Entity* test2 = new Engine::Entity("Test2");
+	Engine::Entity* test = new Engine::Entity("Hello?");
+	Engine::Entity* test1 = new Engine::Entity("Test");
+	Engine::Entity* test2 = new Engine::Entity("What");
 
 	
 	Engine::vec2 Size;
@@ -81,8 +82,8 @@ public:
 	{
 			//test->GetComponent<Engine::Transform>()->SetPosition(Position);
 			test2->GetComponent<Engine::Renderer2D>()->SetColor(Color);
-			test2->GetComponent<Engine::Transform>()->SetPosition(Position);
-		
+			test2->GetComponent<Engine::Transform>()->SetPosition(Positiontest);
+			
 		if (Engine::Input::IsKeyPressed(Engine::KeyCodes::W))
 		{
 			Position.y += 1.0f* Engine::TimeStamp::DeltaTime();
@@ -157,18 +158,20 @@ Pong::Pong()
 	test->AttachComponent(new Level());
 
 	test->AttachComponent(new Engine::Renderer2D());
-	test->GetComponent<Engine::Renderer2D>()->DrawQuad();
-	//test->GetComponent<Engine::Renderer2D>()->DrawQuad("");
+	//test->GetComponent<Engine::Renderer2D>()->DrawQuad();
+	test->GetComponent<Engine::Renderer2D>()->DrawQuad("Resources/Assets/Textures/Checkerboard.png");
 	test->GetComponent<Engine::Transform>()->SetPosition(Position);
-	test1->GetComponent<Engine::Transform>()->SetPosition(Engine::vec3(1, 1, 1));
-	test2->AttachComponent(new Engine::Renderer2D());
-	test2->GetComponent<Engine::Renderer2D>()->DrawQuad();
-	test2->GetComponent<Engine::Transform>()->SetPosition(Position);
+	test1->GetComponent<Engine::Transform>()->SetPosition(Engine::vec3(3, -2, 1));
+
 
 	test1->AttachComponent(new Engine::Renderer2D());
-	test1->GetComponent<Engine::Renderer2D>()->DrawQuad();
+	test1->GetComponent<Engine::Renderer2D>()->DrawQuad("Resources/Assets/Textures/TestingPNGBlend.png");
+
+
+	test2->AttachComponent(new Engine::Renderer2D());
+	test2->GetComponent<Engine::Renderer2D>()->DrawQuad();
 	
-	for(int i=0; i < 10; i++)
+	/*for(int i=0; i < 10; i++)
 	{
 		Engine::Entity* testt = new Engine::Entity("");
 		testt->AttachComponent(new Engine::Renderer2D());
@@ -176,7 +179,7 @@ Pong::Pong()
 		
 	
 		List.push_back(testt);
-	}
+	}*/
 	
 
 	

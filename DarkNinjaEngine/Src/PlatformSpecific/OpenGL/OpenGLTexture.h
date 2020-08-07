@@ -18,7 +18,10 @@ namespace Engine
 		 uint32_t GetHeight() const override;
 
 		 void SetData(void* data, uint32_t size)const override;
-
+		 bool operator==(const Texture& other) const override
+		 {
+			 return _renderID_ == ((OpenGLTexture2D&)other)._renderID_;
+		 }
 	private:
 		std::string _path_;
 		uint32_t _width_, _height_;

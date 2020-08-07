@@ -14,7 +14,7 @@ namespace Engine
 		switch (Type)
 		{
 
-		case ShaderDataType::FVec: return GL_FLOAT;
+		case ShaderDataType::Float: return GL_FLOAT;
 		case ShaderDataType::FVec2:return GL_FLOAT;
 		case ShaderDataType::FVec3:return GL_FLOAT;
 		case ShaderDataType::FVec4:return GL_FLOAT;

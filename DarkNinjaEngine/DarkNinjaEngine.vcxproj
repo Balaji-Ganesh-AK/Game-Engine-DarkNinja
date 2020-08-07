@@ -265,6 +265,7 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="Checkerboard.png" />
+    <Image Include="Src\Checkerboard.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

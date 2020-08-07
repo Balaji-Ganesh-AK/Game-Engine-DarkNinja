@@ -17,6 +17,7 @@ namespace Engine
 
 		void Flush();
 		static RenderingSystem* _instance_;
+		void UpdateVertix(vec3 tempPos, vec2 tempSize, float tempTextureID, vec4 Color);
 
 
 

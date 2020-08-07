@@ -8,7 +8,7 @@ namespace Engine
 	enum class ShaderDataType
 	{
 		None = 0,
-		FVec, FVec2, FVec3, FVec4,
+		Float, FVec2, FVec3, FVec4,
 		Mat3, Mat4,
 		Int,
 		Bool
@@ -19,7 +19,7 @@ namespace Engine
 	{
 		switch (Type)
 		{
-			case ShaderDataType::FVec:   return 4;
+			case ShaderDataType::Float:   return 4;
 			case ShaderDataType::FVec2:  return 4*2;
 			case ShaderDataType::FVec3:  return 4*3;
 			case ShaderDataType::FVec4:  return 4*4;
@@ -61,7 +61,7 @@ namespace Engine
 		{
 			switch (Type)
 			{
-			case ShaderDataType::FVec:   return 1;
+			case ShaderDataType::Float:   return 1;
 			case ShaderDataType::FVec2:  return 2;
 			case ShaderDataType::FVec3:  return 3;
 			case ShaderDataType::FVec4:  return 4;

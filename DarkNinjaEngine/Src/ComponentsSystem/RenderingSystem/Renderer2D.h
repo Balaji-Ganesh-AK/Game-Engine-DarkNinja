@@ -41,7 +41,7 @@ namespace Engine
 
 		
 		std::string _path_;
-	
+		int _texture_id_ =-1;
 
 		vec3 _position_;
 		vec2 _size_;

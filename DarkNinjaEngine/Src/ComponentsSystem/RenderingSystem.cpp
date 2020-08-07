@@ -17,6 +17,7 @@ namespace Engine
 		vec3 _position_;
 		vec4 _color_;
 		vec2 _texture_coord_;
+		float _tex_index_;
 
 	};
 	struct Render2DData
@@ -25,21 +26,27 @@ namespace Engine
 		static const uint32_t MaxQuad = 10000;
 		static const uint32_t MaxVertices = MaxQuad * 4;
 		static const uint32_t MaxIndices = MaxQuad * 6;
-		//Todo add texture slots;
+		//Todo get the texture slots from GPU rendercaps
+		static const uint32_t MaxTextureSlots = 32;
 
 
 		std::shared_ptr<VertexArray> _vertex_array_;
 		std::shared_ptr<VertexBuffer> _vertex_buffer_;
 		std::shared_ptr<Texture2D> _texture_;
+		std::shared_ptr<Texture2D> _white_texture_;
 		std::shared_ptr<Shader> _texture_shader_;
 
 
 		uint32_t IndexCount = 0;
 
-		//Pointer to the current memory block.
 
+		//Pointer to the current memory block.
 		QuadVertex2D* _vertex_buffer_base_ = nullptr;
 		QuadVertex2D* _vertex_buffer_ptr_ = nullptr;
+
+		std::array<std::shared_ptr<Texture2D>, MaxTextureSlots> TextureSlots;
+		//0 is assigned to the white texture;
+		uint32_t TextureSlotIndex = 1;
 
 	};
 
@@ -61,7 +68,8 @@ namespace Engine
 			BufferLayout layout = {
 				{ShaderDataType::FVec3, "a_Position"},
 				{ShaderDataType::FVec4, "a_Color"},
-				{ShaderDataType::FVec2, "a_TexCord"}
+				{ShaderDataType::FVec2, "a_TexCord"},
+				{ShaderDataType::Float, "a_TexIndex"}
 
 			};
 			_data_2D_._vertex_buffer_->SetLayout(layout);
@@ -102,9 +110,10 @@ namespace Engine
 
 		//Just now for white texture.
 
-		_data_2D_._texture_ = Texture2D::Create(1, 1);
+		_data_2D_._white_texture_ = Texture2D::Create(1, 1);
 		uint32_t whitetexturedata = 0xffffffff;
-		_data_2D_._texture_->SetData(&whitetexturedata,sizeof(uint32_t));
+		_data_2D_._white_texture_->SetData(&whitetexturedata,sizeof(uint32_t));
+		_data_2D_.TextureSlots[0] = _data_2D_._white_texture_;
 
 #pragma region  shaderData
 		std::string textureVertexSrc = R"(
@@ -113,6 +122,7 @@ namespace Engine
 		layout(location = 0) in vec3 a_Position;
 		layout(location = 1) in vec4 a_Color;
 		layout(location = 2) in vec2 a_TexCord;
+		layout(location = 3) in float a_TexIndex;
 
 		uniform mat4 u_ViewProjection;
 		
@@ -121,13 +131,14 @@ namespace Engine
 	
 		out vec4 v_Color;
 		out vec2 v_TexCord;
-		
+		out float v_TexIndex;
 		void main()
 		{
 			
-		
 			v_TexCord = a_TexCord;
 			v_Color = a_Color;
+			v_TexIndex= a_TexIndex;
+		
 			gl_Position = u_ViewProjection * vec4(a_Position,1.0);
 		}
 
@@ -141,67 +152,33 @@ namespace Engine
 
 		in vec4 v_Color;
 		in vec2 v_TexCord;
-
-		uniform vec4 u_Color;
-		uniform sampler2D u_Texture;
+		in float v_TexIndex;
+		
+		uniform sampler2D u_Texture[32];
 		
 		void main()
 		{
 		
-			//o_Color = texture(u_Texture, v_TexCord ) * u_Color;
-			o_Color = v_Color;
+			o_Color = texture(u_Texture[int(v_TexIndex)], v_TexCord ) * v_Color;
+			//o_Color = v_Color;
 		}
 
 		)";
 
 #pragma endregion 
 
-		
+		int32_t sampler[_data_2D_.MaxTextureSlots];
+
+		for (int32_t i=0; i<_data_2D_.MaxTextureSlots;i++)
+		{
+			sampler[i] = i;
+		}
 		_data_2D_._texture_shader_.reset(Shader::Create(textureVertexSrc, textureFragmentSrc));
 		_data_2D_._texture_shader_->Bind();
-		_data_2D_._texture_shader_->SetInt("u_Texture", 0);
+		_data_2D_._texture_shader_->SetIntArray("u_Texture", sampler, _data_2D_.MaxTextureSlots);
 
-
-
-		_data_2D_._texture_shader_->SetMat4("u_ViewProjection", Renderer::GetCameraViewProjection());
-		_data_2D_.IndexCount = 0;
-		_data_2D_._vertex_buffer_ptr_ = _data_2D_._vertex_buffer_base_;
 		
-		for (auto it = EntityManager::Instance()._entity_list_stack_.begin(); it != EntityManager::Instance()._entity_list_stack_.end(); ++it)
-		{
-
-
-			if (it->second->GetComponent<Renderer2D>())
-			{
-				const vec3 tempPos = it->second->GetComponent<Transform>()->GetPosition();
-				const vec2 tempSize = it->second->GetComponent<Transform>()->GetSize();
-				
-				_data_2D_._vertex_buffer_ptr_->_position_ = tempPos;
-				_data_2D_._vertex_buffer_ptr_->_color_ = it->second->GetComponent<Renderer2D>()->_color_;
-				_data_2D_._vertex_buffer_ptr_->_texture_coord_ = { 0.0f,0.0f };
-				_data_2D_._vertex_buffer_ptr_++;
-
-				_data_2D_._vertex_buffer_ptr_->_position_ = { tempPos.x + tempSize.x, tempPos.y, 0.0f };
-				_data_2D_._vertex_buffer_ptr_->_color_ = it->second->GetComponent<Renderer2D>()->_color_;
-				_data_2D_._vertex_buffer_ptr_->_texture_coord_ = { 1.0f,0.0f };
-				_data_2D_._vertex_buffer_ptr_++;
-
-				_data_2D_._vertex_buffer_ptr_->_position_ = { tempPos.x + tempSize.x, tempPos.y + tempSize.y, 0.0f };
-				_data_2D_._vertex_buffer_ptr_->_color_ = it->second->GetComponent<Renderer2D>()->_color_;
-				_data_2D_._vertex_buffer_ptr_->_texture_coord_ = { 1.0f,1.0f };
-				_data_2D_._vertex_buffer_ptr_++;
-
-				_data_2D_._vertex_buffer_ptr_->_position_ = { tempPos.x , tempPos.y + tempSize.y, 0.0f };
-				_data_2D_._vertex_buffer_ptr_->_color_ = it->second->GetComponent<Renderer2D>()->_color_;
-				_data_2D_._vertex_buffer_ptr_->_texture_coord_ = { 0.0f,1.0f };
-				_data_2D_._vertex_buffer_ptr_++;
-
-				//6 index per quad.
-				_data_2D_.IndexCount += 6;
-				
-			}
-
-		}
+		
 	}
 
 	void RenderingSystem::Run()
@@ -210,8 +187,12 @@ namespace Engine
 		_data_2D_._texture_shader_->SetMat4("u_ViewProjection", Renderer::GetCameraViewProjection());
 		_data_2D_.IndexCount = 0;
 		_data_2D_._vertex_buffer_ptr_ = _data_2D_._vertex_buffer_base_;
+		_data_2D_.TextureSlotIndex = 1;
 
 
+		//This block of code needs to be reworked.
+		float tempTextureID = 1;
+		
 		
 		for (auto it = EntityManager::Instance()._entity_list_stack_.begin(); it != EntityManager::Instance()._entity_list_stack_.end(); ++it)
 		{
@@ -219,33 +200,38 @@ namespace Engine
 
 			if (it->second->GetComponent<Renderer2D>())
 			{
-
+				
 				vec3 tempPos = it->second->GetComponent<Transform>()->GetPosition();
 				vec2 tempSize = it->second->GetComponent<Transform>()->GetSize();
-
-				_data_2D_._vertex_buffer_ptr_->_position_ = tempPos;
-				_data_2D_._vertex_buffer_ptr_->_color_ = it->second->GetComponent<Renderer2D>()->_color_;
-				_data_2D_._vertex_buffer_ptr_->_texture_coord_ = { 0.0f,0.0f };
-				_data_2D_._vertex_buffer_ptr_++;
-
-				_data_2D_._vertex_buffer_ptr_->_position_ = { tempPos.x + tempSize.x, tempPos.y, 0.0f };
-				_data_2D_._vertex_buffer_ptr_->_color_ = it->second->GetComponent<Renderer2D>()->_color_;
-				_data_2D_._vertex_buffer_ptr_->_texture_coord_ = { 1.0f,0.0f };
-				_data_2D_._vertex_buffer_ptr_++;
-
-				_data_2D_._vertex_buffer_ptr_->_position_ = { tempPos.x + tempSize.x, tempPos.y + tempSize.y, 0.0f };
-				_data_2D_._vertex_buffer_ptr_->_color_ = it->second->GetComponent<Renderer2D>()->_color_;
-				_data_2D_._vertex_buffer_ptr_->_texture_coord_ = { 1.0f,1.0f };
-				_data_2D_._vertex_buffer_ptr_++;
-
-				_data_2D_._vertex_buffer_ptr_->_position_ = { tempPos.x , tempPos.y + tempSize.y, 0.0f };
-				_data_2D_._vertex_buffer_ptr_->_color_ = it->second->GetComponent<Renderer2D>()->_color_;
-				_data_2D_._vertex_buffer_ptr_->_texture_coord_ = { 0.0f,1.0f };
-				_data_2D_._vertex_buffer_ptr_++;
-
-				//6 index per quad.
-				_data_2D_.IndexCount += 6;
-
+				if(it->second->GetComponent<Renderer2D>()->_texture_id_ == 1)
+				{
+					for(uint32_t i= 1; i< _data_2D_.TextureSlotIndex;i++)
+					{
+						if(*_data_2D_.TextureSlots[i].get() == *it->second->GetComponent<Renderer2D>()->_texture_.get())
+						{
+							tempTextureID = (float)i;
+							break;
+						}
+						
+						tempTextureID = (float)_data_2D_.TextureSlotIndex;
+						_data_2D_.TextureSlots[_data_2D_.TextureSlotIndex] = it->second->GetComponent<Renderer2D>()->_texture_;
+						_data_2D_.TextureSlotIndex++;
+					}
+					if(tempTextureID==1)
+					{
+						tempTextureID = (float)_data_2D_.TextureSlotIndex;
+						_data_2D_.TextureSlots[_data_2D_.TextureSlotIndex] = it->second->GetComponent<Renderer2D>()->_texture_;
+						_data_2D_.TextureSlotIndex++;
+					}
+				
+					UpdateVertix(tempPos, tempSize, tempTextureID, it->second->GetComponent<Renderer2D>()->_color_);
+					tempTextureID++;
+				}
+				else
+				{
+					UpdateVertix(tempPos, tempSize, 0, it->second->GetComponent<Renderer2D>()->_color_);
+					break;
+				}	
 			}
 
 		}
@@ -265,6 +251,43 @@ namespace Engine
 
 	void RenderingSystem::Flush()
 	{
+		for (uint32_t i = 0; i < _data_2D_.TextureSlotIndex; i++)
+		{
+			_data_2D_.TextureSlots[i]->Bind(i);
+		}
+		
 		Renderer::Submit(_data_2D_._vertex_array_, _data_2D_.IndexCount);
 	}
+
+	void RenderingSystem::UpdateVertix(vec3 tempPos, vec2 tempSize, float tempTextureID, vec4 Color)
+	{
+		_data_2D_._vertex_buffer_ptr_->_position_ = tempPos;
+		_data_2D_._vertex_buffer_ptr_->_color_ = Color;
+		_data_2D_._vertex_buffer_ptr_->_texture_coord_ = { 0.0f,0.0f };
+		_data_2D_._vertex_buffer_ptr_->_tex_index_ = tempTextureID;
+		_data_2D_._vertex_buffer_ptr_++;
+
+		_data_2D_._vertex_buffer_ptr_->_position_ = { tempPos.x + tempSize.x, tempPos.y, 0.0f };
+		_data_2D_._vertex_buffer_ptr_->_color_ = Color;
+		_data_2D_._vertex_buffer_ptr_->_texture_coord_ = { 1.0f,0.0f };
+		_data_2D_._vertex_buffer_ptr_->_tex_index_ = tempTextureID;
+		_data_2D_._vertex_buffer_ptr_++;
+
+		_data_2D_._vertex_buffer_ptr_->_position_ = { tempPos.x + tempSize.x, tempPos.y + tempSize.y, 0.0f };
+		_data_2D_._vertex_buffer_ptr_->_color_ = Color;
+		_data_2D_._vertex_buffer_ptr_->_texture_coord_ = { 1.0f,1.0f };
+		_data_2D_._vertex_buffer_ptr_->_tex_index_ = tempTextureID;
+		_data_2D_._vertex_buffer_ptr_++;
+
+		_data_2D_._vertex_buffer_ptr_->_position_ = { tempPos.x , tempPos.y + tempSize.y, 0.0f };
+		_data_2D_._vertex_buffer_ptr_->_color_ = Color;
+		_data_2D_._vertex_buffer_ptr_->_texture_coord_ = { 0.0f,1.0f };
+		_data_2D_._vertex_buffer_ptr_->_tex_index_ = tempTextureID;
+		_data_2D_._vertex_buffer_ptr_++;
+
+		//6 index per quad.
+		_data_2D_.IndexCount += 6;
+	}
+
+
 }
