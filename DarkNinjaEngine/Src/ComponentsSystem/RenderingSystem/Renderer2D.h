@@ -41,6 +41,7 @@ namespace Engine
 
 		
 		std::string _path_;
+		//this is used to check if we need to use the default white texture on this sprite.
 		int _texture_id_ =-1;
 
 		vec3 _position_;

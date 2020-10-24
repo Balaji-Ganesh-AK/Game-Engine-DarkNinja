@@ -70,9 +70,10 @@ void Level::End()
 class Pong : public Engine::Application
 {
 public:
-	Engine::Entity* test = new Engine::Entity("Hello?");
-	Engine::Entity* test1 = new Engine::Entity("Test");
-	Engine::Entity* test2 = new Engine::Entity("What");
+	Engine::Entity* test = new Engine::Entity("BG");
+	Engine::Entity* test1 = new Engine::Entity("Test1");
+	
+	
 
 	
 	Engine::vec2 Size;
@@ -80,10 +81,8 @@ public:
 
 	void GameLoop() override
 	{
-			//test->GetComponent<Engine::Transform>()->SetPosition(Position);
-			test2->GetComponent<Engine::Renderer2D>()->SetColor(Color);
-			test2->GetComponent<Engine::Transform>()->SetPosition(Positiontest);
 			
+		test1->GetComponent<Engine::Renderer2D>()->SetColor(Color);
 		if (Engine::Input::IsKeyPressed(Engine::KeyCodes::W))
 		{
 			Position.y += 1.0f* Engine::TimeStamp::DeltaTime();
@@ -91,8 +90,8 @@ public:
 		}
 		if (Engine::Input::IsKeyPressed(Engine::KeyCodes::Space))
 		{
-
-			test->GetComponent<Engine::Transform>()->SetScale(Engine::vec2(10, 10));
+			test->IsActive = !test->IsActive;
+			
 		}
 		if (Engine::Input::IsKeyPressed(Engine::Key::S))
 		{
@@ -124,26 +123,7 @@ public:
 		}
 
 
-		for(int i =0; i<List.size(); i++)
-		{
-			if(List[i]->GetComponent<Engine::Renderer2D>())
-			{
-				
-			
-				if(i<50)
-				{
-					
-				List[i]->GetComponent<Engine::Transform>()->SetPosition(i, 1, 1);
-				}
-				else
-				{
-					
-				List[i]->GetComponent<Engine::Transform>()->SetPosition(50, i-50, 1);
-				}
-				List[i]->GetComponent<Engine::Renderer2D>()->SetColor(Color);
-			}
-			
-		}
+	
 		
 	}
 	
@@ -161,25 +141,20 @@ Pong::Pong()
 	//test->GetComponent<Engine::Renderer2D>()->DrawQuad();
 	test->GetComponent<Engine::Renderer2D>()->DrawQuad("Resources/Assets/Textures/Checkerboard.png");
 	test->GetComponent<Engine::Transform>()->SetPosition(Position);
-	test1->GetComponent<Engine::Transform>()->SetPosition(Engine::vec3(3, -2, 1));
-
+	
+	test->GetComponent<Engine::Transform>()->SetScale(Engine::vec2(100,100));
 
 	test1->AttachComponent(new Engine::Renderer2D());
-	test1->GetComponent<Engine::Renderer2D>()->DrawQuad("Resources/Assets/Textures/TestingPNGBlend.png");
-
-
-	test2->AttachComponent(new Engine::Renderer2D());
-	test2->GetComponent<Engine::Renderer2D>()->DrawQuad();
+	//test->GetComponent<Engine::Renderer2D>()->DrawQuad();
+	test1->GetComponent<Engine::Renderer2D>()->DrawQuad();
+	test1->GetComponent<Engine::Transform>()->SetPosition(Position);
+	test1->GetComponent<Engine::Transform>()->SetRotation(10);
+	test1->AttachComponent(new Engine::ParticleSystem());
 	
-	/*for(int i=0; i < 10; i++)
-	{
-		Engine::Entity* testt = new Engine::Entity("");
-		testt->AttachComponent(new Engine::Renderer2D());
-		testt->GetComponent<Engine::Renderer2D>()->DrawQuad();
-		
+	test->IsActive = false;
 	
-		List.push_back(testt);
-	}*/
+
+	
 	
 
 	

@@ -30,7 +30,8 @@ namespace Engine
 		void End();
 
 		void AttachComponent(Components* component);
-
+		bool IsActive;
+		
 		template <class T>
 		T* GetComponent();
 
@@ -40,7 +41,7 @@ namespace Engine
 
 
 		std::string _entity_name_;
-
+		
 
 		void AddGameObject();
 	};
@@ -93,7 +94,7 @@ namespace Engine
 		void IncreaseEmptyNameGameObjectCount() { _empty_name_gameobject_count_++; }
 		static EntityManager& Instance() { return _instance_; }
 	private:
-
+		bool CheckIfNameAlreadyExists(std::string name) const;
 		static EntityManager _instance_;
 		int _game_object_count_ = 0;
 

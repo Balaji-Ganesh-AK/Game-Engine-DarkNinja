@@ -13,8 +13,18 @@ namespace Engine
 
 	void Transform::Update()
 	{
+		if(!_is_rotation_)
+		{
+			
 		_transform_ = glm::translate(glm::mat4(1.0f), { _position_.x,_position_.y,_position_.z })
 			* glm::scale(glm::mat4(1.0f), { _size_.x, _size_.y,1.0f });
+		}
+		else
+		{
+			_transform_ = glm::translate(glm::mat4(1.0f), { _position_.x,_position_.y,_position_.z })
+				 *glm::rotate(glm::mat4(1.0f), _rotation_,{0.0f,0.0f,1.0f})
+				* glm::scale(glm::mat4(1.0f), { _size_.x, _size_.y,1.0f });
+		}
 		
 		//TODO add a control statement to make rotation false when the rotation rad is 0;
 	}
@@ -39,7 +49,7 @@ namespace Engine
 
 	void Transform::SetRotation(const float Rad)
 	{
-		_rotation_ = Rad;
+		_rotation_ = glm::radians(Rad);
 		_is_rotation_ = true;
 	}
 

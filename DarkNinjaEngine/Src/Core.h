@@ -24,5 +24,7 @@
 
 #include "ComponentsSystem/Entity.h"
 
+#include "ParticleSystem/ParticleSystem2D.h"
+
 
 

@@ -14,7 +14,7 @@ namespace Engine
 
 	struct QuadVertex2D
 	{
-		vec3 _position_;
+		glm::vec3 _position_;
 		vec4 _color_;
 		vec2 _texture_coord_;
 		float _tex_index_;
@@ -38,7 +38,7 @@ namespace Engine
 
 
 		uint32_t IndexCount = 0;
-
+		glm::vec4 QuadVertexPositions[4];
 
 		//Pointer to the current memory block.
 		QuadVertex2D* _vertex_buffer_base_ = nullptr;
@@ -125,10 +125,7 @@ namespace Engine
 		layout(location = 3) in float a_TexIndex;
 
 		uniform mat4 u_ViewProjection;
-		
-		
-		
-	
+
 		out vec4 v_Color;
 		out vec2 v_TexCord;
 		out float v_TexIndex;
@@ -177,6 +174,10 @@ namespace Engine
 		_data_2D_._texture_shader_->Bind();
 		_data_2D_._texture_shader_->SetIntArray("u_Texture", sampler, _data_2D_.MaxTextureSlots);
 
+		_data_2D_.QuadVertexPositions[0]= { -0.5f,-0.5f,0.0f,1.0f };
+		_data_2D_.QuadVertexPositions[1]= { 0.5f,-0.5f,0.0f,1.0f };
+		_data_2D_.QuadVertexPositions[2]= { 0.5f,0.5f,0.0f,1.0f };
+		_data_2D_.QuadVertexPositions[3]= { -0.5f,0.5f,0.0f,1.0f };
 		
 		
 	}
@@ -193,51 +194,50 @@ namespace Engine
 		//This block of code needs to be reworked.
 		float tempTextureID = 1;
 		
-		
 		for (auto it = EntityManager::Instance()._entity_list_stack_.begin(); it != EntityManager::Instance()._entity_list_stack_.end(); ++it)
 		{
+		
+			
 
-
-			if (it->second->GetComponent<Renderer2D>())
+			if (it->second->GetComponent<Renderer2D>() && it->second->IsActive)
 			{
-				
-				vec3 tempPos = it->second->GetComponent<Transform>()->GetPosition();
-				vec2 tempSize = it->second->GetComponent<Transform>()->GetSize();
+				const glm::mat4 tempTransform = it->second->GetComponent<Transform>()->GetTransformMatrix();
+				const vec2 tempSize = it->second->GetComponent<Transform>()->GetSize();
 				if(it->second->GetComponent<Renderer2D>()->_texture_id_ == 1)
 				{
 					for(uint32_t i= 1; i< _data_2D_.TextureSlotIndex;i++)
 					{
 						if(*_data_2D_.TextureSlots[i].get() == *it->second->GetComponent<Renderer2D>()->_texture_.get())
 						{
-							tempTextureID = (float)i;
+							tempTextureID = static_cast<float>(i);
 							break;
 						}
 						
-						tempTextureID = (float)_data_2D_.TextureSlotIndex;
+						tempTextureID = static_cast<float>(_data_2D_.TextureSlotIndex);
 						_data_2D_.TextureSlots[_data_2D_.TextureSlotIndex] = it->second->GetComponent<Renderer2D>()->_texture_;
 						_data_2D_.TextureSlotIndex++;
 					}
 					if(tempTextureID==1)
 					{
-						tempTextureID = (float)_data_2D_.TextureSlotIndex;
+						tempTextureID = static_cast<float>(_data_2D_.TextureSlotIndex);
 						_data_2D_.TextureSlots[_data_2D_.TextureSlotIndex] = it->second->GetComponent<Renderer2D>()->_texture_;
 						_data_2D_.TextureSlotIndex++;
 					}
 				
-					UpdateVertix(tempPos, tempSize, tempTextureID, it->second->GetComponent<Renderer2D>()->_color_);
+					UpdateVertix(tempTransform, tempSize, tempTextureID, it->second->GetComponent<Renderer2D>()->_color_);
 					tempTextureID++;
 				}
 				else
 				{
-					UpdateVertix(tempPos, tempSize, 0, it->second->GetComponent<Renderer2D>()->_color_);
-					break;
+					UpdateVertix(tempTransform, tempSize, 0, it->second->GetComponent<Renderer2D>()->_color_);
+					
 				}	
 			}
 
 		}
 
 
-		uint32_t dataSize = (uint8_t*)_data_2D_._vertex_buffer_ptr_-(uint8_t*)_data_2D_._vertex_buffer_base_;
+		const uint32_t dataSize = reinterpret_cast<uint8_t*>(_data_2D_._vertex_buffer_ptr_)-reinterpret_cast<uint8_t*>(_data_2D_._vertex_buffer_base_);
 		_data_2D_._vertex_buffer_->SetData(_data_2D_._vertex_buffer_base_,dataSize);
 		Flush();
 		
@@ -249,7 +249,7 @@ namespace Engine
 		
 	}
 
-	void RenderingSystem::Flush()
+	void RenderingSystem::Flush() const
 	{
 		for (uint32_t i = 0; i < _data_2D_.TextureSlotIndex; i++)
 		{
@@ -259,27 +259,27 @@ namespace Engine
 		Renderer::Submit(_data_2D_._vertex_array_, _data_2D_.IndexCount);
 	}
 
-	void RenderingSystem::UpdateVertix(vec3 tempPos, vec2 tempSize, float tempTextureID, vec4 Color)
+	void RenderingSystem::UpdateVertix(glm::mat4 Transform, vec2 tempSize, float tempTextureID, vec4 Color)
 	{
-		_data_2D_._vertex_buffer_ptr_->_position_ = tempPos;
+		_data_2D_._vertex_buffer_ptr_->_position_ = Transform*_data_2D_.QuadVertexPositions[0];
 		_data_2D_._vertex_buffer_ptr_->_color_ = Color;
 		_data_2D_._vertex_buffer_ptr_->_texture_coord_ = { 0.0f,0.0f };
 		_data_2D_._vertex_buffer_ptr_->_tex_index_ = tempTextureID;
 		_data_2D_._vertex_buffer_ptr_++;
 
-		_data_2D_._vertex_buffer_ptr_->_position_ = { tempPos.x + tempSize.x, tempPos.y, 0.0f };
+		_data_2D_._vertex_buffer_ptr_->_position_ = Transform * _data_2D_.QuadVertexPositions[1];
 		_data_2D_._vertex_buffer_ptr_->_color_ = Color;
 		_data_2D_._vertex_buffer_ptr_->_texture_coord_ = { 1.0f,0.0f };
 		_data_2D_._vertex_buffer_ptr_->_tex_index_ = tempTextureID;
 		_data_2D_._vertex_buffer_ptr_++;
 
-		_data_2D_._vertex_buffer_ptr_->_position_ = { tempPos.x + tempSize.x, tempPos.y + tempSize.y, 0.0f };
+		_data_2D_._vertex_buffer_ptr_->_position_ = Transform * _data_2D_.QuadVertexPositions[2];
 		_data_2D_._vertex_buffer_ptr_->_color_ = Color;
 		_data_2D_._vertex_buffer_ptr_->_texture_coord_ = { 1.0f,1.0f };
 		_data_2D_._vertex_buffer_ptr_->_tex_index_ = tempTextureID;
 		_data_2D_._vertex_buffer_ptr_++;
 
-		_data_2D_._vertex_buffer_ptr_->_position_ = { tempPos.x , tempPos.y + tempSize.y, 0.0f };
+		_data_2D_._vertex_buffer_ptr_->_position_ = Transform * _data_2D_.QuadVertexPositions[3];
 		_data_2D_._vertex_buffer_ptr_->_color_ = Color;
 		_data_2D_._vertex_buffer_ptr_->_texture_coord_ = { 0.0f,1.0f };
 		_data_2D_._vertex_buffer_ptr_->_tex_index_ = tempTextureID;

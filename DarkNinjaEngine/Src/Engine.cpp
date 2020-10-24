@@ -103,6 +103,7 @@ namespace Engine
 			
 			//Todo Enable only editor window. 
 			_camera_controller_.Update(TimeStamp::DeltaTime());
+			DNE_ENGINE_TRACE("Game object count {0}", EntityManager::Instance().GetGameObjectCount());
 		    EntityManager::Instance().Update();
 
 		

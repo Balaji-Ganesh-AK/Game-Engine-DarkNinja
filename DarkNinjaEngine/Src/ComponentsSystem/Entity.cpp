@@ -33,6 +33,7 @@ namespace Engine
 		}
 
 		AddGameObject();
+		IsActive = true;
 	}
 
 	void Entity::ComponentInit()
@@ -141,8 +142,23 @@ namespace Engine
 
 	void EntityManager::AddEntity(Entity* entity)
 	{
-		_entity_list_stack_.insert({entity->GetName(), entity});
+		if(CheckIfNameAlreadyExists(entity->GetName()))
+		  _entity_list_stack_.insert({entity->GetName(), entity});
 	}
+
+	bool EntityManager::CheckIfNameAlreadyExists(const std::string name) const
+	{
+		if (_entity_list_stack_.count(name))
+		{
+			DNE_SIMPLE_ASSERT(false,"Name already exists");
+			return false;
+		}
+		else
+			return true;
+
+	}
+
+
 #pragma endregion
 
 
